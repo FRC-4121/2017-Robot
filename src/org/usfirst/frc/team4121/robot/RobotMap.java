@@ -5,6 +5,8 @@ package org.usfirst.frc.team4121.robot;
  * to a variable name. This provides flexibility changing wiring, makes checking
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
+ * 
+ * @author Ben Hayden
  */
 public class RobotMap {
 	// For example to map the left and right motors, you could define the

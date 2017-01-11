@@ -3,9 +3,11 @@ package org.usfirst.frc.team4121.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ *	DriveTrain subsystem	
+ *	
+ *	@author Ben Hayden
  */
-public class DriveTrain extends Subsystem {
+public class DriveTrainSubsystem extends Subsystem {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 

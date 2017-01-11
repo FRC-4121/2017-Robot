@@ -2,27 +2,45 @@ package org.usfirst.frc.team4121.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.command.Command;
 
+import org.usfirst.frc.team4121.robot.commands.ClimbCommand;
 import org.usfirst.frc.team4121.robot.commands.ExampleCommand;
+import org.usfirst.frc.team4121.robot.commands.FeedCommand;
+import org.usfirst.frc.team4121.robot.commands.PlaceGearCommand;
+import org.usfirst.frc.team4121.robot.commands.ShootCommand;
 
 /**
- * This class is the glue that binds the controls on the physical operator
- * interface to the commands and command groups that allow control of the robot.
+ * This is the main class that initializes and tells what buttons to do what.
+ * 
+ * @author Ben Hayden
  */
 public class OI {
 	
 	//Initializations
 	Joystick leftJoy, rightJoy;
-	JoystickButton idk, idk, idk, idk, idk, idk;
+	Button shoot, placeGear, feed, climb;
+	
+	public OI() {
+	
+		//Joysticks
+		leftJoy = new Joystick(0);
+		rightJoy = new Joystick(1);
 	
 	
-	//Joysticks
-	leftJoy = new Joystick(//PORTNUMBER);
-	rightJoy = new Joystick(//PORTNUMBER);
-	
-	
-	//Buttons
-	idk = new JoyStickButton(//PORTNUMBER);		
+		//Buttons
+		shoot = new JoystickButton(rightJoy, 1);
+		placeGear = new JoystickButton(leftJoy, 1);
+		feed = new JoystickButton(rightJoy, 3);
+		climb = new JoystickButton(leftJoy, 3);
+		
+		
+		//Commands
+		shoot.whileHeld(new ShootCommand());
+		placeGear.whenPressed(new PlaceGearCommand());
+		feed.whileHeld(new FeedCommand());
+		climb.whileHeld(new ClimbCommand());
 	
 	
 	//// CREATING BUTTONS
@@ -52,4 +70,6 @@ public class OI {
 	// Start the command when the button is released and let it run the command
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
+	}
+	
 }
