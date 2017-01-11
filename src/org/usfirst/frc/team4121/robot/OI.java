@@ -11,15 +11,19 @@ import org.usfirst.frc.team4121.robot.commands.ExampleCommand;
  */
 public class OI {
 	
-	//http://wpilib.screenstepslive.com/s/3120/m/7912/l/133053-joysticks
-	//https://github.com/frc3528/upnext2012code/blob/master
-	
-	//Joystick
-	private Joystick leftJoy = new Joystick(//PORTNUMBER);
-	private Joystick rightJoy = new Joystick(//PORTNUMBER);
+	//Initializations
+	Joystick leftJoy, rightJoy;
+	JoystickButton idk, idk, idk, idk, idk, idk;
 	
 	
-	//Button initialization
+	//Joysticks
+	leftJoy = new Joystick(//PORTNUMBER);
+	rightJoy = new Joystick(//PORTNUMBER);
+	
+	
+	//Buttons
+	idk = new JoyStickButton(//PORTNUMBER);		
+	
 	
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
@@ -48,14 +52,4 @@ public class OI {
 	// Start the command when the button is released and let it run the command
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
-}
-
-public Joystick getLeft()
-{
-	return leftJoy;
-}
-
-public Joystick getRight()
-{
-	return rightJoy;
 }
