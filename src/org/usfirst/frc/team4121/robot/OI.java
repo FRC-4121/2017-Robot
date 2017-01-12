@@ -20,7 +20,7 @@ public class OI {
 	
 	//Initializations
 	Joystick leftJoy, rightJoy;
-	Button shoot, placeGear, feed, climb;
+	Button shoot, feed, climb, shiftUp, shiftDown, gearUp, gearDown;
 	
 	public OI() {
 	
@@ -31,9 +31,13 @@ public class OI {
 	
 		//Buttons
 		shoot = new JoystickButton(rightJoy, 1);
-		placeGear = new JoystickButton(leftJoy, 1);
 		feed = new JoystickButton(rightJoy, 3);
-		climb = new JoystickButton(leftJoy, 3);
+		climb = new JoystickButton(leftJoy, 6);
+		shiftUp = new JoystickButton(leftJoy, 5);
+		shiftDown = new JoystickButton(leftJoy, 4);
+		gearUp = new JoystickButton(leftJoy, 3);
+		gearDown = new JoystickButton(leftJoy, 2);
+		
 		
 		
 		//Commands
