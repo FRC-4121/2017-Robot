@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  *	@author Ben Hayden
  */
-public class AutonomousCommand extends Command {
+public class AutonomousTurnLeftCommand extends Command {
 
-    public AutonomousCommand() {
+    public AutonomousTurnLeftCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }

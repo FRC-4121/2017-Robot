@@ -39,10 +39,8 @@ public class OI {
 		gearDown = new JoystickButton(leftJoy, 2);
 		
 		
-		
 		//Commands
 		shoot.whileHeld(new ShootCommand());
-		placeGear.whenPressed(new PlaceGearCommand());
 		feed.whileHeld(new FeedCommand());
 		climb.whileHeld(new ClimbCommand());
 	
@@ -74,6 +72,16 @@ public class OI {
 	// Start the command when the button is released and let it run the command
 	// until it is finished as determined by it's isFinished method.
 	// button.whenReleased(new ExampleCommand());
+	}
+	
+	public Joystick getLeftJoy()
+	{
+		return leftJoy;
+	}
+	
+	public Joystick getRightJoy()
+	{
+		return rightJoy;
 	}
 	
 }

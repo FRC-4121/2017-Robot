@@ -2,13 +2,18 @@
 package org.usfirst.frc.team4121.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team4121.robot.commands.ExampleCommand;
+import org.usfirst.frc.team4121.robot.commands.AutonomousStraightCommand;
+import org.usfirst.frc.team4121.robot.commands.AutonomousTurnLeftCommand;
+import org.usfirst.frc.team4121.robot.commands.AutonomousTurnRightCommand;
+import com.ctre.CANTalon;
 import org.usfirst.frc.team4121.robot.subsystems.ExampleSubsystem;
 
 /**
@@ -25,8 +30,21 @@ public class Robot extends IterativeRobot {
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static OI oi;
 
-	Command autonomousCommand;
+	//Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
+	
+	//CHANGE THE DEVICE IDS
+	CANTalon leftMotor1 = new CANTalon(1);
+	CANTalon leftMotor2 = new CANTalon(1);
+	CANTalon rightMotor1 = new CANTalon(1);
+	CANTalon rightMotor2 = new CANTalon(1);
+	
+	//CHANGE THE NAME OF THE MOTOR TALONS
+	RobotDrive drive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
+	
+	Joystick leftJoy = new Joystick(0);
+	Joystick rightJoy = new Joystick(1);
+	
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -35,8 +53,11 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		oi = new OI();
-		chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
+		
+		//Add our auto commands here
+		chooser.addDefault("Straight Foward", new AutonomousStraightCommand());
+		chooser.addObject("Turn Right", new AutonomousTurnRightCommand());
+		chooser.addObject("Turn Left", new AutonomousTurnLeftCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 	}
 
@@ -68,7 +89,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
+		//autonomousCommand = chooser.getSelected();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -78,8 +99,8 @@ public class Robot extends IterativeRobot {
 		 */
 
 		// schedule the autonomous command (example)
-		if (autonomousCommand != null)
-			autonomousCommand.start();
+		//if (autonomousCommand != null)
+			//autonomousCommand.start();
 	}
 
 	/**
@@ -96,8 +117,8 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (autonomousCommand != null)
-			autonomousCommand.cancel();
+		//if (autonomousCommand != null)
+			//autonomousCommand.cancel();
 	}
 
 	/**
