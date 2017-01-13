@@ -9,13 +9,13 @@ import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
  *
  */
 public class AutoDriveCommand extends Command {
-	private double targetDistance, timeElapsed,leftPosition,rightPosition;
+	
+	DriveTrainSubsystem driveTrain = new DriveTrainSubsystem();
 
     public AutoDriveCommand(double distance) 
     {
         // Use requires() here to declare subsystem dependencies
-    	requires(DriveTrainSubsystem);
-    	this.targetDistance = distance;
+    	requires(driveTrain);
         // eg. requires(chassis);
     }
 

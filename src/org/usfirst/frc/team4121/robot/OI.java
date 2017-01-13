@@ -19,7 +19,7 @@ import org.usfirst.frc.team4121.robot.commands.ShootCommand;
 public class OI {
 	
 	//Initializations
-	Joystick leftJoy, rightJoy;
+	static Joystick leftJoy, rightJoy;
 	Button shoot, feed, climb, shiftUp, shiftDown, gearUp, gearDown;
 	
 	public OI() {
@@ -75,14 +75,13 @@ public class OI {
 	// button.whenReleased(new ExampleCommand());
 	}
 	
-	public Joystick getLeftJoy()
+	public static Joystick getLeftJoy()
 	{
 		return leftJoy;
 	}
 	
-	public Joystick getRightJoy()
+	public static Joystick getRightJoy()
 	{
 		return rightJoy;
 	}
-	
 }
