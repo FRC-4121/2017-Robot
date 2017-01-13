@@ -2,6 +2,11 @@ package org.usfirst.frc.team4121.robot.subsystems;
 
 import com.ctre.CANTalon;
 
+<<<<<<< HEAD
+=======
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotDrive;
+>>>>>>> origin/Ben-Sylvia
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -9,7 +14,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *	
  *	@author Ben Hayden
  */
-public class DriveTrainSubsystem extends Subsystem {
+public class DriveTrainSubsystem extends Subsystem {	
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
 	CANTalon leftMotor1 = new CANTalon(1);
@@ -24,5 +29,8 @@ public class DriveTrainSubsystem extends Subsystem {
 		// setDefaultCommand(new MySpecialCommand());
 		
 		setDefaultCommand(new )
+	}
+	
+	public void operatorControl() {
 	}
 }
