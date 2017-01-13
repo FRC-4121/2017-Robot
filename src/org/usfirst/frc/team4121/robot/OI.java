@@ -24,7 +24,8 @@ public class OI {
 	
 	public OI() {
 	
-		//Joysticks
+		//Joysticks\
+	
 		leftJoy = new Joystick(0);
 		rightJoy = new Joystick(1);
 	
