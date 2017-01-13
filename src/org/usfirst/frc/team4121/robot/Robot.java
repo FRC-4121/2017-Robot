@@ -14,7 +14,7 @@ import org.usfirst.frc.team4121.robot.commands.AutonomousStraightCommand;
 import org.usfirst.frc.team4121.robot.commands.AutonomousTurnLeftCommand;
 import org.usfirst.frc.team4121.robot.commands.AutonomousTurnRightCommand;
 import com.ctre.CANTalon;
-import org.usfirst.frc.team4121.robot.subsystems.ExampleSubsystem;
+import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,25 +27,24 @@ import org.usfirst.frc.team4121.robot.subsystems.ExampleSubsystem;
  */
 public class Robot extends IterativeRobot {
 
-	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
+	public static final DriveTrainSubsystem driveTrain = new DriveTrainSubsystem();
 	public static OI oi;
 
 	//Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	
 	//CHANGE THE DEVICE IDS
-	CANTalon leftMotor1 = new CANTalon(1);
-	CANTalon leftMotor2 = new CANTalon(1);
-	CANTalon rightMotor1 = new CANTalon(1);
-	CANTalon rightMotor2 = new CANTalon(1);
-	
-	//CHANGE THE NAME OF THE MOTOR TALONS
-	RobotDrive drive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
+	//CANTalon leftMotor1 = new CANTalon(1);
+	//CANTalon leftMotor2 = new CANTalon(1);
+	//CANTalon rightMotor1 = new CANTalon(1);
+	//CANTalon rightMotor2 = new CANTalon(1);
 	
 	Joystick leftJoy = new Joystick(0);
 	Joystick rightJoy = new Joystick(1);
 	
-
+	//CHANGE THE NAME OF THE MOTOR TALONS
+	RobotDrive drive = new RobotDrive(1, 2, 3, 4);
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.

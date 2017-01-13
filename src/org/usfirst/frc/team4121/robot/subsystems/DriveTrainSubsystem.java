@@ -25,8 +25,6 @@ public class DriveTrainSubsystem extends Subsystem
 	CANTalon rightMotor1 = new CANTalon(1);
 	CANTalon rightMotor2 = new CANTalon(1);
 	
-	//RobotDrive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
-	
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
