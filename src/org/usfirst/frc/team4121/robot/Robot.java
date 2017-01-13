@@ -43,7 +43,7 @@ public class Robot extends IterativeRobot {
 	Joystick rightJoy = new Joystick(1);
 	
 	//CHANGE THE NAME OF THE MOTOR TALONS
-	RobotDrive drive = new RobotDrive(1, 2, 3, 4);
+	//RobotDrive drive = new RobotDrive(1, 2, 3, 4);
 	
 	/**
 	 * This function is run when the robot is first started up and should be

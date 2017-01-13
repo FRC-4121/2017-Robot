@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
 
 import org.usfirst.frc.team4121.robot.commands.ClimbCommand;
-import org.usfirst.frc.team4121.robot.commands.ExampleCommand;
 import org.usfirst.frc.team4121.robot.commands.FeedCommand;
 import org.usfirst.frc.team4121.robot.commands.PlaceGearCommand;
 import org.usfirst.frc.team4121.robot.commands.ShootCommand;
