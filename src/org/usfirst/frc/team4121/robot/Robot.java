@@ -33,11 +33,13 @@ public class Robot extends IterativeRobot {
 	//Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	
+	RobotDrive drive = new RobotDrive(1, 2, 3, 4);
+	
 	//CHANGE THE DEVICE IDS
-	//CANTalon leftMotor1 = new CANTalon(1);
-	//CANTalon leftMotor2 = new CANTalon(1);
-	//CANTalon rightMotor1 = new CANTalon(1);
-	//CANTalon rightMotor2 = new CANTalon(1);
+	CANTalon leftMotor1 = new CANTalon(0);
+	CANTalon leftMotor2 = new CANTalon(1);
+	CANTalon rightMotor1 = new CANTalon(1);
+	CANTalon rightMotor2 = new CANTalon(1);
 	
 	Joystick leftJoy = new Joystick(0);
 	Joystick rightJoy = new Joystick(1);
@@ -126,6 +128,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		
+		drive.tankDrive(leftJoy, rightJoy);
 	}
 
 	/**

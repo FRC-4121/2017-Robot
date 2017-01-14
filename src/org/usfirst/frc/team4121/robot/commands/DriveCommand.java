@@ -14,17 +14,17 @@ import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
  */
 public class DriveCommand extends Command {
 
-	DriveTrainSubsystem driveTrain = new DriveTrainSubsystem();
+	//DriveTrainSubsystem driveTrain = new DriveTrainSubsystem();
 	
 	public DriveCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(driveTrain);
+    	//requires(driveTrain);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	driveTrain.tankDrive(OI.getLeftJoy().getY(), OI.getRightJoy().getY());
+    	//driveTrain.tankDrive(OI.getLeftJoy().getY(), OI.getRightJoy().getY());
     }
     
     // Called repeatedly when this Command is scheduled to run
