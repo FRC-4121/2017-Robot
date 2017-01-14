@@ -1,9 +1,8 @@
 package org.usfirst.frc.team4121.robot.commands;
 
-import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
+import java.awt.Robot;
 
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import org.usfirst.frc.team4121.robot.subsystems.ShifterSubsystem;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -11,43 +10,22 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ShiftCommand extends Command {
 
-	DriveTrainSubsystem driveTrain = new DriveTrainSubsystem();
-	
-	DoubleSolenoid gearShift = new DoubleSolenoid(0, 1);
-	
-	Compressor compressor = new Compressor(0);
+	ShifterSubsystem shifter = new ShifterSubsystem();
 	
     public ShiftCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	
-    	requires(driveTrain);
+    	requires(shifter);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	gearShift.set(DoubleSolenoid.Value.kForward);
-    	
-    	compressor.setClosedLoopControl(true);
+    	shifter.defaultGearPosition();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	int i = 0;
-    	
-    	while(true)
-    	{
-    		if(i == 0)
-    		{
-    			gearShift.set(DoubleSolenoid.Value.kReverse);
-    			i++;
-    		}
-    		else
-    		{
-    			gearShift.set(DoubleSolenoid.Value.kForward);
-    			i--;
-    		}
-    	}
+    	shifter.shiftToggle();
     }
 
     // Make this return true when this Command no longer needs to run execute()

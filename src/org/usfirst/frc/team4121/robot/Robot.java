@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team4121.robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -15,6 +16,7 @@ import org.usfirst.frc.team4121.robot.commands.AutonomousStraightCommand;
 import org.usfirst.frc.team4121.robot.commands.AutonomousTurnLeftCommand;
 import org.usfirst.frc.team4121.robot.commands.AutonomousTurnRightCommand;
 import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
+import org.usfirst.frc.team4121.robot.subsystems.ShifterSubsystem;
 
 import com.ctre.CANTalon;
 
@@ -31,11 +33,9 @@ public class Robot extends IterativeRobot {
 
 	public static final DriveTrainSubsystem driveTrain = new DriveTrainSubsystem();
 	public static OI oi;
-
+	
 	//Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
-	
-	
 	
 	//CHANGE THE DEVICE IDS
 	CANTalon leftMotor1 = new CANTalon(0);
@@ -50,6 +50,8 @@ public class Robot extends IterativeRobot {
 	
 	Joystick leftJoy = new Joystick(0);
 	Joystick rightJoy = new Joystick(1);
+	
+	
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -137,8 +139,7 @@ public class Robot extends IterativeRobot {
 			drive.tankDrive(leftJoy, rightJoy);
 			slaveDrive.tankDrive(leftJoy, rightJoy);
 			Timer.delay(0.01);
-		}
-		
+		}		
 	}
 
 	/**

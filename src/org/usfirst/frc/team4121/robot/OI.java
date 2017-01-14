@@ -38,7 +38,5 @@ public class OI {
 		feed.whileHeld(new FeedCommand());
 		climb.whileHeld(new ClimbCommand());
 		shift.whenPressed(new ShiftCommand());
-		
-	
 	}
 }
