@@ -4,6 +4,7 @@ package org.usfirst.frc.team4121.robot;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -13,8 +14,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4121.robot.commands.AutonomousStraightCommand;
 import org.usfirst.frc.team4121.robot.commands.AutonomousTurnLeftCommand;
 import org.usfirst.frc.team4121.robot.commands.AutonomousTurnRightCommand;
-import com.ctre.CANTalon;
 import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
+
+import com.ctre.CANTalon;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -33,19 +35,18 @@ public class Robot extends IterativeRobot {
 	//Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 	
-	RobotDrive drive = new RobotDrive(1, 2, 3, 4);
+	
 	
 	//CHANGE THE DEVICE IDS
 	CANTalon leftMotor1 = new CANTalon(0);
 	CANTalon leftMotor2 = new CANTalon(1);
-	CANTalon rightMotor1 = new CANTalon(1);
-	CANTalon rightMotor2 = new CANTalon(1);
+	CANTalon rightMotor1 = new CANTalon(2);
+	CANTalon rightMotor2 = new CANTalon(3);
+	
+	RobotDrive drive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
 	
 	Joystick leftJoy = new Joystick(0);
 	Joystick rightJoy = new Joystick(1);
-	
-	//CHANGE THE NAME OF THE MOTOR TALONS
-	//RobotDrive drive = new RobotDrive(1, 2, 3, 4);
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -129,7 +130,11 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		
-		drive.tankDrive(leftJoy, rightJoy);
+		while(isOperatorControl() && isEnabled()) {
+			drive.tankDrive(leftJoy, rightJoy);
+			Timer.delay(0.01);
+		}
+		
 	}
 
 	/**

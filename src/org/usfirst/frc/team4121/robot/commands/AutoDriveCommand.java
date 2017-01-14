@@ -1,9 +1,8 @@
 package org.usfirst.frc.team4121.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.team4121.robot.Robot;
-import org.usfirst.frc.team4121.robot.RobotMap;
 import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
