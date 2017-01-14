@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team4121.robot.commands.AutonomousStraightCommand;
 import org.usfirst.frc.team4121.robot.commands.AutonomousTurnLeftCommand;
 import org.usfirst.frc.team4121.robot.commands.AutonomousTurnRightCommand;
+import org.usfirst.frc.team4121.robot.subsystems.ClimberSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.ShifterSubsystem;
 
@@ -30,28 +31,16 @@ import com.ctre.CANTalon;
  * @author Ben Hayden
  */
 public class Robot extends IterativeRobot {
-
-	public static final DriveTrainSubsystem driveTrain = new DriveTrainSubsystem();
+	public static DriveTrainSubsystem driveTrain;
+	public static ShifterSubsystem shifter;
+	public static ClimberSubsystem climber;
 	public static OI oi;
 	
-	//Command autonomousCommand;
-	SendableChooser<Command> chooser = new SendableChooser<>();
-	
-	//CHANGE THE DEVICE IDS
-	CANTalon leftMotor1 = new CANTalon(0);
-	CANTalon leftMotor2 = new CANTalon(1);
-	CANTalon leftMotor3 = new CANTalon(2);
-	CANTalon rightMotor1 = new CANTalon(3);
-	CANTalon rightMotor2 = new CANTalon(4);
-	CANTalon rightMotor3 = new CANTalon(5);
-	
-	RobotDrive drive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
-	RobotDrive slaveDrive = new RobotDrive(leftMotor3, rightMotor3);
-	
-	Joystick leftJoy = new Joystick(0);
-	Joystick rightJoy = new Joystick(1);
-	
-	
+	private SendableChooser<Command> chooser = new SendableChooser<>();
+	private CANTalon leftMotor1, leftMotor2, leftMotor3, rightMotor1, rightMotor2, rightMotor3, climbMotor;
+	private RobotDrive drive, slaveDrive;
+	private Joystick leftJoy, rightJoy;
+	private DoubleSolenoid shifterSolenoid;
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -59,9 +48,28 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		driveTrain = new DriveTrainSubsystem();
+		shifter = new ShifterSubsystem(shifterSolenoid);
+		climber = new ClimberSubsystem(climbMotor);
 		oi = new OI();
 		
-		//Add our auto commands here
+		leftMotor1 = new CANTalon(0); //CHANGE THE DEVICE IDS
+		leftMotor2 = new CANTalon(1);
+		leftMotor3 = new CANTalon(2);
+		rightMotor1 = new CANTalon(3);
+		rightMotor2 = new CANTalon(4);
+		rightMotor3 = new CANTalon(5);
+		climbMotor = new CANTalon(6);
+		
+		leftJoy = new Joystick(0);
+		rightJoy = new Joystick(1);
+		
+		drive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
+		slaveDrive = new RobotDrive(leftMotor3, rightMotor3);
+		
+		shifterSolenoid = new DoubleSolenoid(0, 1);
+		shifter.defaultGearPosition();
+		
 		chooser.addDefault("Straight Foward", new AutonomousStraightCommand());
 		chooser.addObject("Turn Right", new AutonomousTurnRightCommand());
 		chooser.addObject("Turn Left", new AutonomousTurnLeftCommand());

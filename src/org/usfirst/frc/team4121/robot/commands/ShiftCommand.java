@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class ShiftCommand extends Command {
 
+	//Not even using this?
+	
 	ShifterSubsystem shifter = new ShifterSubsystem();
 	
     public ShiftCommand() {
