@@ -40,10 +40,13 @@ public class Robot extends IterativeRobot {
 	//CHANGE THE DEVICE IDS
 	CANTalon leftMotor1 = new CANTalon(0);
 	CANTalon leftMotor2 = new CANTalon(1);
-	CANTalon rightMotor1 = new CANTalon(2);
-	CANTalon rightMotor2 = new CANTalon(3);
+	CANTalon leftMotor3 = new CANTalon(2);
+	CANTalon rightMotor1 = new CANTalon(3);
+	CANTalon rightMotor2 = new CANTalon(4);
+	CANTalon rightMotor3 = new CANTalon(5);
 	
 	RobotDrive drive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
+	RobotDrive slaveDrive = new RobotDrive(leftMotor3, rightMotor3);
 	
 	Joystick leftJoy = new Joystick(0);
 	Joystick rightJoy = new Joystick(1);
@@ -132,6 +135,7 @@ public class Robot extends IterativeRobot {
 		
 		while(isOperatorControl() && isEnabled()) {
 			drive.tankDrive(leftJoy, rightJoy);
+			slaveDrive.tankDrive(leftJoy, rightJoy);
 			Timer.delay(0.01);
 		}
 		
