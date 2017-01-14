@@ -17,6 +17,10 @@ public class ShifterSubsystem extends Subsystem {
 		this.shifterSolenoid = shifter;
 	}
 	
+	public ShifterSubsystem() {
+		//This could maybe fix the error in the shifter command
+	}
+	
     public void initDefaultCommand() {
         //Only set it if we have multiple commands for one subsystem and want one command to always be running but have the option to run other commands
     	//setDefaultCommand(new MySpecialCommand());
