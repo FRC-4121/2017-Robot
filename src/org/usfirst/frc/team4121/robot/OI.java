@@ -39,4 +39,12 @@ public class OI {
 		climb.whileHeld(new ClimbCommand());
 		shift.whenPressed(new ShiftCommand());
 	}
+	
+	public Joystick getLeftJoy() {
+		return leftJoy;
+	}
+	
+	public Joystick getRightJoy() {
+		return rightJoy;
+	}
 }

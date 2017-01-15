@@ -37,10 +37,11 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	
 	private SendableChooser<Command> chooser = new SendableChooser<>();
-	private CANTalon leftMotor1, leftMotor2, leftMotor3, rightMotor1, rightMotor2, rightMotor3, climbMotor;
-	private RobotDrive drive, slaveDrive;
-	private Joystick leftJoy, rightJoy;
-	private DoubleSolenoid shifterSolenoid;
+	//private RobotDrive drive, slaveDrive;
+	//private Joystick leftJoy, rightJoy;
+	//private DoubleSolenoid shifterSolenoid;
+	
+	Command autonomousCommand;
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -49,28 +50,18 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void robotInit() {
 		driveTrain = new DriveTrainSubsystem();
-		shifter = new ShifterSubsystem(shifterSolenoid);
-		climber = new ClimberSubsystem(climbMotor);
+		shifter = new ShifterSubsystem();
+		climber = new ClimberSubsystem();
 		oi = new OI();
 		
-		leftMotor1 = new CANTalon(0); //CHANGE THE DEVICE IDS
-		leftMotor2 = new CANTalon(1);
-		leftMotor3 = new CANTalon(2);
-		rightMotor1 = new CANTalon(3);
-		rightMotor2 = new CANTalon(4);
-		rightMotor3 = new CANTalon(5);
-		climbMotor = new CANTalon(6);
+		//leftJoy = new Joystick(0);
+		//rightJoy = new Joystick(1);
 		
-		leftJoy = new Joystick(0);
-		rightJoy = new Joystick(1);
+		//shifterSolenoid = new DoubleSolenoid(0, 1);
+		//shifter.defaultGearPosition();
 		
-		drive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
-		slaveDrive = new RobotDrive(leftMotor3, rightMotor3);
-		
-		shifterSolenoid = new DoubleSolenoid(0, 1);
-		shifter.defaultGearPosition();
-		
-		chooser.addDefault("Straight Foward", new AutonomousStraightCommand());
+		chooser.addDefault("No Autonomous", null);
+		chooser.addObject("Straight Foward", new AutonomousStraightCommand());
 		chooser.addObject("Turn Right", new AutonomousTurnRightCommand());
 		chooser.addObject("Turn Left", new AutonomousTurnLeftCommand());
 		SmartDashboard.putData("Auto mode", chooser);
@@ -104,7 +95,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		//autonomousCommand = chooser.getSelected();
+		autonomousCommand = chooser.getSelected();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -114,8 +105,8 @@ public class Robot extends IterativeRobot {
 		 */
 
 		// schedule the autonomous command (example)
-		//if (autonomousCommand != null)
-			//autonomousCommand.start();
+		if (autonomousCommand != null)
+			autonomousCommand.start();
 	}
 
 	/**
@@ -143,10 +134,10 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		
-		while(isOperatorControl() && isEnabled()) {
+		/*while(isOperatorControl() && isEnabled()) {
 			drive.tankDrive(leftJoy, rightJoy);
 			slaveDrive.tankDrive(leftJoy, rightJoy);
-			Timer.delay(0.01);
+			Timer.delay(0.01);*/
 		}		
 	}
 

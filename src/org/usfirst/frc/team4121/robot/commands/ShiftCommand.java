@@ -1,27 +1,26 @@
 package org.usfirst.frc.team4121.robot.commands;
 
-import java.awt.Robot;
-
 import org.usfirst.frc.team4121.robot.subsystems.ShifterSubsystem;
 import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team4121.robot.Robot;
 
 /**
  *
  */
 public class ShiftCommand extends Command {
-
-	//Not even using this?
 	
-	ShifterSubsystem shifter = new ShifterSubsystem();
+	ShifterSubsystem shifter;
 	
     public ShiftCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(shifter);
+    	requires(Robot.shifter);
+    	this.shifter = Robot.shifter;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	shifter.defaultGearPosition();
     }
 
     // Called repeatedly when this Command is scheduled to run

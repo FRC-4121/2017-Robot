@@ -1,5 +1,7 @@
 package org.usfirst.frc.team4121.robot.subsystems;
 
+import org.usfirst.frc.team4121.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -9,17 +11,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class ShifterSubsystem extends Subsystem {
-	Compressor compressor = new Compressor(0); //I do not know if we need this or not
+	Compressor compressor = new Compressor(RobotMap.COMPRESSOR); //I do not know if we need this or not
 	
 	private DoubleSolenoid shifterSolenoid;
-	
-	public ShifterSubsystem(DoubleSolenoid shifter) {
-		this.shifterSolenoid = shifter;
-	}
-	
-	public ShifterSubsystem() {
-		//This could maybe fix the error in the shifter command
-	}
 	
     public void initDefaultCommand() {
         //Only set it if we have multiple commands for one subsystem and want one command to always be running but have the option to run other commands
