@@ -8,9 +8,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team4121.robot.commands.AutonomousStraightCommand;
-import org.usfirst.frc.team4121.robot.commands.AutonomousTurnLeftCommand;
-import org.usfirst.frc.team4121.robot.commands.AutonomousTurnRightCommand;
+import org.usfirst.frc.team4121.robot.commands.AutoStraightCommandGroup;
 import org.usfirst.frc.team4121.robot.subsystems.ClimberSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.ShifterSubsystem;
@@ -50,16 +48,9 @@ public class Robot extends IterativeRobot {
 		climber = new ClimberSubsystem();
 		oi = new OI();
 		
-		//leftJoy = new Joystick(0);
-		//rightJoy = new Joystick(1);
-		
-		//shifterSolenoid = new DoubleSolenoid(0, 1);
-		//shifter.defaultGearPosition();
-		
-		chooser.addDefault("No Autonomous", null);
-		chooser.addObject("Straight Foward", new AutonomousStraightCommand());
-		chooser.addObject("Turn Right", new AutonomousTurnRightCommand());
-		chooser.addObject("Turn Left", new AutonomousTurnLeftCommand());
+		chooser.addObject("Straight Foward", new AutoStraightCommandGroup());
+		//chooser.addObject("Turn Right", new AutonomousTurnRightCommand());
+		//chooser.addObject("Turn Left", new AutonomousTurnLeftCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 	}
 

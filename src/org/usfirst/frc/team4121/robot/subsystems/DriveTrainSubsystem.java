@@ -4,11 +4,12 @@ import com.ctre.CANTalon;
 
 import org.usfirst.frc.team4121.robot.Robot;
 import org.usfirst.frc.team4121.robot.RobotMap;
-import org.usfirst.frc.team4121.robot.commands.DriveCommand;
+import org.usfirst.frc.team4121.robot.commands.DriveWithJoysticksCommand;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  *	DriveTrain subsystem	
@@ -31,11 +32,21 @@ public class DriveTrainSubsystem extends Subsystem {
 	Joystick right = new Joystick(1);
 	
 	public void initDefaultCommand() {
-		setDefaultCommand(new DriveCommand());
+		setDefaultCommand(new DriveWithJoysticksCommand());
 	}
 	
 	public void drive() {
 		drive.tankDrive(Robot.oi.getLeftJoy(), Robot.oi.getRightJoy());
 		driveSlave.tankDrive(Robot.oi.getLeftJoy(), Robot.oi.getRightJoy());
+	}
+	
+	public void autoDriveStraight(double leftMotor, double rightMotor) {
+		drive.tankDrive(leftMotor, rightMotor);
+		driveSlave.tankDrive(leftMotor, rightMotor);
+	}
+	
+	public void autoStop() {
+		drive.tankDrive(0, 0);
+		driveSlave.tankDrive(0, 0);
 	}
 }
