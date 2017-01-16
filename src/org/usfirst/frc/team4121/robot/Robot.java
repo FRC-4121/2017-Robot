@@ -1,11 +1,7 @@
 
 package org.usfirst.frc.team4121.robot;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.RobotDrive;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -137,8 +133,8 @@ public class Robot extends IterativeRobot {
 		/*while(isOperatorControl() && isEnabled()) {
 			drive.tankDrive(leftJoy, rightJoy);
 			slaveDrive.tankDrive(leftJoy, rightJoy);
-			Timer.delay(0.01);*/
-		}		
+			Timer.delay(0.01);
+		}*/		
 	}
 
 	/**

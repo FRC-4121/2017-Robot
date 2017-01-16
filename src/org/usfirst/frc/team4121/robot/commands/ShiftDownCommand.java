@@ -1,19 +1,19 @@
 package org.usfirst.frc.team4121.robot.commands;
 
+import org.usfirst.frc.team4121.robot.subsystems.ShifterSubsystem;
 import edu.wpi.first.wpilibj.command.Command;
+import org.usfirst.frc.team4121.robot.Robot;
 
 /**
- *	Climb command
  *
- *	@author Ben Hayden
  */
-public class ClimbCommand extends Command {
-
-    public ClimbCommand() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	
-    	//requires(ClimberSubsystem);
+public class ShiftDownCommand extends Command {
+	
+	ShifterSubsystem shifter;
+	
+    public ShiftDownCommand() {
+    	requires(Robot.shifter);
+    	this.shifter = Robot.shifter;
     }
 
     // Called just before this Command runs the first time
@@ -22,11 +22,12 @@ public class ClimbCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	shifter.shiftDown();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

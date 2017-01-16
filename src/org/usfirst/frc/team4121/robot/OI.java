@@ -6,7 +6,8 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team4121.robot.commands.ClimbCommand;
 import org.usfirst.frc.team4121.robot.commands.FeedCommand;
-import org.usfirst.frc.team4121.robot.commands.ShiftCommand;
+import org.usfirst.frc.team4121.robot.commands.ShiftDownCommand;
+import org.usfirst.frc.team4121.robot.commands.ShiftUpCommand;
 import org.usfirst.frc.team4121.robot.commands.ShootCommand;
 
 /**
@@ -18,7 +19,7 @@ public class OI {
 	
 	//Initializations
 	static Joystick leftJoy, rightJoy;
-	Button shoot, feed, climb, shift, gear;
+	Button shoot, feed, climb, shiftUp, shiftDown, gear;
 	
 	public OI() {
 	
@@ -30,14 +31,16 @@ public class OI {
 		shoot = new JoystickButton(rightJoy, 1);
 		feed = new JoystickButton(rightJoy, 3);
 		climb = new JoystickButton(leftJoy, 6);
-		shift = new JoystickButton(leftJoy, 3);
+		shiftUp = new JoystickButton(leftJoy, 5);
+		shiftDown = new JoystickButton(leftJoy, 4);
 		gear = new JoystickButton(leftJoy, 2);
 		
 		//Commands
 		shoot.whileHeld(new ShootCommand());
-		feed.whileHeld(new FeedCommand());
+		//feed.whileHeld(new FeedCommand());
 		climb.whileHeld(new ClimbCommand());
-		shift.whenPressed(new ShiftCommand());
+		shiftUp.whenActive(new ShiftUpCommand());
+		shiftDown.whenActive(new ShiftDownCommand());
 	}
 	
 	public Joystick getLeftJoy() {

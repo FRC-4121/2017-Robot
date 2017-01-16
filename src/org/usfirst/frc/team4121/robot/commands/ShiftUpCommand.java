@@ -7,25 +7,22 @@ import org.usfirst.frc.team4121.robot.Robot;
 /**
  *
  */
-public class ShiftCommand extends Command {
+public class ShiftUpCommand extends Command {
 	
 	ShifterSubsystem shifter;
 	
-    public ShiftCommand() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+    public ShiftUpCommand() {
     	requires(Robot.shifter);
     	this.shifter = Robot.shifter;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	shifter.defaultGearPosition();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	shifter.shiftToggle();
+    	shifter.shiftUp();
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -13,30 +13,19 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ShifterSubsystem extends Subsystem {
 	Compressor compressor = new Compressor(RobotMap.COMPRESSOR); //I do not know if we need this or not
 	
-	private DoubleSolenoid shifterSolenoid;
+	private DoubleSolenoid shifterSolenoid = new DoubleSolenoid(0,1);
 	
     public void initDefaultCommand() {
         //Only set it if we have multiple commands for one subsystem and want one command to always be running but have the option to run other commands
     	//setDefaultCommand(new MySpecialCommand());
     }
     
-    public void shiftToggle() {
-    	int i = 0;
-    	
-    	while(true) {
-    		if(i == 0) {
-    			shifterSolenoid.set(DoubleSolenoid.Value.kReverse); //faster
-    			i++;
-    		}
-    		else {
-    			shifterSolenoid.set(DoubleSolenoid.Value.kForward); //slower
-    			i--;
-    		}
-    	}
+    public void shiftUp() {
+    	shifterSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
     
-    public Value getPosition() {
-    	return shifterSolenoid.get(); //If we figure out what this returns we may be able to make shiftToggle a lot more simple
+    public void shiftDown() {
+    	shifterSolenoid.set(DoubleSolenoid.Value.kForward);
     }
     
     public void defaultGearPosition() {
