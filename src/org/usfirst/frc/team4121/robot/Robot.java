@@ -8,12 +8,14 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team4121.robot.commands.AutoStopCommand;
 import org.usfirst.frc.team4121.robot.commands.AutoStraightCommandGroup;
+import org.usfirst.frc.team4121.robot.commands.AutoTurnLeftCommandGroup;
+import org.usfirst.frc.team4121.robot.commands.AutoTurnRightCommandGroup;
+import org.usfirst.frc.team4121.robot.commands.ExampleCommand;
 import org.usfirst.frc.team4121.robot.subsystems.ClimberSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.ShifterSubsystem;
-
-import com.ctre.CANTalon;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,10 +32,7 @@ public class Robot extends IterativeRobot {
 	public static ClimberSubsystem climber;
 	public static OI oi;
 	
-	private SendableChooser<Command> chooser = new SendableChooser<>();
-	//private RobotDrive drive, slaveDrive;
-	//private Joystick leftJoy, rightJoy;
-	//private DoubleSolenoid shifterSolenoid;
+	private SendableChooser<Command> chooser;
 	
 	Command autonomousCommand;
 	
@@ -47,11 +46,18 @@ public class Robot extends IterativeRobot {
 		shifter = new ShifterSubsystem();
 		climber = new ClimberSubsystem();
 		oi = new OI();
+		chooser = new SendableChooser<>();
+		autonomousCommand = new ExampleCommand();
 		
+		chooser.addDefault("Do nothing", new AutoStopCommand());
 		chooser.addObject("Straight Foward", new AutoStraightCommandGroup());
-		//chooser.addObject("Turn Right", new AutonomousTurnRightCommand());
-		//chooser.addObject("Turn Left", new AutonomousTurnLeftCommand());
+		chooser.addObject("Turn Left", new AutoTurnLeftCommandGroup());
+		chooser.addObject("Turn Right", new AutoTurnRightCommandGroup());
+		
 		SmartDashboard.putData("Auto mode", chooser);
+		
+		//LiveWindow.addSensor("ShifterSubsystem", "Gear", shifter.shifterSolenoid);
+		//Add what gear we are in to the smart dashboard
 	}
 
 	/**
@@ -92,8 +98,10 @@ public class Robot extends IterativeRobot {
 		 */
 
 		// schedule the autonomous command (example)
-		if (autonomousCommand != null)
+		if (autonomousCommand != null) {
 			autonomousCommand.start();
+			System.out.println("Hello");
+		}
 	}
 
 	/**
@@ -120,7 +128,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		
+		LiveWindow.run();
 		/*while(isOperatorControl() && isEnabled()) {
 			drive.tankDrive(leftJoy, rightJoy);
 			slaveDrive.tankDrive(leftJoy, rightJoy);

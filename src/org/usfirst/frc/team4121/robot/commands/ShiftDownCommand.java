@@ -9,11 +9,8 @@ import org.usfirst.frc.team4121.robot.Robot;
  */
 public class ShiftDownCommand extends Command {
 	
-	ShifterSubsystem shifter;
-	
     public ShiftDownCommand() {
     	requires(Robot.shifter);
-    	this.shifter = Robot.shifter;
     }
 
     // Called just before this Command runs the first time
@@ -22,7 +19,7 @@ public class ShiftDownCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	shifter.shiftDown();
+    	Robot.shifter.shiftDown();
     }
 
     // Make this return true when this Command no longer needs to run execute()

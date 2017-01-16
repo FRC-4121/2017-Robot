@@ -11,9 +11,10 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class ShifterSubsystem extends Subsystem {
+	
 	Compressor compressor = new Compressor(RobotMap.COMPRESSOR); //I do not know if we need this or not
 	
-	private DoubleSolenoid shifterSolenoid = new DoubleSolenoid(0,1);
+	public DoubleSolenoid shifterSolenoid = new DoubleSolenoid(0,1);
 	
     public void initDefaultCommand() {
         //Only set it if we have multiple commands for one subsystem and want one command to always be running but have the option to run other commands

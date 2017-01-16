@@ -9,7 +9,6 @@ import org.usfirst.frc.team4121.robot.commands.DriveWithJoysticksCommand;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.Timer;
 
 /**
  *	DriveTrain subsystem	
@@ -41,6 +40,12 @@ public class DriveTrainSubsystem extends Subsystem {
 	}
 	
 	public void autoDriveStraight(double leftMotor, double rightMotor) {
+		drive.setSafetyEnabled(false);
+		driveSlave.setSafetyEnabled(false);
+		
+		drive.setMaxOutput(1.0);
+		driveSlave.setMaxOutput(1.0);
+		
 		drive.tankDrive(leftMotor, rightMotor);
 		driveSlave.tankDrive(leftMotor, rightMotor);
 	}

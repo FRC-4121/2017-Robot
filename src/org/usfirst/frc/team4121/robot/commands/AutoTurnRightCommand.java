@@ -9,12 +9,9 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class AutoTurnRightCommand extends Command {
-
-	DriveTrainSubsystem driveTrain = new DriveTrainSubsystem();
 	
     public AutoTurnRightCommand() {
     	requires(Robot.driveTrain);
-    	this.driveTrain = Robot.driveTrain;
     }
 
     // Called just before this Command runs the first time
@@ -23,7 +20,7 @@ public class AutoTurnRightCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	driveTrain.autoDriveStraight(1.0, -1.0);
+    	Robot.driveTrain.autoDriveStraight(0.5, -0.5);
     }
 
     // Make this return true when this Command no longer needs to run execute()
