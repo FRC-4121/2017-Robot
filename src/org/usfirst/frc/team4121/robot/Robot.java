@@ -56,8 +56,6 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putData("Auto mode", chooser);
 		
-		//LiveWindow.addSensor("ShifterSubsystem", "Gear", shifter.shifterSolenoid);
-		//Add what gear we are in to the smart dashboard
 	}
 
 	/**
@@ -100,7 +98,6 @@ public class Robot extends IterativeRobot {
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null) {
 			autonomousCommand.start();
-			System.out.println("Hello");
 		}
 	}
 
@@ -128,12 +125,8 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		LiveWindow.run();
-		/*while(isOperatorControl() && isEnabled()) {
-			drive.tankDrive(leftJoy, rightJoy);
-			slaveDrive.tankDrive(leftJoy, rightJoy);
-			Timer.delay(0.01);
-		}*/		
+		
+		SmartDashboard.putString("Gear Position", shifter.gearPosition());
 	}
 
 	/**

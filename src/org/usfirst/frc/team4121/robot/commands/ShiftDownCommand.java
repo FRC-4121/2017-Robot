@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4121.robot.commands;
 
-import org.usfirst.frc.team4121.robot.subsystems.ShifterSubsystem;
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team4121.robot.Robot;
 
@@ -20,6 +19,7 @@ public class ShiftDownCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.shifter.shiftDown();
+    	Robot.shifter.gearPosition();
     }
 
     // Make this return true when this Command no longer needs to run execute()

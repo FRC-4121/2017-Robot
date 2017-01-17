@@ -32,5 +32,15 @@ public class ShifterSubsystem extends Subsystem {
     public void defaultGearPosition() {
     	shifterSolenoid.set(DoubleSolenoid.Value.kForward);
     }
+    
+    public String gearPosition() {
+    	if(shifterSolenoid.get() == DoubleSolenoid.Value.kForward) {
+    		return "kForward (Change later)";
+    	}
+    	else if(shifterSolenoid.get() == DoubleSolenoid.Value.kReverse) {
+    		return "kReverse (Change later)";
+    	}
+    	return "Neither";
+    }
 }
 
