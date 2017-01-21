@@ -10,7 +10,7 @@ import org.usfirst.frc.team4121.robot.extraClasses.VisionProcesser;
  */
 public class FindBoilerTargetCommand extends Command {
 
-	 
+ 	public VisionProcesser vProcesser = new VisionProcesser(""); //insert http://[camera ip address] into quotes
     public FindBoilerTargetCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -20,6 +20,7 @@ public class FindBoilerTargetCommand extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    
     	
     }
 
@@ -31,7 +32,7 @@ public class FindBoilerTargetCommand extends Command {
     	boolean boilerTargetCentered= false;
     	while (!boilerTargetCentered)
     	{
-    		visionArray= Vision.Update(); //fix this to macth Matt's code
+    		visionArray= vProcesser.update(); 
     		
     		if(visionArray[0]< -tolerance)
     		{
