@@ -117,6 +117,7 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		//if (autonomousCommand != null)
 			//autonomousCommand.cancel();
+		
 	}
 
 	/**
@@ -127,6 +128,9 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		
 		SmartDashboard.putString("Gear Position", shifter.gearPosition());
+		//SmartDashboard.putData(Scheduler.getInstance());   can show status of commands
+	
+
 	}
 
 	/**
