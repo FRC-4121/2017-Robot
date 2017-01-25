@@ -10,7 +10,7 @@ import org.usfirst.frc.team4121.robot.extraClasses.VisionProcesser;
  */
 public class FindBoilerTargetCommand extends Command {
 
- 	public VisionProcesser vProcesser = new VisionProcesser(""); //insert http://[camera ip address] into quotes
+ 	//public VisionProcesser vProcesser = new VisionProcesser("http://10.37.12.76"); //insert http://[camera ip address] into quotes
     public FindBoilerTargetCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -27,7 +27,7 @@ public class FindBoilerTargetCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     // initializing int to something, how far off to left or right robot is
-    	double[] visionArray;
+    	/*double[] visionArray;
     	double tolerance=10; //adjust later depending on testing, our accepted values, in units of screen pixels
     	boolean boilerTargetCentered= false;
     	while (!boilerTargetCentered)
@@ -47,14 +47,14 @@ public class FindBoilerTargetCommand extends Command {
     			boilerTargetCentered=true;
     		}
     		
-    	}
+    	}*/
     	
     	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
