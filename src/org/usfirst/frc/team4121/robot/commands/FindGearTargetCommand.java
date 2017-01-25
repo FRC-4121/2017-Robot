@@ -10,7 +10,7 @@ import org.usfirst.frc.team4121.robot.extraClasses.VisionProcesser;
  *
  */
 public class FindGearTargetCommand extends Command {
-	public VisionProcesser vProcesser = new VisionProcesser(""); //insert http://[camera ip address] into quotes
+	public VisionProcesser vProcesser = new VisionProcesser("http://10.37.12.76"); //insert http://[camera ip address] into quotes
 
     public FindGearTargetCommand() {
         // Use requires() here to declare subsystem dependencies
