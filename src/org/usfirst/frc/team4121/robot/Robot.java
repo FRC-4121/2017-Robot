@@ -13,6 +13,7 @@ import org.usfirst.frc.team4121.robot.commands.AutoStraightCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.AutoTurnLeftCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.AutoTurnRightCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.ExampleCommand;
+import org.usfirst.frc.team4121.robot.commands.FindBoilerTargetCommand;
 import org.usfirst.frc.team4121.robot.commands.FindGearTargetCommand;
 import org.usfirst.frc.team4121.robot.extraClasses.VisionProcesser;
 import org.usfirst.frc.team4121.robot.subsystems.ClimberSubsystem;
@@ -35,6 +36,8 @@ public class Robot extends IterativeRobot {
 	public static OI oi;
 	public static VisionProcesser vision;
 	public static FindGearTargetCommand findGear;
+	public static FindBoilerTargetCommand findBoiler;
+	
 	
 	private SendableChooser<Command> chooser;
 	
@@ -54,6 +57,7 @@ public class Robot extends IterativeRobot {
 		autonomousCommand = new ExampleCommand();
 		vision = new VisionProcesser(0);
 		findGear = new FindGearTargetCommand();
+		findBoiler = new FindBoilerTargetCommand();
 		
 		chooser.addDefault("Do nothing", new AutoStopCommand());
 		chooser.addObject("Straight Foward", new AutoStraightCommandGroup());
@@ -136,7 +140,8 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		
 		SmartDashboard.putString("Gear Position", shifter.gearPosition());
-		SmartDashboard.putBoolean("Lined Up ", findGear.isLinedUp());
+		SmartDashboard.putBoolean("Lined Up to Gear: ", findGear.isLinedUp());
+		SmartDashboard.putBoolean("Lined Up to Boiler: ", findBoiler.isLinedUp());
 
 		
 		
