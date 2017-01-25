@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team4121.robot.commands.ClimbCommand;
 import org.usfirst.frc.team4121.robot.commands.FeedCommand;
+import org.usfirst.frc.team4121.robot.commands.FindGearTargetCommand;
 import org.usfirst.frc.team4121.robot.commands.ShiftDownCommand;
 import org.usfirst.frc.team4121.robot.commands.ShiftUpCommand;
 import org.usfirst.frc.team4121.robot.commands.ShootCommand;
@@ -41,6 +42,7 @@ public class OI {
 		climb.whileHeld(new ClimbCommand());
 		shiftUp.whenActive(new ShiftUpCommand());
 		shiftDown.whenActive(new ShiftDownCommand());
+		gear.whenPressed(new FindGearTargetCommand());
 	}
 	
 	public Joystick getLeftJoy() {
