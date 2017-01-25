@@ -10,7 +10,7 @@ import org.usfirst.frc.team4121.robot.extraClasses.VisionProcesser;
  *
  */
 public class FindGearTargetCommand extends Command {
-	public VisionProcesser vProcesser = new VisionProcesser("http://10.37.12.76"); //insert http://[camera ip address] into quotes
+	//public VisionProcesser vProcesser = new VisionProcesser("http://10.37.12.76"); //insert http://[camera ip address] into quotes
 
     public FindGearTargetCommand() {
         // Use requires() here to declare subsystem dependencies
@@ -26,7 +26,7 @@ public class FindGearTargetCommand extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	double[] visionArray;
+    	/*double[] visionArray;
     	
     	boolean gearTargetCentered= false;
     	while (!gearTargetCentered)
@@ -51,14 +51,14 @@ public class FindGearTargetCommand extends Command {
     			gearTargetCentered=true;
     		}
     		
-    	}
+    	}*/
     	
     	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

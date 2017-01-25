@@ -21,7 +21,7 @@ public class VisionProcesser {
 
 	public VisionProcesser(int ip) {
 		IPAddress = ip;
-		initializeCamera();
+		//initializeCamera();
 	}
 
 	public double getReturnedValue() { //change name of method
@@ -36,9 +36,11 @@ public class VisionProcesser {
 		return isFacing;
 	}
 
-	private void initializeCamera() {
+	/*private void initializeCamera() {
 		camera.open(IPAddress);
-	}
+		
+		camera.ope
+	}*/
 
 	private Point calcClosestPoint(MatOfPoint a) {
 		Point closestPoint = new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);
@@ -119,5 +121,9 @@ public class VisionProcesser {
 		}
 		
 		return returnedArray;
+	}
+	
+	public String tempDouble() {
+		return "" + update()[0];
 	}
 }

@@ -13,6 +13,7 @@ import org.usfirst.frc.team4121.robot.commands.AutoStraightCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.AutoTurnLeftCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.AutoTurnRightCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.ExampleCommand;
+import org.usfirst.frc.team4121.robot.extraClasses.VisionProcesser;
 import org.usfirst.frc.team4121.robot.subsystems.ClimberSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.ShifterSubsystem;
@@ -31,6 +32,7 @@ public class Robot extends IterativeRobot {
 	public static ShifterSubsystem shifter;
 	public static ClimberSubsystem climber;
 	public static OI oi;
+	public static VisionProcesser vision;
 	
 	private SendableChooser<Command> chooser;
 	
@@ -48,6 +50,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		chooser = new SendableChooser<>();
 		autonomousCommand = new ExampleCommand();
+		vision = new VisionProcesser(0);
 		
 		chooser.addDefault("Do nothing", new AutoStopCommand());
 		chooser.addObject("Straight Foward", new AutoStraightCommandGroup());
@@ -127,7 +130,11 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		
 		SmartDashboard.putString("Gear Position", shifter.gearPosition());
-	
+		
+		
+		while(vision.getCamera().open(0)) {
+			SmartDashboard.putString("Vision", vision.tempDouble());
+		}
 	}
 
 	/**
