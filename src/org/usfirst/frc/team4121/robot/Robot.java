@@ -55,7 +55,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		chooser = new SendableChooser<>();
 		autonomousCommand = new ExampleCommand();
-		vision = new VisionProcesser(0);
+		vision = new VisionProcesser(3);
 		findGear = new FindGearTargetCommand();
 		findBoiler = new FindBoilerTargetCommand();
 		
@@ -144,10 +144,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Lined Up to Boiler: ", findBoiler.isLinedUp());
 
 		
-		
-		while(vision.getCamera().open(0)) {
 			SmartDashboard.putString("Vision", vision.tempDouble());
-		}
 
 	}
 

@@ -38,7 +38,7 @@ public class VisionProcesser {
 
 	private void initializeCamera() {
 		
-		camera = new VideoCapture(0);
+		camera = new VideoCapture(IPAddress);
 	}
 
 	private Point calcClosestPoint(MatOfPoint a) {
@@ -67,7 +67,14 @@ public class VisionProcesser {
 	
 	public double [] update() {
 		camera.read(sourceImg);
-		vsubsystem.process(sourceImg);
+		if(!sourceImg.empty()) {
+			vsubsystem.process(sourceImg);
+		}
+		
+		else {
+			//double [] newArray = new 
+			return new double[3];
+		}
 		foundContours = vsubsystem.filterContoursOutput();
 		double [] returnedArray = new double[3];
 
@@ -123,6 +130,6 @@ public class VisionProcesser {
 	}
 	
 	public String tempDouble() {
-		return "" + update()[0];
+		return "SURE";
 	}
 }
