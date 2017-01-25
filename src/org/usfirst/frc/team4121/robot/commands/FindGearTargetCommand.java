@@ -60,6 +60,12 @@ public class FindGearTargetCommand extends Command {
     protected boolean isFinished() {
         return true;
     }
+    
+    public boolean isLinedUp()
+    {
+		return isFinished();
+    	
+    }
 
     // Called once after isFinished returns true
     protected void end() {

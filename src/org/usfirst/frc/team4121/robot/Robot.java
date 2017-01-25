@@ -13,6 +13,7 @@ import org.usfirst.frc.team4121.robot.commands.AutoStraightCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.AutoTurnLeftCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.AutoTurnRightCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.ExampleCommand;
+import org.usfirst.frc.team4121.robot.commands.FindGearTargetCommand;
 import org.usfirst.frc.team4121.robot.extraClasses.VisionProcesser;
 import org.usfirst.frc.team4121.robot.subsystems.ClimberSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
@@ -33,6 +34,7 @@ public class Robot extends IterativeRobot {
 	public static ClimberSubsystem climber;
 	public static OI oi;
 	public static VisionProcesser vision;
+	public static FindGearTargetCommand findGear;
 	
 	private SendableChooser<Command> chooser;
 	
@@ -51,6 +53,7 @@ public class Robot extends IterativeRobot {
 		chooser = new SendableChooser<>();
 		autonomousCommand = new ExampleCommand();
 		vision = new VisionProcesser(0);
+		findGear = new FindGearTargetCommand();
 		
 		chooser.addDefault("Do nothing", new AutoStopCommand());
 		chooser.addObject("Straight Foward", new AutoStraightCommandGroup());
@@ -133,6 +136,7 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		
 		SmartDashboard.putString("Gear Position", shifter.gearPosition());
+		SmartDashboard.putBoolean("Lined Up", FindGearTargetCommand().)
 
 		
 		
