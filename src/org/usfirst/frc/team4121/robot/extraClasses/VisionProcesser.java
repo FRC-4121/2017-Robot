@@ -10,7 +10,7 @@ import org.opencv.videoio.VideoCapture;
 import org.usfirst.frc.team4121.robot.subsystems.VisonSystemSubsystem;
 
 public class VisionProcesser {
-	private String IPAddress;
+	private int IPAddress;
 	private double returnedValue;
 	private VideoCapture camera; 
 	private VisonSystemSubsystem vsubsystem;
@@ -19,7 +19,7 @@ public class VisionProcesser {
 	private Mat sourceImg = new Mat();
 	private double isFacing = 0;
 
-	public VisionProcesser(String ip) {
+	public VisionProcesser(int ip) {
 		IPAddress = ip;
 		initializeCamera();
 	}
