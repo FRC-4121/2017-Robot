@@ -15,7 +15,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *	
  *	@author Ben Hayden
  */
-public class DriveTrainSubsystem extends Subsystem {	
+public class DriveTrainSubsystem extends Subsystem {
+	
+	//Initializing all Talons using CAN
 	CANTalon leftMotor1 = new CANTalon(RobotMap.LEFT_MOTOR_1);
 	CANTalon leftMotor2 = new CANTalon(RobotMap.LEFT_MOTOR_2);
 	CANTalon leftMotor3 = new CANTalon(RobotMap.LEFT_MOTOR_3);
@@ -23,22 +25,26 @@ public class DriveTrainSubsystem extends Subsystem {
 	CANTalon rightMotor2 = new CANTalon(RobotMap.RIGHT_MOTOR_2);
 	CANTalon rightMotor3 = new CANTalon(RobotMap.RIGHT_MOTOR_3);
 	
-	//leftMotor1.set(1.0); //if RobotDrive doesn't work do it all manually
+	//Creating 2 robot drives for all 6 motors
 	RobotDrive drive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
 	RobotDrive driveSlave = new RobotDrive(leftMotor3, rightMotor3);
 	
+	//Initializing both joysticks
 	Joystick left = new Joystick(0);
 	Joystick right = new Joystick(1);
 	
+	//Setting the default command to DriveWithJoysticksCommands
 	public void initDefaultCommand() {
 		setDefaultCommand(new DriveWithJoysticksCommand());
 	}
 	
+	//Drive method that creates two tank drives with the left and right joysticks
 	public void drive() {
 		drive.tankDrive(Robot.oi.getLeftJoy(), Robot.oi.getRightJoy());
 		driveSlave.tankDrive(Robot.oi.getLeftJoy(), Robot.oi.getRightJoy());
 	}
 	
+	//Auto drive that inputs two doubles for the speeds of the motors
 	public void autoDriveStraight(double leftMotor, double rightMotor) {
 		drive.setSafetyEnabled(false);
 		driveSlave.setSafetyEnabled(false);
@@ -50,6 +56,7 @@ public class DriveTrainSubsystem extends Subsystem {
 		driveSlave.tankDrive(leftMotor, rightMotor);
 	}
 	
+	//A method that stops all motors
 	public void autoStop() {
 		drive.tankDrive(0, 0);
 		driveSlave.tankDrive(0, 0);

@@ -8,13 +8,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *	@author Ben Hayden
  */
 public class FeederSubsystem extends Subsystem {
-
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-
+	
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
     }
 }
 
