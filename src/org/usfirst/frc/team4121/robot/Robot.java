@@ -1,4 +1,3 @@
-
 package org.usfirst.frc.team4121.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -15,7 +14,8 @@ import org.usfirst.frc.team4121.robot.commands.AutoTurnRightCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.ExampleCommand;
 import org.usfirst.frc.team4121.robot.commands.FindBoilerTargetCommand;
 import org.usfirst.frc.team4121.robot.commands.FindGearTargetCommand;
-import org.usfirst.frc.team4121.robot.extraClasses.VisionProcesser;
+import org.usfirst.frc.team4121.robot.extraClasses.VisionProcessor;
+import org.usfirst.frc.team4121.robot.extraClasses.VisionRead;
 import org.usfirst.frc.team4121.robot.subsystems.ClimberSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.ShifterSubsystem;
@@ -34,7 +34,7 @@ public class Robot extends IterativeRobot {
 	public static ShifterSubsystem shifter;
 	public static ClimberSubsystem climber;
 	public static OI oi;
-	public static VisionProcesser vision;
+	public static VisionProcessor vision;
 	public static FindGearTargetCommand findGear;
 	public static FindBoilerTargetCommand findBoiler;
 
@@ -54,7 +54,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		chooser = new SendableChooser<>();
 		autonomousCommand = new ExampleCommand();
-		vision = new VisionProcesser(0);
+		vision = new VisionProcessor(0);
 		findGear = new FindGearTargetCommand();
 		findBoiler = new FindBoilerTargetCommand();
 

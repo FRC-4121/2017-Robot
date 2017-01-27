@@ -3,7 +3,7 @@ package org.usfirst.frc.team4121.robot.commands;
 import org.usfirst.frc.team4121.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import org.usfirst.frc.team4121.robot.extraClasses.VisionProcesser;
+import org.usfirst.frc.team4121.robot.extraClasses.VisionProcessor;
 
 /**
  *
@@ -14,7 +14,7 @@ public class FindBoilerTargetCommand extends Command {
     public FindBoilerTargetCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.driveTrain);
+    	requires(Robot.VisionSubsystem);
     	//visionsubsytem
     }
 

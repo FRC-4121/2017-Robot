@@ -7,19 +7,18 @@ import org.opencv.core.MatOfPoint;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.videoio.VideoCapture;
-import org.usfirst.frc.team4121.robot.subsystems.VisonSystemSubsystem;
 
-public class VisionProcesser {
+public class VisionProcessor {
 	private int IPAddress;
 	private double returnedValue;
 	private VideoCapture camera; 
-	private VisonSystemSubsystem vsubsystem;
+	private VisionRead vsubsystem;
 	private ArrayList<MatOfPoint> foundContours;
 	private Point centerOfImage;
 	private Mat sourceImg = new Mat();
 	private double isFacing = 0;
 
-	public VisionProcesser(int ip) {
+	public VisionProcessor(int ip) {
 		IPAddress = ip;
 		initializeCamera();
 	}

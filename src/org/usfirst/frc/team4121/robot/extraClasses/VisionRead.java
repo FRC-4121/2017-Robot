@@ -1,4 +1,4 @@
-package org.usfirst.frc.team4121.robot.subsystems;
+package org.usfirst.frc.team4121.robot.extraClasses;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import edu.wpi.first.wpilibj.vision.VisionPipeline;
 *
 * @author GRIP
 */
-public class VisonSystemSubsystem implements VisionPipeline {
+public class VisionRead implements VisionPipeline{
 
 	//Outputs
 	private Mat hslThresholdOutput = new Mat();
