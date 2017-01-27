@@ -19,6 +19,7 @@ import org.usfirst.frc.team4121.robot.extraClasses.VisionRead;
 import org.usfirst.frc.team4121.robot.subsystems.ClimberSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.ShifterSubsystem;
+import org.usfirst.frc.team4121.robot.subsystems.VisionSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -34,9 +35,9 @@ public class Robot extends IterativeRobot {
 	public static ShifterSubsystem shifter;
 	public static ClimberSubsystem climber;
 	public static OI oi;
-	public static VisionProcessor vision;
 	public static FindGearTargetCommand findGear;
 	public static FindBoilerTargetCommand findBoiler;
+	public static VisionSubsystem visionSystem;
 
 	private SendableChooser<Command> chooser;
 
@@ -51,10 +52,10 @@ public class Robot extends IterativeRobot {
 		driveTrain = new DriveTrainSubsystem();
 		shifter = new ShifterSubsystem();
 		climber = new ClimberSubsystem();
+		visionSystem = new VisionSubsystem();
 		oi = new OI();
 		chooser = new SendableChooser<>();
 		autonomousCommand = new ExampleCommand();
-		vision = new VisionProcessor(0);
 		findGear = new FindGearTargetCommand();
 		findBoiler = new FindBoilerTargetCommand();
 
@@ -65,7 +66,7 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putData("Auto mode", chooser);
 
-		SmartDashboard.putString("Vision: ", vision.tempDouble());
+		SmartDashboard.putString("Vision: ", visionSystem.vProcessor.tempDouble());
 
 	}
 
