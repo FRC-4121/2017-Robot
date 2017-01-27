@@ -9,7 +9,7 @@ package org.usfirst.frc.team4121.robot;
  * @author Ben Hayden
  */
 public class RobotMap {
-	public static final int LEFT_MOTOR_1 = 0; //CHANGE ALL IDS
+	public static final int LEFT_MOTOR_1 = 0; //Not the actual numbers
 	public static final int LEFT_MOTOR_2 = 1;
 	public static final int LEFT_MOTOR_3 = 2;
 	public static final int RIGHT_MOTOR_1 = 3;

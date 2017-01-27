@@ -23,7 +23,7 @@ public class DriveTrainSubsystem extends Subsystem {
 	CANTalon rightMotor2 = new CANTalon(RobotMap.RIGHT_MOTOR_2);
 	CANTalon rightMotor3 = new CANTalon(RobotMap.RIGHT_MOTOR_3);
 	
-	//leftMotor1.set(1.0); if RobotDrive doesn't work do it all manually
+	//leftMotor1.set(1.0); //if RobotDrive doesn't work do it all manually
 	RobotDrive drive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
 	RobotDrive driveSlave = new RobotDrive(leftMotor3, rightMotor3);
 	

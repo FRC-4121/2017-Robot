@@ -26,8 +26,8 @@ public class OI {
 	public OI() {
 	
 		//Joysticks
-		leftJoy = new Joystick(1);
-		rightJoy = new Joystick(2);
+		leftJoy = new Joystick(0);
+		rightJoy = new Joystick(1);
 	
 		//Buttons
 		shoot = new JoystickButton(rightJoy, 1);

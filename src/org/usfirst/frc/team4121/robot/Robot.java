@@ -37,12 +37,11 @@ public class Robot extends IterativeRobot {
 	public static VisionProcesser vision;
 	public static FindGearTargetCommand findGear;
 	public static FindBoilerTargetCommand findBoiler;
-	
-	
+
 	private SendableChooser<Command> chooser;
-	
+
 	Command autonomousCommand;
-	
+
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -55,19 +54,19 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		chooser = new SendableChooser<>();
 		autonomousCommand = new ExampleCommand();
-		vision = new VisionProcesser(3);
+		vision = new VisionProcesser(0);
 		findGear = new FindGearTargetCommand();
 		findBoiler = new FindBoilerTargetCommand();
-		
+
 		chooser.addDefault("Do nothing", new AutoStopCommand());
 		chooser.addObject("Straight Foward", new AutoStraightCommandGroup());
 		chooser.addObject("Turn Left", new AutoTurnLeftCommandGroup());
 		chooser.addObject("Turn Right", new AutoTurnRightCommandGroup());
-		
+
 		SmartDashboard.putData("Auto mode", chooser);
-		
+
 		SmartDashboard.putString("Vision: ", vision.tempDouble());
-		
+
 	}
 
 	/**
@@ -127,9 +126,9 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		//if (autonomousCommand != null)
-			//autonomousCommand.cancel();
-		
+		// if (autonomousCommand != null)
+		// autonomousCommand.cancel();
+
 	}
 
 	/**
@@ -138,13 +137,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		
+
 		SmartDashboard.putString("Gear Position", shifter.gearPosition());
 		SmartDashboard.putBoolean("Lined Up to Gear: ", findGear.isLinedUp());
 		SmartDashboard.putBoolean("Lined Up to Boiler: ", findBoiler.isLinedUp());
 
-		
-			SmartDashboard.putString("Vision", vision.tempDouble());
+		SmartDashboard.putString("Vision: ", vision.tempDouble());
 
 	}
 

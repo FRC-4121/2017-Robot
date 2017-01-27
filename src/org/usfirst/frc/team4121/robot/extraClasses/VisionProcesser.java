@@ -23,24 +23,19 @@ public class VisionProcesser {
 		IPAddress = ip;
 		initializeCamera();
 	}
-
-	public double getReturnedValue() { //change name of method
-		return returnedValue;
-	}
 	
+	//used to grab camera feed if necessary
 	public VideoCapture getCamera() {
 		return camera;
 	}
-	
-	public double getIsFacing() {
-		return isFacing;
-	}
 
+	
 	private void initializeCamera() {
 		
 		camera = new VideoCapture(IPAddress);
 	}
 
+	//private method that reads from a Mat and finds the closest point from the left of the image
 	private Point calcClosestPoint(MatOfPoint a) {
 		Point closestPoint = new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);
 
@@ -53,6 +48,7 @@ public class VisionProcesser {
 		return closestPoint;
 	}
 
+	//private method that reads from a Mat and finds the farthest point from the left of the image
 	private Point calcFarthestPoint(MatOfPoint a) {
 		Point farthestPoint = new Point(Integer.MIN_VALUE, Integer.MIN_VALUE);
 
@@ -65,6 +61,7 @@ public class VisionProcesser {
 		return farthestPoint;
 	}
 	
+	//reads image, processes it, calculates result(s) and returns in a double[] array
 	public double [] update() {
 		camera.read(sourceImg);
 		if(!sourceImg.empty()) {
@@ -72,8 +69,10 @@ public class VisionProcesser {
 		}
 		
 		else {
-			//double [] newArray = new 
-			return new double[3];
+			
+			double [] errorDouble = {Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE};
+			
+			return errorDouble;
 		}
 		foundContours = vsubsystem.filterContoursOutput();
 		double [] returnedArray = new double[3];
@@ -87,7 +86,7 @@ public class VisionProcesser {
 			rectangles.add(new Rect(calcClosestPoint(a), calcFarthestPoint(a)));
 		}
 
-		// check for either one or two
+		// check for either one or two rectangles - if one, looking at the boiler, if two, looking at the gears
 		if (rectangles.size() == 1) {
 			Point centerofRect = new Point(rectangles.get(0).width / 2, rectangles.get(0).height / 2);
 			returnedValue = centerofRect.x - centerOfImage.x; //change the name of returned value
@@ -98,6 +97,8 @@ public class VisionProcesser {
 			
 		}
 		else if (rectangles.size() == 2) {
+			
+			//checking the comaprisons of the area to figure out where we are facing in relation to the gear targets
 			if (rectangles.get(0).area() > rectangles.get(1).area() + 1) {
 				Point centerOfRect = new Point(((rectangles.get(1).tl().x - rectangles.get(0).br().x) / 2) , rectangles.get(0).height / 2);
 				returnedValue = centerOfRect.x - centerOfImage.x;
@@ -129,7 +130,9 @@ public class VisionProcesser {
 		return returnedArray;
 	}
 	
+	//the value that is sent to the SmartDashboard
 	public String tempDouble() {
-		return "SURE";
+		Double sentDouble = new Double(returnedValue);
+		return sentDouble.toString();
 	}
 }
