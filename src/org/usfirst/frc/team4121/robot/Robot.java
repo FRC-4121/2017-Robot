@@ -15,7 +15,6 @@ import org.usfirst.frc.team4121.robot.commands.ExampleCommand;
 import org.usfirst.frc.team4121.robot.commands.FindBoilerTargetCommand;
 import org.usfirst.frc.team4121.robot.commands.FindGearTargetCommand;
 import org.usfirst.frc.team4121.robot.extraClasses.VisionProcessor;
-import org.usfirst.frc.team4121.robot.extraClasses.VisionRead;
 import org.usfirst.frc.team4121.robot.subsystems.ClimberSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.ShifterSubsystem;
@@ -67,7 +66,6 @@ public class Robot extends IterativeRobot {
 		chooser.addObject("Turn Right", new AutoTurnRightCommandGroup());
 
 		SmartDashboard.putData("Auto mode", chooser);
-
 		SmartDashboard.putString("Vision: ", vision.tempDouble());
 
 	}
@@ -144,9 +142,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putString("Gear Position", shifter.gearPosition());
 		SmartDashboard.putBoolean("Lined Up to Gear: ", findGear.isLinedUp());
 		SmartDashboard.putBoolean("Lined Up to Boiler: ", findBoiler.isLinedUp());
-
 		SmartDashboard.putString("Vision: ", vision.tempDouble());
-
 	}
 
 	/**
