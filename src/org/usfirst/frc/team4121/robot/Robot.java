@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4121.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -67,7 +68,12 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putString("Vision: ", vision.tempDouble());
-
+		
+		CameraServer shooterServer = CameraServer.getInstance();
+		shooterServer.startAutomaticCapture("cam0", 0);
+		
+		CameraServer gearServer = CameraServer.getInstance();
+		gearServer.startAutomaticCapture("cam1", 1);
 	}
 
 	/**

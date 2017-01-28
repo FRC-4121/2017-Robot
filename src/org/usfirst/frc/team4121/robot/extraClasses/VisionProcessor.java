@@ -8,10 +8,15 @@ import org.opencv.core.Point;
 import org.opencv.core.Rect;
 import org.opencv.videoio.VideoCapture;
 
+import edu.wpi.cscore.CameraServerJNI;
+import edu.wpi.cscore.VideoSource;
+
 public class VisionProcessor {
 	private int IPAddress;
 	private double returnedValue;
 	private VideoCapture camera; 
+	private VideoSource source;
+	private CameraServerJNI server;
 	private VisionRead vsubsystem;
 	private ArrayList<MatOfPoint> foundContours;
 	private Point centerOfImage;

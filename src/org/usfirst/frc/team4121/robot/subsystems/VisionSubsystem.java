@@ -16,7 +16,7 @@ public class VisionSubsystem extends Subsystem {
 	private VisionProcessor gearCamera = new VisionProcessor(1);
 
 	public void initDefaultCommand() {
-
+		
 	}
 
 	public void findBoiler() {
