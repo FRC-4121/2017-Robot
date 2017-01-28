@@ -55,11 +55,15 @@ public class Robot extends IterativeRobot {
 		climber = new ClimberSubsystem();
 		chooser = new SendableChooser<>();
 		autonomousCommand = new ExampleCommand();
-		//vision = new VisionProcessor(0);
+		vision = new VisionProcessor(0);
+		visionSub = new VisionSubsystem();
 		findGear = new FindGearTargetCommand();
 		findBoiler = new FindBoilerTargetCommand();
+<<<<<<< HEAD
 		visionSub = new VisionSubsystem();
 		oi = new OI();
+=======
+>>>>>>> origin/Ben-Sylvia
 
 		chooser.addDefault("Do nothing", new AutoStopCommand());
 		chooser.addObject("Straight Foward", new AutoStraightCommandGroup());
