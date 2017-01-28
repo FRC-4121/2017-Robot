@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.command.Command;
 public class FindGearTargetCommand extends Command {
 
     public FindGearTargetCommand() {
-    	requires(Robot.driveTrain);
     	requires(Robot.visionSub);
     }
 
