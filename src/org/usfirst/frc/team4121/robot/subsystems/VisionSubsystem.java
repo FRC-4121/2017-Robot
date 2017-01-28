@@ -12,7 +12,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class VisionSubsystem extends Subsystem {
 
-	private VisionProcessor processor;
+	private VisionProcessor shooterCamera = new VisionProcessor(0);
+	private VisionProcessor gearCamera = new VisionProcessor(1);
 
 	public void initDefaultCommand() {
 
@@ -24,7 +25,7 @@ public class VisionSubsystem extends Subsystem {
 								// accepted values, in units of screen pixels
 		boolean boilerTargetCentered = false;
 		while (!boilerTargetCentered) {
-			visionArray = processor.update(); // fix this to macth Matt's code
+			visionArray = shooterCamera.update(); // fix this to macth Matt's code
 
 			if (visionArray[0] < -tolerance) {
 				Robot.driveTrain.autoDriveStraight(-.1, .1);
@@ -43,12 +44,12 @@ public class VisionSubsystem extends Subsystem {
 
 		boolean gearTargetCentered = false;
 		while (!gearTargetCentered) {
-			visionArray = processor.update(); // fix this to macth Matt's code
+			visionArray = gearCamera.update(); // fix this to macth Matt's code
 
 			if (visionArray[1] == -1) {
-				Robot.driveTrain.autoDriveStraight(-.1, .1);
-			} else if (visionArray[1] == 1) {
 				Robot.driveTrain.autoDriveStraight(.1, -.1);
+			} else if (visionArray[1] == 1) {
+				Robot.driveTrain.autoDriveStraight(-.1, .1);
 			} else if (visionArray[1] == -5) // accounts for errors, calculated
 												// in Matt's program
 			{
