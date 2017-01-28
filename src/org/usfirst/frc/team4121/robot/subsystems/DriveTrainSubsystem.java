@@ -61,4 +61,9 @@ public class DriveTrainSubsystem extends Subsystem {
 		drive.tankDrive(0, 0);
 		driveSlave.tankDrive(0, 0);
 	}
+	
+	public void switchControls() {
+		drive.tankDrive(Robot.oi.getRightJoy(), Robot.oi.getLeftJoy());
+		driveSlave.tankDrive(Robot.oi.getRightJoy(), Robot.oi.getLeftJoy());
+	}
 }

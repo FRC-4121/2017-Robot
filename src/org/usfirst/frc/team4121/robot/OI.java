@@ -11,6 +11,7 @@ import org.usfirst.frc.team4121.robot.commands.FindGearTargetCommand;
 import org.usfirst.frc.team4121.robot.commands.ShiftDownCommand;
 import org.usfirst.frc.team4121.robot.commands.ShiftUpCommand;
 import org.usfirst.frc.team4121.robot.commands.ShootCommand;
+import org.usfirst.frc.team4121.robot.commands.SwitchControlsCommand;
 
 /**
  * This is the main class that initializes and tells what buttons to do what.
@@ -21,7 +22,7 @@ public class OI {
 	
 	//Initializations
 	static Joystick leftJoy, rightJoy;
-	Button shoot, feed, climb, shiftUp, shiftDown, gear, boiler;
+	Button shoot, feed, climb, shiftUp, shiftDown, gear, boiler, switchControls;
 	
 	public OI() {
 	
@@ -37,6 +38,7 @@ public class OI {
 		shiftDown = new JoystickButton(leftJoy, 4);
 		gear = new JoystickButton(leftJoy, 2);
 		boiler = new JoystickButton(rightJoy, 2);
+		switchControls = new JoystickButton(rightJoy, 6);
 		
 		//Commands
 		shoot.whileHeld(new ShootCommand());
@@ -45,7 +47,9 @@ public class OI {
 		shiftUp.whenActive(new ShiftUpCommand());
 		shiftDown.whenActive(new ShiftDownCommand());
 		gear.whenPressed(new FindGearTargetCommand());
-		boiler.whenPressed(new FindBoilerTargetCommand() );
+		boiler.whenPressed(new FindBoilerTargetCommand());
+		switchControls.whenPressed(new SwitchControlsCommand());
+		
 	}
 	
 	public Joystick getLeftJoy() {
