@@ -67,7 +67,7 @@ public class VisionProcessor {
 			vsubsystem.process(sourceImg);
 		}
 		
-		else {
+		else { //Integer values account for errors
 			
 			double [] errorDouble = {Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE};
 			
@@ -85,7 +85,7 @@ public class VisionProcessor {
 			rectangles.add(new Rect(calcClosestPoint(a), calcFarthestPoint(a)));
 		}
 		
-		if(rectangles.size() == 0) {
+		if(rectangles.size() == 0) { //returns Double.MIN_VALUE if there are no rectangles to account for
 			returnedArray[0] = Double.MIN_VALUE;
 			returnedArray[1] = Double.MIN_VALUE;
 			returnedArray[2] = Double.MIN_VALUE;
@@ -97,8 +97,8 @@ public class VisionProcessor {
 			returnedValue = centerofRect.x - centerOfImage.x; //change the name of returned value
 			
 			returnedArray[0] = returnedValue;
-			returnedArray[1] = -5.0; //isFacing error value
-			returnedArray[2] = 0.0; //areaRatio error value
+			returnedArray[1] = -5.0; //isFacing error value - returned for the one rectangle only
+			returnedArray[2] = 0.0; //areaRatio error value - returned for the one rectangle only
 			
 		}
 		else if (rectangles.size() == 2) {
@@ -130,6 +130,12 @@ public class VisionProcessor {
 				returnedArray[1] = isFacing;
 				returnedArray[2] = rectangles.get(0).area() / rectangles.get(1).area();
 			}
+		}
+		
+		else if(rectangles.size() < 2) { //if there are more than two rectangles, it returns Double.MAX_VALUE
+			returnedArray[0] = Double.MAX_VALUE;
+			returnedArray[1] = Double.MAX_VALUE;
+			returnedArray[2] = Double.MAX_VALUE;
 		}
 		
 		return returnedArray;
