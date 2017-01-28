@@ -84,6 +84,12 @@ public class VisionProcessor {
 		for (MatOfPoint a : foundContours) {
 			rectangles.add(new Rect(calcClosestPoint(a), calcFarthestPoint(a)));
 		}
+		
+		if(rectangles.size() == 0) {
+			returnedArray[0] = Double.MIN_VALUE;
+			returnedArray[1] = Double.MIN_VALUE;
+			returnedArray[2] = Double.MIN_VALUE;
+		}
 
 		// check for either one or two rectangles - if one, looking at the boiler, if two, looking at the gears
 		if (rectangles.size() == 1) {

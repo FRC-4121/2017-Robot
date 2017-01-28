@@ -140,8 +140,8 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 
 		SmartDashboard.putString("Gear Position", shifter.gearPosition());
-		SmartDashboard.putBoolean("Lined Up to Gear: ", findGear.isLinedUp());
-		SmartDashboard.putBoolean("Lined Up to Boiler: ", findBoiler.isLinedUp());
+		//SmartDashboard.putBoolean("Lined Up to Gear: ", findGear.isLinedUp());
+		//SmartDashboard.putBoolean("Lined Up to Boiler: ", findBoiler.isLinedUp());
 		SmartDashboard.putString("Vision: ", vision.tempDouble());
 	}
 
