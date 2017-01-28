@@ -56,10 +56,10 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		chooser = new SendableChooser<>();
 		autonomousCommand = new ExampleCommand();
-		//vision = new VisionProcessor(0);
+		vision = new VisionProcessor(0);
+		visionSub = new VisionSubsystem();
 		findGear = new FindGearTargetCommand();
 		findBoiler = new FindBoilerTargetCommand();
-		visionSub = new VisionSubsystem();
 
 		chooser.addDefault("Do nothing", new AutoStopCommand());
 		chooser.addObject("Straight Foward", new AutoStraightCommandGroup());
