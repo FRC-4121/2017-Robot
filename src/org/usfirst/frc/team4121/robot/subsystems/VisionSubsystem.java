@@ -59,4 +59,12 @@ public class VisionSubsystem extends Subsystem {
 
 		}
 	}
+	
+	public VisionProcessor getGearProcessor() {
+		return gearCamera;
+	}
+	
+	public VisionProcessor getShooterProcessor() {
+		return shooterCamera;
+	}
 }

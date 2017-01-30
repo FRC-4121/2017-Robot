@@ -1,13 +1,6 @@
 package org.usfirst.frc.team4121.robot;
 
-import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import org.opencv.core.Mat;
 import org.usfirst.frc.team4121.robot.commands.AutoStopCommand;
 import org.usfirst.frc.team4121.robot.commands.AutoStraightCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.AutoTurnLeftCommandGroup;
@@ -20,6 +13,15 @@ import org.usfirst.frc.team4121.robot.subsystems.ClimberSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.ShifterSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.VisionSubsystem;
+
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -53,14 +55,14 @@ public class Robot extends IterativeRobot {
 		driveTrain = new DriveTrainSubsystem();
 		shifter = new ShifterSubsystem();
 		climber = new ClimberSubsystem();
-		oi = new OI();
 		chooser = new SendableChooser<>();
 		autonomousCommand = new ExampleCommand();
 		vision = new VisionProcessor(0);
 		visionSub = new VisionSubsystem();
 		findGear = new FindGearTargetCommand();
 		findBoiler = new FindBoilerTargetCommand();
-
+		oi = new OI();
+		
 		chooser.addDefault("Do nothing", new AutoStopCommand());
 		chooser.addObject("Straight Foward", new AutoStraightCommandGroup());
 		chooser.addObject("Turn Left", new AutoTurnLeftCommandGroup());
@@ -70,10 +72,11 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putString("Vision: ", vision.tempDouble());
 		
 		CameraServer shooterServer = CameraServer.getInstance();
-		shooterServer.startAutomaticCapture("cam0", 0);
+		shooterServer.startAutomaticCapture("cam0", 1);
 		
 		CameraServer gearServer = CameraServer.getInstance();
-		gearServer.startAutomaticCapture("cam1", 1);
+		gearServer.startAutomaticCapture("cam1", 0);
+		
 	}
 
 	/**
