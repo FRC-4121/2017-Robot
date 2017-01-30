@@ -36,11 +36,11 @@ public class Robot extends IterativeRobot {
 	public static DriveTrainSubsystem driveTrain;
 	public static ShifterSubsystem shifter;
 	public static ClimberSubsystem climber;
-	public static OI oi;
 	public static VisionProcessor vision;
 	public static FindGearTargetCommand findGear;
 	public static FindBoilerTargetCommand findBoiler;
 	public static VisionSubsystem visionSub;
+	public static OI oi;
 
 	private SendableChooser<Command> chooser;
 
@@ -61,8 +61,17 @@ public class Robot extends IterativeRobot {
 		visionSub = new VisionSubsystem();
 		findGear = new FindGearTargetCommand();
 		findBoiler = new FindBoilerTargetCommand();
+<<<<<<< HEAD
 		oi = new OI();
 		
+=======
+<<<<<<< HEAD
+		visionSub = new VisionSubsystem();
+		oi = new OI();
+=======
+>>>>>>> origin/Ben-Sylvia
+
+>>>>>>> origin/Ben-Sylvia
 		chooser.addDefault("Do nothing", new AutoStopCommand());
 		chooser.addObject("Straight Foward", new AutoStraightCommandGroup());
 		chooser.addObject("Turn Left", new AutoTurnLeftCommandGroup());
