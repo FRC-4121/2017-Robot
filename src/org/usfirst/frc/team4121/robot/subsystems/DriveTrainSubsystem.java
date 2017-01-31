@@ -55,6 +55,16 @@ public class DriveTrainSubsystem extends Subsystem {
 		drive.tankDrive(leftMotor, rightMotor);
 		driveSlave.tankDrive(leftMotor, rightMotor);
 	}
+	public void newAutoDrive(double leftMotor, double rightMotor) {
+		drive.setSafetyEnabled(false);
+		driveSlave.setSafetyEnabled(false);
+		
+		drive.setMaxOutput(1.0);
+		driveSlave.setMaxOutput(1.0);
+		
+		drive.tankDrive(leftMotor, rightMotor);
+		driveSlave.tankDrive(leftMotor, rightMotor);
+	}
 	
 	//A method that stops all motors
 	public void autoStop() {

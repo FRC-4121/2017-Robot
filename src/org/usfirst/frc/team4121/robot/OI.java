@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4121.robot;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -22,10 +23,17 @@ public class OI {
 	
 	//Initializations
 	static Joystick leftJoy, rightJoy;
+	static Encoder LeftEncoder, RightEncoder;
 	Button shoot, feed, climb, shiftUp, shiftDown, gear, boiler, switchControls;
 	
 	public OI() {
 	
+		//Encoders
+		Encoder LeftEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);//change last thing later too
+		LeftEncoder.setDistancePerPulse(15);//change later after calculating diameter
+		Encoder RightEncoder= new Encoder(2,3, false, Encoder.EncodingType.k4X);//change last thing later too
+		RightEncoder.setDistancePerPulse(15);//change later after calculating diameter
+		
 		//Joysticks
 		leftJoy = new Joystick(0);
 		rightJoy = new Joystick(1);
@@ -51,6 +59,14 @@ public class OI {
 		switchControls.whenPressed(new SwitchControlsCommand());
 		
 	}
+	public Encoder getLeftEncoder()
+	{
+		return LeftEncoder;
+	}
+	public Encoder getRightEncoder()
+	{
+		return RightEncoder;
+	}
 	
 	public Joystick getLeftJoy() {
 		return leftJoy;
@@ -59,4 +75,5 @@ public class OI {
 	public Joystick getRightJoy() {
 		return rightJoy;
 	}
+	
 }
