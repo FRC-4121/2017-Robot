@@ -12,6 +12,10 @@ public class AutoStraightGearCommandGroup extends CommandGroup {
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
         // these will run in order.
+    	addSequential(new AutoDrive(11, -1)); //
+    	addSequential(new FindGearTargetCommand());
+    	addSequential(new AutoDrive(5,-1)); 
+    	addSequential(new PlaceGearCommand()); //possibly use some sort of touch sensor here
 
         // To run multiple commands at the same time,
         // use addParallel()
