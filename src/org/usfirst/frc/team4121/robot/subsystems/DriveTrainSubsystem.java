@@ -41,8 +41,8 @@ public class DriveTrainSubsystem extends Subsystem {
 	
 	//Drive method that creates two tank drives with the left and right joysticks
 	public void drive() {
-		drive.tankDrive(Robot.oi.getLeftJoy(), Robot.oi.getRightJoy());
-		driveSlave.tankDrive(Robot.oi.getLeftJoy(), Robot.oi.getRightJoy());
+		drive.tankDrive(Robot.oi.leftJoy, Robot.oi.rightJoy);
+		driveSlave.tankDrive(Robot.oi.leftJoy, Robot.oi.rightJoy);
 	}
 	
 	//Auto drive that inputs two doubles for the speeds of the motors
@@ -64,7 +64,7 @@ public class DriveTrainSubsystem extends Subsystem {
 	}
 	
 	public void switchControls() {
-		drive.tankDrive(Robot.oi.getRightJoy(), Robot.oi.getLeftJoy());
-		driveSlave.tankDrive(Robot.oi.getRightJoy(), Robot.oi.getLeftJoy());
+		drive.tankDrive(Robot.oi.rightJoy, Robot.oi.leftJoy);
+		driveSlave.tankDrive(Robot.oi.rightJoy, Robot.oi.leftJoy);
 	}
 }
