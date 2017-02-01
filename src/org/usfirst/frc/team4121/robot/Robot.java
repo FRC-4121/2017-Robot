@@ -2,7 +2,7 @@ package org.usfirst.frc.team4121.robot;
 
 import org.opencv.core.Mat;
 import org.usfirst.frc.team4121.robot.commands.AutoStopCommand;
-import org.usfirst.frc.team4121.robot.commands.AutoStraightCommandGroup;
+import org.usfirst.frc.team4121.robot.commands.AutoDriveStraightCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.AutoTurnLeftCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.AutoTurnRightCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.ExampleCommand;
@@ -72,11 +72,11 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putString("Vision: ", vision.tempDouble());
 		
-		CameraServer shooterServer = CameraServer.getInstance();
+		/*CameraServer shooterServer = CameraServer.getInstance();
 		shooterServer.startAutomaticCapture("cam0", 1);
 		
 		CameraServer gearServer = CameraServer.getInstance();
-		gearServer.startAutomaticCapture("cam1", 0);
+		gearServer.startAutomaticCapture("cam1", 0);*/
 		
 	}
 
