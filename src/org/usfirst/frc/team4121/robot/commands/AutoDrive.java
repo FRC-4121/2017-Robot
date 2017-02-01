@@ -1,7 +1,7 @@
 package org.usfirst.frc.team4121.robot.commands;
 
-import org.usfirst.frc.team4121.robot.OI;
 import org.usfirst.frc.team4121.robot.Robot;
+import org.usfirst.frc.team4121.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -10,11 +10,12 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class AutoDrive extends Command {
 	double distance;
-    public AutoDrive(double d) {
-    	distance = d;
+	double direction; //-1 for reverse +1 for forward (reverse is for gear forward is for shooting)
+	
+    public AutoDrive(double dis, double dir) { //add to smartdashboard
+    	distance = dis;
+    	direction = dir;
     	requires(Robot.driveTrain);
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
@@ -23,13 +24,13 @@ public class AutoDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.newAutoDrive(.5, .5);
+    	Robot.driveTrain.autoDrive(direction*RobotMap.DRIVE_SPEED, direction*RobotMap.DRIVE_SPEED);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	boolean thereYet = false;
-    	if (distance <= Robot.oi.getLeftEncoder().getDistance())
+    	if (distance <= ((Robot.oi.LeftEncoder.getDistance()+Robot.oi.RightEncoder.getDistance())/2.0))
     	{
     		thereYet = true;//can change is encoder counts down not up
     	}
@@ -43,9 +44,9 @@ public class AutoDrive extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.driveTrain.autoStop();
-    	Robot.oi.getLeftEncoder().reset();
-    
+    	Robot.driveTrain.autoStop(); //maybe don't need depends on robot
+    	Robot.oi.LeftEncoder.reset();
+    	Robot.oi.RightEncoder.reset();
     }
 
     // Called when another command which requires one or more of the same

@@ -65,9 +65,9 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		
 		chooser.addDefault("Do nothing", new AutoStopCommand());
-		chooser.addObject("Straight Foward", new AutoStraightCommandGroup());
-		chooser.addObject("Turn Left", new AutoTurnLeftCommandGroup());
-		chooser.addObject("Turn Right", new AutoTurnRightCommandGroup());
+		//chooser.addObject("Straight Foward", new AutoStraightCommandGroup());
+		//chooser.addObject("Turn Left", new AutoTurnLeftCommandGroup());
+		//chooser.addObject("Turn Right", new AutoTurnRightCommandGroup());
 
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putString("Vision: ", vision.tempDouble());

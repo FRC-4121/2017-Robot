@@ -4,6 +4,8 @@ import org.usfirst.frc.team4121.robot.Robot;
 import org.usfirst.frc.team4121.robot.RobotMap;
 import org.usfirst.frc.team4121.robot.commands.DriveWithJoysticksCommand;
 
+import com.ctre.CANTalon;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -27,8 +29,6 @@ public class DriveTrainSubsystem extends Subsystem {
 	RobotDrive drive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
 	RobotDrive driveSlave = new RobotDrive(leftMotor3, rightMotor3);
 	
-	gyroAngle= Robot.oi.getmainGyro().getAngle(); //not exactly sure if we need this, just trying to setup gyro
-	
 	//Initializing both joysticks
 	Joystick left = new Joystick(0);
 	Joystick right = new Joystick(1);
@@ -46,17 +46,7 @@ public class DriveTrainSubsystem extends Subsystem {
 	}
 	
 	//Auto drive that inputs two doubles for the speeds of the motors
-	public void autoDriveStraight(double leftMotor, double rightMotor) {
-		drive.setSafetyEnabled(false);
-		driveSlave.setSafetyEnabled(false);
-		
-		drive.setMaxOutput(1.0);
-		driveSlave.setMaxOutput(1.0);
-		
-		drive.tankDrive(leftMotor, rightMotor);
-		driveSlave.tankDrive(leftMotor, rightMotor);
-	}
-	public void newAutoDrive(double leftMotor, double rightMotor) {
+	public void autoDrive(double leftMotor, double rightMotor) {
 		drive.setSafetyEnabled(false);
 		driveSlave.setSafetyEnabled(false);
 		

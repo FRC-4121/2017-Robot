@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 /**
  *
  */
-public class AutoTurnRightCommandGroup extends CommandGroup {
+public class AutoDriveStraightCommandGroup extends CommandGroup {
 
-    public AutoTurnRightCommandGroup() {
+    public AutoDriveStraightCommandGroup() {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -24,5 +24,19 @@ public class AutoTurnRightCommandGroup extends CommandGroup {
         // e.g. if Command1 requires chassis, and Command2 requires arm,
         // a CommandGroup containing them would require both the chassis and the
         // arm.
+    	
+    	
+    	//MATH//MATH//MATH//MATH
+    	
+    	//MATH//MATH
+    	
+    	//MATH
+    	//MATH//MATH
+    	//MATH//MATH
+    	//MATH//MATH
+    	//MATH//MATH//MATH
+    	
+    	//MATH
+    	//MATH
     }
 }

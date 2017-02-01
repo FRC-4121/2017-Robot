@@ -24,9 +24,9 @@ import org.usfirst.frc.team4121.robot.commands.SwitchControlsCommand;
 public class OI {
 	
 	//Initializations
-	static Joystick leftJoy, rightJoy;
-	static Encoder LeftEncoder, RightEncoder;
-	static AnalogGyro MainGyro;
+	public Joystick leftJoy, rightJoy;
+	public Encoder LeftEncoder, RightEncoder;
+	public AnalogGyro MainGyro;
 	Button shoot, feed, climb, shiftUp, shiftDown, gear, boiler, switchControls;
 	
 	public OI() {
@@ -65,27 +65,4 @@ public class OI {
 		switchControls.whenPressed(new SwitchControlsCommand());
 		
 	}
-	
-	public AnalogGyro getmainGyro()
-	{
-		return MainGyro;
-	}
-
-	public Encoder getLeftEncoder()
-	{
-		return LeftEncoder;
-	}
-	public Encoder getRightEncoder()
-	{
-		return RightEncoder;
-	}
-	
-	public Joystick getLeftJoy() {
-		return leftJoy;
-	}
-	
-	public Joystick getRightJoy() {
-		return rightJoy;
-	}
-	
 }

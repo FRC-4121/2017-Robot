@@ -18,5 +18,7 @@ public class RobotMap {
 	public static final int RIGHT_MOTOR_2 = 4;
 	public static final int RIGHT_MOTOR_3 = 5;
 	
+	public static final double DRIVE_SPEED = 1.0;
+	
 	public static final int COMPRESSOR = 0;
 }
