@@ -27,9 +27,9 @@ public class VisionSubsystem extends Subsystem {
 			visionArray = shooterCamera.update(); // fix this to macth Matt's code
 
 			if (visionArray[0] < -tolerance) {
-				Robot.driveTrain.autoDriveStraight(-.1, .1);
+				Robot.driveTrain.autoDrive(-.1, .1);
 			} else if (visionArray[1] > tolerance) {
-				Robot.driveTrain.autoDriveStraight(.1, -.1);
+				Robot.driveTrain.autoDrive(.1, -.1);
 			} else // if within accepted tolerance wil exit loop
 			{
 				boilerTargetCentered = true;
@@ -46,9 +46,9 @@ public class VisionSubsystem extends Subsystem {
 			visionArray = gearCamera.update(); // fix this to macth Matt's code
 
 			if (visionArray[1] == -1) {
-				Robot.driveTrain.autoDriveStraight(.1, -.1);
+				Robot.driveTrain.autoDrive(.1, -.1);
 			} else if (visionArray[1] == 1) {
-				Robot.driveTrain.autoDriveStraight(-.1, .1);
+				Robot.driveTrain.autoDrive(-.1, .1);
 			} else if (visionArray[1] == -5) // accounts for errors, calculated
 												// in Matt's program
 			{
