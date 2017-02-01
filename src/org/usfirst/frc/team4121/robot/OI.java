@@ -1,9 +1,11 @@
 package org.usfirst.frc.team4121.robot;
 
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+
 
 import org.usfirst.frc.team4121.robot.commands.ClimbCommand;
 import org.usfirst.frc.team4121.robot.commands.FeedCommand;
@@ -24,15 +26,19 @@ public class OI {
 	//Initializations
 	static Joystick leftJoy, rightJoy;
 	static Encoder LeftEncoder, RightEncoder;
+	static AnalogGyro MainGyro;
 	Button shoot, feed, climb, shiftUp, shiftDown, gear, boiler, switchControls;
 	
 	public OI() {
 	
 		//Encoders
-		Encoder LeftEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);//change last thing later too
+		LeftEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);//change last thing later too
 		LeftEncoder.setDistancePerPulse(15);//change later after calculating diameter
-		Encoder RightEncoder= new Encoder(2,3, false, Encoder.EncodingType.k4X);//change last thing later too
+		RightEncoder= new Encoder(2,3, false, Encoder.EncodingType.k4X);//change last thing later too
 		RightEncoder.setDistancePerPulse(15);//change later after calculating diameter
+		
+		//gyro
+		MainGyro = new AnalogGyro(0);
 		
 		//Joysticks
 		leftJoy = new Joystick(0);
@@ -59,6 +65,12 @@ public class OI {
 		switchControls.whenPressed(new SwitchControlsCommand());
 		
 	}
+	
+	public AnalogGyro getmainGyro()
+	{
+		return MainGyro;
+	}
+
 	public Encoder getLeftEncoder()
 	{
 		return LeftEncoder;

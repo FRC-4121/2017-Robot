@@ -1,7 +1,5 @@
 package org.usfirst.frc.team4121.robot.subsystems;
 
-import com.ctre.CANTalon;
-
 import org.usfirst.frc.team4121.robot.Robot;
 import org.usfirst.frc.team4121.robot.RobotMap;
 import org.usfirst.frc.team4121.robot.commands.DriveWithJoysticksCommand;
@@ -10,14 +8,14 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-/**
+/**         
  *	DriveTrain subsystem	
- *	
+ *	                                                                    
  *	@author Ben Hayden
  */
 public class DriveTrainSubsystem extends Subsystem {
 	
-	//Initializing all Talons using CAN
+	//Initializing all Talons using CAN                                                
 	CANTalon leftMotor1 = new CANTalon(RobotMap.LEFT_MOTOR_1);
 	CANTalon leftMotor2 = new CANTalon(RobotMap.LEFT_MOTOR_2);
 	CANTalon leftMotor3 = new CANTalon(RobotMap.LEFT_MOTOR_3);
@@ -29,9 +27,12 @@ public class DriveTrainSubsystem extends Subsystem {
 	RobotDrive drive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
 	RobotDrive driveSlave = new RobotDrive(leftMotor3, rightMotor3);
 	
+	gyroAngle= Robot.oi.getmainGyro().getAngle(); //not exactly sure if we need this, just trying to setup gyro
+	
 	//Initializing both joysticks
 	Joystick left = new Joystick(0);
 	Joystick right = new Joystick(1);
+	
 	
 	//Setting the default command to DriveWithJoysticksCommands
 	public void initDefaultCommand() {
