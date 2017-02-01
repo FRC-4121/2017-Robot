@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class AutoDrive extends Command {
 	double distance;
-	double direction; //-1 for reverse +1 for forward (reverse is for gear forward is for shooting)
+	double direction; //-1=Reverse, +1=Forward(reverse is for gear forward is for shooting)
 	
     public AutoDrive(double dis, double dir) { //add to smartdashboard
     	distance = dis;
