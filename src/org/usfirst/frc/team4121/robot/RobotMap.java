@@ -16,11 +16,11 @@ public class RobotMap {
 	public static final int RIGHT_MOTOR_2 = 4;
 	public static final int RIGHT_MOTOR_3 = 5;
 	
-	public static final int CLIMBER = 100;
+	public static final int CLIMBER = 6;
 	
-	public static final int FEEDER = 100;
+	public static final int FEEDER = 7;
 	
-	public static final int SHOOTER = 100;
+	public static final int SHOOTER = 8;
 	
 	public static final double DRIVE_SPEED = 1.0;
 	

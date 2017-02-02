@@ -43,6 +43,12 @@ public class DriveTrainSubsystem extends Subsystem {
 	public void drive() {
 		drive.tankDrive(Robot.oi.leftJoy, Robot.oi.rightJoy);
 		driveSlave.tankDrive(Robot.oi.leftJoy, Robot.oi.rightJoy);
+		
+		drive.setSafetyEnabled(false);
+		driveSlave.setSafetyEnabled(false);
+		
+		drive.setMaxOutput(0.8);
+		driveSlave.setMaxOutput(0.8);
 	}
 	
 	//Auto drive that inputs two doubles for the speeds of the motors
@@ -66,5 +72,11 @@ public class DriveTrainSubsystem extends Subsystem {
 	public void switchControls() {
 		drive.tankDrive(Robot.oi.rightJoy, Robot.oi.leftJoy);
 		driveSlave.tankDrive(Robot.oi.rightJoy, Robot.oi.leftJoy);
+		
+		drive.setSafetyEnabled(false);
+		driveSlave.setSafetyEnabled(false);
+		
+		drive.setMaxOutput(0.8);
+		driveSlave.setMaxOutput(0.8);
 	}
 }
