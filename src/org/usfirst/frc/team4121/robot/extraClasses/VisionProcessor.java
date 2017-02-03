@@ -67,6 +67,7 @@ public class VisionProcessor {
 	
 	//reads image, processes it, calculates result(s) and returns in a double[] array
 	public double [] update() {
+		camera.set(9, 2);
 		camera.read(sourceImg);
 		if(!sourceImg.empty()) {
 			vsubsystem.process(sourceImg);
