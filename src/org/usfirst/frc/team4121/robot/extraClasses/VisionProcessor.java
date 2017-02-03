@@ -148,7 +148,9 @@ public class VisionProcessor {
 	
 	//the value that is sent to the SmartDashboard
 	public String tempDouble() {
-		Double sentDouble = new Double(returnedValue);
-		return sentDouble.toString();
+		
+		sourceImg.
+		
+		Mat
 	}
 }
