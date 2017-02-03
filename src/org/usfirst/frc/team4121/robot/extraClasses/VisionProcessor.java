@@ -6,17 +6,17 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
-import org.opencv.videoio.VideoCapture;
 
 import edu.wpi.cscore.CameraServerJNI;
 import edu.wpi.cscore.CvSink;
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.cscore.VideoSource;
 import edu.wpi.first.wpilibj.CameraServer;
 
 public class VisionProcessor {
 	private int IPAddress;
 	private double returnedValue;
-	private VideoCapture camera; 
+	//private VideoCapture camera; 
 	private VideoSource source;
 	private CameraServerJNI server;
 	private VisionRead vsubsystem;
@@ -25,6 +25,7 @@ public class VisionProcessor {
 	private Mat sourceImg = new Mat();
 	private double isFacing = 0;
 	private CvSink cvSink = CameraServer.getInstance().getVideo();
+	UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 
 	public VisionProcessor(int ip) {
 		IPAddress = ip;
@@ -32,14 +33,14 @@ public class VisionProcessor {
 	}
 	
 	//used to grab camera feed if necessary
-	public VideoCapture getCamera() {
-		return camera;
-	}
+	/*/public VideoCapture getCamera() {
+		//return camera;
+	}*/
 
 	
 	private void initializeCamera() {
 		
-		camera = new VideoCapture(IPAddress);
+		//camera = new VideoCapture(IPAddress);
 	}
 
 	//private method that reads from a Mat and finds the closest point from the left of the image
