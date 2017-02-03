@@ -64,13 +64,13 @@ public class OI {
 		boiler.whenPressed(new FindBoilerTargetCommand());
 		switchControls.whenPressed(new SwitchControlsCommand());
 		
-		public Joystick getLeftJoy() {
+		/*public Joystick getLeftJoy() {
 			return leftJoy;
 		}
 		
 		public Joystick getRightJoy() {
 			return rightJoy;
-		}
+		}*/
 		
 	}
 }
