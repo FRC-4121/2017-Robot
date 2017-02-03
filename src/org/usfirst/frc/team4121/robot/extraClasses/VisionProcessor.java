@@ -9,7 +9,9 @@ import org.opencv.core.Rect;
 import org.opencv.videoio.VideoCapture;
 
 import edu.wpi.cscore.CameraServerJNI;
+import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.VideoSource;
+import edu.wpi.first.wpilibj.CameraServer;
 
 public class VisionProcessor {
 	private int IPAddress;
@@ -22,6 +24,7 @@ public class VisionProcessor {
 	private Point centerOfImage;
 	private Mat sourceImg = new Mat();
 	private double isFacing = 0;
+	private CvSink cvSink = CameraServer.getInstance().getVideo();
 
 	public VisionProcessor(int ip) {
 		IPAddress = ip;
@@ -67,8 +70,7 @@ public class VisionProcessor {
 	
 	//reads image, processes it, calculates result(s) and returns in a double[] array
 	public double [] update() {
-		camera.set(9, 2);
-		camera.read(sourceImg);
+		cvSink.grabFrame(sourceImg);
 		if(!sourceImg.empty()) {
 			vsubsystem.process(sourceImg);
 		}
