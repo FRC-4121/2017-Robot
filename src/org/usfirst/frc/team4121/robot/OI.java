@@ -27,7 +27,7 @@ public class OI {
 	public Joystick leftJoy, rightJoy;
 	public Encoder LeftEncoder, RightEncoder;
 	public AnalogGyro MainGyro;
-	Button shoot, feed, climb, shiftUp, shiftDown, gear, boiler, switchControls;
+	Button shoot, feed, climb, shiftUp, shiftDown, gear, boiler;
 	
 	public OI() {
 	
@@ -52,7 +52,6 @@ public class OI {
 		shiftDown = new JoystickButton(leftJoy, 4);
 		gear = new JoystickButton(leftJoy, 2);
 		boiler = new JoystickButton(rightJoy, 2);
-		switchControls = new JoystickButton(rightJoy, 6);
 		
 		//Commands
 		shoot.whileHeld(new ShootCommand());
@@ -62,7 +61,6 @@ public class OI {
 		shiftDown.whenActive(new ShiftDownCommand());
 		gear.whenPressed(new FindGearTargetCommand());
 		boiler.whenPressed(new FindBoilerTargetCommand());
-		switchControls.whenPressed(new SwitchControlsCommand());
 		
 		/*public Joystick getLeftJoy() {
 			return leftJoy;
