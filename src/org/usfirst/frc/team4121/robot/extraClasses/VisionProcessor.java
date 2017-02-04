@@ -7,41 +7,17 @@ import org.opencv.core.MatOfPoint;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
 
-import edu.wpi.cscore.CameraServerJNI;
-import edu.wpi.cscore.CvSink;
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.cscore.VideoSource;
-import edu.wpi.first.wpilibj.CameraServer;
-
 public class VisionProcessor {
-	private int IPAddress;
 	private double returnedValue;
-	//private VideoCapture camera; 
-	private VideoSource source;
-	private CameraServerJNI server;
 	private VisionRead vsubsystem;
 	private ArrayList<MatOfPoint> foundContours;
 	private Point centerOfImage;
 	private Mat sourceImg = new Mat();
 	private double isFacing = 0;
-	private CvSink cvSink = CameraServer.getInstance().getVideo();
-	UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
 
-	public VisionProcessor(int ip) {
-		IPAddress = ip;
-		//initializeCamera();
+	public VisionProcessor(Mat img) {
+		sourceImg = img;
 	}
-	
-	//used to grab camera feed if necessary
-	/*/public VideoCapture getCamera() {
-		//return camera;
-	}*/
-
-	
-	/*private void initializeCamera() {
-		
-		//camera = new VideoCapture(IPAddress);
-	}*/
 
 	//private method that reads from a Mat and finds the closest point from the left of the image
 	private Point calcClosestPoint(MatOfPoint a) {
@@ -71,7 +47,6 @@ public class VisionProcessor {
 	
 	//reads image, processes it, calculates result(s) and returns in a double[] array
 	public double [] update() {
-		cvSink.grabFrame(sourceImg);
 		if(!sourceImg.empty()) {
 			vsubsystem.process(sourceImg);
 		}
