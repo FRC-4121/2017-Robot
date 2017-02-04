@@ -29,7 +29,7 @@ public class VisionProcessor {
 
 	public VisionProcessor(int ip) {
 		IPAddress = ip;
-		initializeCamera();
+		//initializeCamera();
 	}
 	
 	//used to grab camera feed if necessary
@@ -38,10 +38,10 @@ public class VisionProcessor {
 	}*/
 
 	
-	private void initializeCamera() {
+	/*private void initializeCamera() {
 		
 		//camera = new VideoCapture(IPAddress);
-	}
+	}*/
 
 	//private method that reads from a Mat and finds the closest point from the left of the image
 	private Point calcClosestPoint(MatOfPoint a) {
