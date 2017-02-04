@@ -1,70 +1,75 @@
 package org.usfirst.frc.team4121.robot.subsystems;
 
 import org.usfirst.frc.team4121.robot.Robot;
-import org.usfirst.frc.team4121.robot.extraClasses.VisionProcessor;
+import org.usfirst.frc.team4121.robot.extraClasses.VisionThreadBoiler;
+import org.usfirst.frc.team4121.robot.extraClasses.VisionThreadGear;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * Vision Subsystem
  * 
- * @author Matt Dray
+ * @author Ben Hayden
  */
 public class VisionSubsystem extends Subsystem {
-
-	private VisionProcessor shooterCamera = new VisionProcessor(0);
-	private VisionProcessor gearCamera = new VisionProcessor(1);
-
+	
+	double visionArrayZero;
+	double visionArrayOne;
+	
 	public void initDefaultCommand() {
 	}
 
 	public void findBoiler() {
-		double[] visionArray;
-		double tolerance = 10; // adjust later depending on testing, our
-								// accepted values, in units of screen pixels
+		double tolerance = 10.0;
+		synchronized(Robot.imgLock) {
+			visionArrayZero=Robot.visionArray[0];
+			visionArrayOne=Robot.visionArray[1];
+		}
 		boolean boilerTargetCentered = false;
 		while (!boilerTargetCentered) {
-			visionArray = shooterCamera.update(); // fix this to macth Matt's code
-
-			if (visionArray[0] < -tolerance) {
+			if (visionArrayZero < -tolerance) {
 				Robot.driveTrain.autoDrive(-.1, .1);
-			} else if (visionArray[1] > tolerance) {
+			}
+			else if (visionArrayOne > tolerance) {
 				Robot.driveTrain.autoDrive(.1, -.1);
-			} else // if within accepted tolerance wil exit loop
-			{
+			}
+			else{
 				boilerTargetCentered = true;
 			}
-
 		}
 	}
 
 	public void findGear() {
-		double[] visionArray;
-
 		boolean gearTargetCentered = false;
+		synchronized(Robot.imgLock) {
+			visionArrayOne=Robot.visionArray[1];
+		}
 		while (!gearTargetCentered) {
-			visionArray = gearCamera.update(); // fix this to macth Matt's code
-
-			if (visionArray[1] == -1) {
+			if (visionArrayOne == -1.0) {
 				Robot.driveTrain.autoDrive(.1, -.1);
-			} else if (visionArray[1] == 1) {
+			}
+			else if (visionArrayOne == 1.0) {
 				Robot.driveTrain.autoDrive(-.1, .1);
-			} else if (visionArray[1] == -5) // accounts for errors, calculated
-												// in Matt's program
-			{
-				gearTargetCentered = true;
-			} else {
+			}
+			else if (visionArrayOne == -5.0) {
 				gearTargetCentered = true;
 			}
-
+			else {
+				gearTargetCentered = true;
+			}
 		}
 	}
 	
-	public VisionProcessor getGearProcessor() {
-		return gearCamera;
-	}
-	
-	public VisionProcessor getShooterProcessor() {
-		return shooterCamera;
+	public void switchCameras() {
+		if(VisionThreadBoiler.visionThread.isAlive()) {
+			Robot.runBoilerThread=false;
+			Robot.runGearThread=true;
+			VisionThreadGear.startGearThread();
+		}
+		else if(VisionThreadGear.visionThread.isAlive()) {
+			Robot.runGearThread=false;
+			Robot.runBoilerThread=true;
+			VisionThreadBoiler.startBoilerThread();
+		}
 	}
 }

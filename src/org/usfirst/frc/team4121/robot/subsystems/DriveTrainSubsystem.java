@@ -70,8 +70,8 @@ public class DriveTrainSubsystem extends Subsystem {
 	}
 	
 	public void switchControls() {
-		drive.tankDrive(Robot.oi.rightJoy, Robot.oi.leftJoy);
-		driveSlave.tankDrive(Robot.oi.rightJoy, Robot.oi.leftJoy);
+		drive.tankDrive(Robot.oi.leftJoy, Robot.oi.leftJoy);
+		driveSlave.tankDrive(Robot.oi.leftJoy, Robot.oi.rightJoy);
 		
 		drive.setSafetyEnabled(false);
 		driveSlave.setSafetyEnabled(false);
@@ -80,3 +80,4 @@ public class DriveTrainSubsystem extends Subsystem {
 		driveSlave.setMaxOutput(0.8);
 	}
 }
+

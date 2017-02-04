@@ -1,6 +1,5 @@
 package org.usfirst.frc.team4121.robot;
 
-import org.opencv.core.Mat;
 import org.usfirst.frc.team4121.robot.commands.AutoStopCommand;
 import org.usfirst.frc.team4121.robot.commands.AutoDriveStraightCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.AutoTurnLeftCommandGroup;
@@ -9,13 +8,12 @@ import org.usfirst.frc.team4121.robot.commands.ExampleCommand;
 import org.usfirst.frc.team4121.robot.commands.FindBoilerTargetCommand;
 import org.usfirst.frc.team4121.robot.commands.FindGearTargetCommand;
 import org.usfirst.frc.team4121.robot.extraClasses.VisionProcessor;
+import org.usfirst.frc.team4121.robot.extraClasses.VisionThreadBoiler;
+import org.usfirst.frc.team4121.robot.extraClasses.VisionThreadGear;
 import org.usfirst.frc.team4121.robot.subsystems.ClimberSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.ShifterSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.VisionSubsystem;
-
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -41,6 +39,12 @@ public class Robot extends IterativeRobot {
 	public static FindBoilerTargetCommand findBoiler;
 	public static VisionSubsystem visionSub;
 	public static OI oi;
+	public static VisionThreadBoiler visionThreadBoiler;
+	public static VisionThreadGear visionThreadGear;
+	public static double[] visionArray;
+	public static Object imgLock;
+	public static boolean runGearThread=true;
+	public static boolean runBoilerThread=true;
 
 	private SendableChooser<Command> chooser;
 
@@ -57,27 +61,21 @@ public class Robot extends IterativeRobot {
 		climber = new ClimberSubsystem();
 		chooser = new SendableChooser<>();
 		autonomousCommand = new ExampleCommand();
-		vision = new VisionProcessor(0);
-		visionSub = new VisionSubsystem();
 		findGear = new FindGearTargetCommand();
 		findBoiler = new FindBoilerTargetCommand();
 		visionSub = new VisionSubsystem();
+		visionThreadBoiler = new VisionThreadBoiler();
+		visionThreadGear = new VisionThreadGear();
+		imgLock = new Object();
 		oi = new OI();
 		
 		chooser.addDefault("Do nothing", new AutoStopCommand());
-		//chooser.addObject("Straight Foward", new AutoStraightCommandGroup());
-		//chooser.addObject("Turn Left", new AutoTurnLeftCommandGroup());
-		//chooser.addObject("Turn Right", new AutoTurnRightCommandGroup());
+		chooser.addObject("Straight Foward", new AutoDriveStraightCommandGroup());
+		chooser.addObject("Turn Left", new AutoTurnLeftCommandGroup());
+		chooser.addObject("Turn Right", new AutoTurnRightCommandGroup());
 
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putString("Vision: ", vision.tempDouble());
-		
-		/*CameraServer shooterServer = CameraServer.getInstance();
-		shooterServer.startAutomaticCapture("cam0", 1);
-		
-		CameraServer gearServer = CameraServer.getInstance();
-		gearServer.startAutomaticCapture("cam1", 0);*/
-		
 	}
 
 	/**

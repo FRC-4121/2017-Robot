@@ -24,5 +24,8 @@ public class RobotMap {
 	
 	public static final double DRIVE_SPEED = 1.0;
 	
+	public static final int DIRECTION_FORWARD = 1;
+	public static final int DIRECTION_REVERSE = -1;
+	
 	public static final int COMPRESSOR = 0;
 }

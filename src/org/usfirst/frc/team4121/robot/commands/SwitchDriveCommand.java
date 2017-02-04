@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class AutoStopCommand extends Command {
-	
-    public AutoStopCommand() {
-    	requires(Robot.driveTrain);  	
+public class SwitchDriveCommand extends Command {
+
+    public SwitchDriveCommand() {
+    	requires(Robot.driveTrain);
     }
 
     // Called just before this Command runs the first time
@@ -19,12 +19,12 @@ public class AutoStopCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.autoStop();
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 
     // Called once after isFinished returns true
