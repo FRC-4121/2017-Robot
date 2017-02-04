@@ -14,7 +14,6 @@ import org.usfirst.frc.team4121.robot.commands.FindGearTargetCommand;
 import org.usfirst.frc.team4121.robot.commands.ShiftDownCommand;
 import org.usfirst.frc.team4121.robot.commands.ShiftUpCommand;
 import org.usfirst.frc.team4121.robot.commands.ShootCommand;
-import org.usfirst.frc.team4121.robot.commands.SwitchControlsCommand;
 
 /**
  * This is the main class that initializes and tells what buttons to do what.
