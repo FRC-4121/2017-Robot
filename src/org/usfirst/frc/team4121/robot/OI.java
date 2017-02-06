@@ -14,6 +14,8 @@ import org.usfirst.frc.team4121.robot.commands.FindGearTargetCommand;
 import org.usfirst.frc.team4121.robot.commands.ShiftDownCommand;
 import org.usfirst.frc.team4121.robot.commands.ShiftUpCommand;
 import org.usfirst.frc.team4121.robot.commands.ShootCommand;
+import org.usfirst.frc.team4121.robot.commands.SwitchCameraCommand;
+import org.usfirst.frc.team4121.robot.commands.SwitchDriveCommand;
 
 /**
  * This is the main class that initializes and tells what buttons to do what.
@@ -26,7 +28,7 @@ public class OI {
 	public Joystick leftJoy, rightJoy;
 	public Encoder LeftEncoder, RightEncoder;
 	public AnalogGyro MainGyro;
-	Button shoot, feed, climb, shiftUp, shiftDown, gear, boiler;
+	Button shoot, feed, climb, shiftUp, shiftDown, gear, boiler, changeCamera;
 	
 	public OI() {
 	
@@ -51,6 +53,8 @@ public class OI {
 		shiftDown = new JoystickButton(leftJoy, 4);
 		gear = new JoystickButton(leftJoy, 2);
 		boiler = new JoystickButton(rightJoy, 2);
+		changeCamera = new JoystickButton(rightJoy, 4);
+		
 		
 		//Commands
 		shoot.whileHeld(new ShootCommand());
@@ -60,6 +64,7 @@ public class OI {
 		shiftDown.whenActive(new ShiftDownCommand());
 		gear.whenPressed(new FindGearTargetCommand());
 		boiler.whenPressed(new FindBoilerTargetCommand());
+		changeCamera.whenPressed(new SwitchDriveCommand());
 		
 		/*public Joystick getLeftJoy() {
 			return leftJoy;
