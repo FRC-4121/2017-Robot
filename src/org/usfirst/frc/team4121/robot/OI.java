@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4121.robot;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -27,6 +28,7 @@ public class OI {
 	//Initializations
 	public Joystick leftJoy, rightJoy;
 	public Encoder LeftEncoder, RightEncoder;
+	public DigitalInput limitSwitch;
 	public AnalogGyro MainGyro;
 	Button shoot, feed, climb, shiftUp, shiftDown, gear, boiler, changeCamera;
 	
@@ -35,8 +37,11 @@ public class OI {
 		//Encoders
 		LeftEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);//change last thing later too
 		LeftEncoder.setDistancePerPulse(15);//change later after calculating diameter
-		RightEncoder= new Encoder(2,3, false, Encoder.EncodingType.k4X);//change last thing later too
+		RightEncoder = new Encoder(2,3, false, Encoder.EncodingType.k4X);//change last thing later too
 		RightEncoder.setDistancePerPulse(15);//change later after calculating diameter
+		
+		//limitSwitch
+		limitSwitch = new DigitalInput(1);
 		
 		//gyro
 		MainGyro = new AnalogGyro(0);
