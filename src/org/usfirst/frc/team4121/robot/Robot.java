@@ -43,9 +43,6 @@ public class Robot extends IterativeRobot {
 	public static VisionThreadGear visionThreadGear;
 	public static double[] visionArray;
 	public static Object imgLock;
-	public static boolean runGearThread=true;
-	public static boolean runBoilerThread=true;
-	public static int directionMultiplier = 1;
 
 	private SendableChooser<Command> chooser;
 

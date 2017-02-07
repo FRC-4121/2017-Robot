@@ -2,6 +2,7 @@ package org.usfirst.frc.team4121.robot.extraClasses;
 
 import org.opencv.core.Mat;
 import org.usfirst.frc.team4121.robot.Robot;
+import org.usfirst.frc.team4121.robot.RobotMap;
 
 import edu.wpi.cscore.CvSink;
 import edu.wpi.cscore.CvSource;
@@ -34,7 +35,7 @@ public class VisionThreadGear {
 		// This cannot be 'true'. The program will never exit if it is. This
 		// lets the robot stop this thread when restarting robot code or
 		// deploying.
-		while (!Robot.runGearThread) {
+		while (!RobotMap.RUN_GEAR_THREAD) { //idk if ! or not
 			// Tell the CvSink to grab a frame from the camera and put it
 			// in the source mat. If there is an error notify the output.
 			if (cvSink.grabFrame(mat) == 0) {

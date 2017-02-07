@@ -41,8 +41,8 @@ public class DriveTrainSubsystem extends Subsystem {
 	
 	//Drive method that creates two tank drives with the left and right joysticks
 	public void drive() {
-		drive.tankDrive(Robot.oi.leftJoy.getMagnitude()*Robot.directionMultiplier, Robot.oi.rightJoy.getMagnitude()*Robot.directionMultiplier);
-		driveSlave.tankDrive(Robot.oi.leftJoy.getMagnitude()*Robot.directionMultiplier, Robot.oi.rightJoy.getMagnitude()*Robot.directionMultiplier);
+		drive.tankDrive(Robot.oi.leftJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER, Robot.oi.rightJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER);
+		driveSlave.tankDrive(Robot.oi.leftJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER, Robot.oi.rightJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER);
 		
 		drive.setSafetyEnabled(false);
 		driveSlave.setSafetyEnabled(false);

@@ -24,6 +24,11 @@ public class RobotMap {
 	
 	public static final double DRIVE_SPEED = 1.0;
 	
+	public static int DIRECTION_MULTIPLIER = 1;
+	
+	public static boolean RUN_GEAR_THREAD = true;
+	public static boolean RUN_BOILER_THREAD = true;
+	
 	public static final int DIRECTION_FORWARD = 1;
 	public static final int DIRECTION_REVERSE = -1;
 	
