@@ -13,6 +13,7 @@ import org.usfirst.frc.team4121.robot.extraClasses.VisionThreadGear;
 import org.usfirst.frc.team4121.robot.subsystems.ClimberSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.ShifterSubsystem;
+import org.usfirst.frc.team4121.robot.subsystems.ShooterSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.VisionSubsystem;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -33,6 +34,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 	public static DriveTrainSubsystem driveTrain;
 	public static ShifterSubsystem shifter;
+	public static ShooterSubsystem shooter;
 	public static ClimberSubsystem climber;
 	public static VisionProcessor vision;
 	public static FindGearTargetCommand findGear;
@@ -56,6 +58,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		driveTrain = new DriveTrainSubsystem();
 		shifter = new ShifterSubsystem();
+		shooter = new ShooterSubsystem();
 		climber = new ClimberSubsystem();
 		chooser = new SendableChooser<>();
 		autonomousCommand = new ExampleCommand();
@@ -65,6 +68,7 @@ public class Robot extends IterativeRobot {
 		visionThreadBoiler = new VisionThreadBoiler();
 		visionThreadGear = new VisionThreadGear();
 		imgLock = new Object();
+		vision = new VisionProcessor();
 		oi = new OI();
 		
 		chooser.addDefault("Do nothing", new AutoStopCommand());
