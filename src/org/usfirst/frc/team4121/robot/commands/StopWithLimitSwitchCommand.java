@@ -9,8 +9,10 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class StopWithLimitSwitchCommand extends Command {
 
+	//Robots don't quit
+	
     public StopWithLimitSwitchCommand() {
-       requires(Robot.driveTrain);
+      // requires(Robot.driveTrain);
     }
 
     // Called just before this Command runs the first time
@@ -19,15 +21,17 @@ public class StopWithLimitSwitchCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	while(Robot.oi.limitSwitch.get() == false)
+    	//You can't keep a never ending loop in here
+    	
+    	/*while(Robot.oi.limitSwitch.get() == false)
     	{
     		Robot.driveTrain.autoDrive(-.4, -.4);// can chnge speeds later depending on testing
-    	}
+    	}*/
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	Robot.driveTrain.autoStop();
+    	//Robot.driveTrain.autoStop();
         return true;
     }
 
