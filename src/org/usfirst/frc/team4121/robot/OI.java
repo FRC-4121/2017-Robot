@@ -42,7 +42,7 @@ public class OI {
 		RightEncoder.setDistancePerPulse(15);//change later after calculating diameter
 		
 		//limitSwitch
-		limitSwitch = new DigitalInput(1);
+		//limitSwitch = new DigitalInput(1);      Robots don't quit
 		
 		//gyro
 		MainGyro = new AnalogGyro(0);
