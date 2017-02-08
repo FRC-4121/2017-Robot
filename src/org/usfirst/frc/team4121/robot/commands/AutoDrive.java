@@ -12,7 +12,7 @@ public class AutoDrive extends Command {
 	double distance; //Make global
 	double direction; //-1=Reverse, +1=Forward(reverse is for gear forward is for shooting)
 	
-    public AutoDrive(double dis, double dir) { //add to smartdashboard
+    public AutoDrive(double dis, double dir) { //intakes distance and direction
     	distance = dis;
     	direction = dir;
     	requires(Robot.driveTrain);
@@ -24,13 +24,13 @@ public class AutoDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.driveTrain.autoDrive(direction*RobotMap.DRIVE_SPEED, direction*RobotMap.DRIVE_SPEED);
+    	Robot.driveTrain.autoDrive(direction*RobotMap.DRIVE_SPEED, direction*RobotMap.DRIVE_SPEED);//sets direction of driving
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	boolean thereYet = false;
-    	if (distance <= ((Robot.oi.LeftEncoder.getDistance()+Robot.oi.RightEncoder.getDistance())/2.0))
+    	if (distance <= ((Robot.oi.LeftEncoder.getDistance()+Robot.oi.RightEncoder.getDistance())/2.0)) //averages the encoders
     	{
     		thereYet = true;//can change is encoder counts down not up
     	}
@@ -45,7 +45,7 @@ public class AutoDrive extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.driveTrain.autoStop(); //maybe don't need depends on robot
-    	Robot.oi.LeftEncoder.reset();
+    	Robot.oi.LeftEncoder.reset();//resets encoders
     	Robot.oi.RightEncoder.reset();
     }
 
