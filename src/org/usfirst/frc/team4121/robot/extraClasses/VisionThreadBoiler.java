@@ -11,11 +11,16 @@ import edu.wpi.first.wpilibj.CameraServer;
 
 public class VisionThreadBoiler {
 
-	public static Thread visionThread = new Thread();
+	public Thread visionThread;
 	public static Mat mat;
 	public static VisionProcessor visionPro = new VisionProcessor();
 	
 	public VisionThreadBoiler() {
+		visionThread = new Thread() {
+			public void run() {
+				liveFeedBoiler();
+			}
+		};
 	}
 
 	public void liveFeedBoiler() {
@@ -54,7 +59,7 @@ public class VisionThreadBoiler {
 		}
 	}
 	
-	public static void startBoilerThread() {
+	public void startBoilerThread() {
 		visionThread.start();
 	}
 }

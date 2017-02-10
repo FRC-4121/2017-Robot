@@ -11,14 +11,19 @@ import edu.wpi.first.wpilibj.CameraServer;
 
 public class VisionThreadGear {
 	
-	public static Thread visionThread = new Thread();
+	public Thread visionThread;
 	public static Mat mat;
 	public static VisionProcessor visionPro = new VisionProcessor();
 
 	public VisionThreadGear() {
+		visionThread = new Thread() {
+			public void run() {
+				liveFeedGear();
+			}
+		};
 	}
 
-	public void liveFeedBoiler() {
+	public void liveFeedGear() {
 		// Get the UsbCamera from CameraServer
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture("cam1", 1);
 		// Set the resolution
@@ -54,7 +59,7 @@ public class VisionThreadGear {
 		}
 	}
 	
-	public static void startGearThread() {
+	public void startGearThread() {
 		visionThread.start();
 	}
 }
