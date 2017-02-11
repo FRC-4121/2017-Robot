@@ -19,7 +19,7 @@ public class VisionThreadGear implements Runnable{
 	}
 
 	public void run() {
-		// Get the UsbCamera from CameraServer
+		/*// Get the UsbCamera from CameraServer
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture("cam1", 1);
 		// Set the resolution
 		camera.setResolution(640, 480);
@@ -35,7 +35,7 @@ public class VisionThreadGear implements Runnable{
 		// This cannot be 'true'. The program will never exit if it is. This
 		// lets the robot stop this thread when restarting robot code or
 		// deploying.
-		while (!RobotMap.RUN_GEAR_THREAD) { //idk if ! or not
+		while (!RobotMap.RUN_GEAR_THREAD) {
 			// Tell the CvSink to grab a frame from the camera and put it
 			// in the source mat. If there is an error notify the output.
 			if (cvSink.grabFrame(mat) == 0) {
@@ -51,6 +51,6 @@ public class VisionThreadGear implements Runnable{
 				Robot.visionArray = visionPro.update(mat);
 			}
 			outputStream.putFrame(mat);
-		}
+		}*/
 	}
 }

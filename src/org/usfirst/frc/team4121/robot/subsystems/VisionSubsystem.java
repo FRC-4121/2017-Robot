@@ -60,15 +60,11 @@ public class VisionSubsystem extends Subsystem {
 	}
 	
 	public void switchCameras() {
-		if(Robot.visionThreadGear.visionThread.isAlive()) {
-			RobotMap.RUN_BOILER_THREAD=false;
-			RobotMap.RUN_GEAR_THREAD=true;
-			Robot.visionThreadBoiler.run();
+		if(RobotMap.VISION_THREAD == true) {
+			RobotMap.VISION_THREAD = false;
 		}
-		else if(Robot.visionThreadBoiler.visionThread.isAlive()) {
-			RobotMap.RUN_GEAR_THREAD=false;
-			RobotMap.RUN_BOILER_THREAD=true;
-			Robot.visionThreadGear.run();
+		else {
+			RobotMap.VISION_THREAD = true;
 		}
 	}
 }

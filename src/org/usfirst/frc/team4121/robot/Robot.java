@@ -8,6 +8,7 @@ import org.usfirst.frc.team4121.robot.commands.ExampleCommand;
 import org.usfirst.frc.team4121.robot.commands.FindBoilerTargetCommand;
 import org.usfirst.frc.team4121.robot.commands.FindGearTargetCommand;
 import org.usfirst.frc.team4121.robot.extraClasses.VisionProcessor;
+import org.usfirst.frc.team4121.robot.extraClasses.MyVisionThread;
 import org.usfirst.frc.team4121.robot.extraClasses.VisionThreadBoiler;
 import org.usfirst.frc.team4121.robot.extraClasses.VisionThreadGear;
 import org.usfirst.frc.team4121.robot.subsystems.ClimberSubsystem;
@@ -15,6 +16,9 @@ import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.ShifterSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.ShooterSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.VisionSubsystem;
+
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -41,11 +45,16 @@ public class Robot extends IterativeRobot {
 	public static FindBoilerTargetCommand findBoiler;
 	public static VisionSubsystem visionSub;
 	public static OI oi;
-	public static VisionThreadBoiler visionThreadBoiler;
-	public static VisionThreadGear visionThreadGear;
+	//public static VisionThreadBoiler visionThreadBoiler;
+	//public static VisionThreadGear visionThreadGear;
 	public static double[] visionArray;
 	public static Object imgLock;
-
+	public static UsbCamera gearCam;
+	public static UsbCamera boilerCam;
+	public static MyVisionThread visionThread;
+	public static CameraServer camServer;
+	public Thread myThread;
+	
 	private SendableChooser<Command> chooser;
 
 	Command autonomousCommand;
@@ -65,11 +74,14 @@ public class Robot extends IterativeRobot {
 		findGear = new FindGearTargetCommand();
 		findBoiler = new FindBoilerTargetCommand();
 		visionSub = new VisionSubsystem();
-		visionThreadBoiler = new VisionThreadBoiler();
-		visionThreadGear = new VisionThreadGear();
+		//visionThreadBoiler = new VisionThreadBoiler();
+		//visionThreadGear = new VisionThreadGear();
 		imgLock = new Object();
 		vision = new VisionProcessor();
 		oi = new OI();
+		camServer = CameraServer.getInstance();
+		visionThread = new MyVisionThread();
+		myThread = new Thread(visionThread);
 		
 		chooser.addDefault("Do nothing", new AutoStopCommand());
 		chooser.addObject("Straight Foward", new AutoDriveStraightCommandGroup());
@@ -78,6 +90,9 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putString("Vision: ", vision.tempDouble());
+		
+		myThread.setDaemon(true);
+		myThread.start();
 	}
 
 	/**
