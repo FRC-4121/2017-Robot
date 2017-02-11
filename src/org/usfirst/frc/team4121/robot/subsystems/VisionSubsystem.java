@@ -2,8 +2,6 @@ package org.usfirst.frc.team4121.robot.subsystems;
 
 import org.usfirst.frc.team4121.robot.Robot;
 import org.usfirst.frc.team4121.robot.RobotMap;
-import org.usfirst.frc.team4121.robot.extraClasses.VisionThreadBoiler;
-import org.usfirst.frc.team4121.robot.extraClasses.VisionThreadGear;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -13,8 +11,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * @author Ben Hayden
  */
 public class VisionSubsystem extends Subsystem {
-	
-	//Subsystem error
 	
 	double visionArrayZero;
 	double visionArrayOne;
@@ -42,7 +38,7 @@ public class VisionSubsystem extends Subsystem {
 		}
 	}
 
-	/*public void findGear() { //Robots don't quit
+	public void findGear() {
 		boolean gearTargetCentered = false;
 		synchronized(Robot.imgLock) {
 			visionArrayOne=Robot.visionArray[1];
@@ -61,18 +57,18 @@ public class VisionSubsystem extends Subsystem {
 				gearTargetCentered = true;
 			}
 		}
-	}*/
+	}
 	
 	public void switchCameras() {
 		if(Robot.visionThreadGear.visionThread.isAlive()) {
 			RobotMap.RUN_BOILER_THREAD=false;
 			RobotMap.RUN_GEAR_THREAD=true;
-			Robot.visionThreadBoiler.startBoilerThread();
+			Robot.visionThreadBoiler.run();
 		}
 		else if(Robot.visionThreadBoiler.visionThread.isAlive()) {
 			RobotMap.RUN_GEAR_THREAD=false;
 			RobotMap.RUN_BOILER_THREAD=true;
-			Robot.visionThreadGear.startGearThread();
+			Robot.visionThreadGear.run();
 		}
 	}
 }

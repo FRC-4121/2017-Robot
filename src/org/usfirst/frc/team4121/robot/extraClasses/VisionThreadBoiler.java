@@ -9,21 +9,16 @@ import edu.wpi.cscore.CvSource;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 
-public class VisionThreadBoiler {
+public class VisionThreadBoiler implements Runnable{
 
 	public Thread visionThread;
 	public static Mat mat;
 	public static VisionProcessor visionPro = new VisionProcessor();
 	
 	public VisionThreadBoiler() {
-		visionThread = new Thread() {
-			public void run() {
-				liveFeedBoiler();
-			}
-		};
 	}
 
-	public void liveFeedBoiler() {
+	public void run() {
 		// Get the UsbCamera from CameraServer
 		UsbCamera camera = CameraServer.getInstance().startAutomaticCapture("cam0", 0);
 		// Set the resolution
@@ -57,9 +52,5 @@ public class VisionThreadBoiler {
 			}
 			outputStream.putFrame(mat);
 		}
-	}
-	
-	public void startBoilerThread() {
-		visionThread.start();
 	}
 }

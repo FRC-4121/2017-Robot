@@ -56,8 +56,8 @@ public class DriveTrainSubsystem extends Subsystem {
 		drive.setSafetyEnabled(false);
 		driveSlave.setSafetyEnabled(false);
 		
-		drive.setMaxOutput(1.0);
-		driveSlave.setMaxOutput(1.0);
+		drive.setMaxOutput(0.8);
+		driveSlave.setMaxOutput(0.8);
 		
 		drive.tankDrive(leftMotor, rightMotor);
 		driveSlave.tankDrive(leftMotor, rightMotor);
@@ -69,8 +69,8 @@ public class DriveTrainSubsystem extends Subsystem {
 		driveSlave.tankDrive(0, 0);
 	}
 	
-	/*public void switchControls() {
-		drive.tankDrive(Robot.directionMultiplier * Robot.oi.leftJoy, directionMultiplier * Robot.oi.leftJoy);
+	public void switchControls() {
+		drive.tankDrive(RobotMap.DIRECTION_MULTIPLIER * Robot.oi.leftJoy.getMagnitude(), RobotMap.DIRECTION_MULTIPLIER * Robot.oi.leftJoy.getMagnitude());
 		driveSlave.tankDrive(Robot.oi.leftJoy, Robot.oi.rightJoy);
 		
 		drive.setSafetyEnabled(false);
@@ -78,6 +78,6 @@ public class DriveTrainSubsystem extends Subsystem {
 		
 		drive.setMaxOutput(0.8);
 		driveSlave.setMaxOutput(0.8);
-	}*/
+	}
 }
 

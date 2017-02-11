@@ -78,7 +78,6 @@ public class Robot extends IterativeRobot {
 
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putString("Vision: ", vision.tempDouble());
-		visionThreadGear.startGearThread();
 	}
 
 	/**
