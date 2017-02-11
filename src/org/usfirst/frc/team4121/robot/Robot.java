@@ -9,8 +9,6 @@ import org.usfirst.frc.team4121.robot.commands.FindBoilerTargetCommand;
 import org.usfirst.frc.team4121.robot.commands.FindGearTargetCommand;
 import org.usfirst.frc.team4121.robot.extraClasses.VisionProcessor;
 import org.usfirst.frc.team4121.robot.extraClasses.MyVisionThread;
-import org.usfirst.frc.team4121.robot.extraClasses.VisionThreadBoiler;
-import org.usfirst.frc.team4121.robot.extraClasses.VisionThreadGear;
 import org.usfirst.frc.team4121.robot.subsystems.ClimberSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.ShifterSubsystem;
@@ -168,8 +166,11 @@ public class Robot extends IterativeRobot {
 		//SmartDashboard.putBoolean("Lined Up to Gear: ", findGear.isLinedUp());
 		//SmartDashboard.putBoolean("Lined Up to Boiler: ", findBoiler.isLinedUp());
 		SmartDashboard.putString("Vision: ", vision.tempDouble());
+		SmartDashboard.putBoolean("Thread on", Robot.visionThread.gearCam);
+		SmartDashboard.putString("Distance between x", Double.toString(visionArray[0]));
+		SmartDashboard.putString("is Facing", Double.toString(visionArray[1]));
+		SmartDashboard.putString("Ratio of areas", Double.toString(visionArray[2]));
 	}
-
 	/**
 	 * This function is called periodically during test mode
 	 */

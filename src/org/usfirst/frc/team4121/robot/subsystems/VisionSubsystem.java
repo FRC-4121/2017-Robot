@@ -58,13 +58,4 @@ public class VisionSubsystem extends Subsystem {
 			}
 		}
 	}
-	
-	public void switchCameras() {
-		if(RobotMap.VISION_THREAD == true) {
-			RobotMap.VISION_THREAD = false;
-		}
-		else {
-			RobotMap.VISION_THREAD = true;
-		}
-	}
 }

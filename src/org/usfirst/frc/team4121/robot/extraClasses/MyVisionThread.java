@@ -16,6 +16,7 @@ public class MyVisionThread implements Runnable{
 	CvSink cvSinkGear;
 	CvSink cvSinkBoiler;
 	CvSource outputStream;
+	public boolean gearCam = true;
 	
 	public MyVisionThread() {
 	}
@@ -43,7 +44,7 @@ public class MyVisionThread implements Runnable{
 		}
 		
 		while(true) {
-			if (RobotMap.VISION_THREAD) {
+			if (gearCam) {
 				if(cvSinkGear.grabFrame(mat) == 0) {
 					// Send the output the error.
 					outputStream.notifyError(cvSinkGear.getError());
@@ -52,7 +53,6 @@ public class MyVisionThread implements Runnable{
 				}
 			}
 			else {
-				mat = new Mat();
 				if(cvSinkBoiler.grabFrame(mat) == 0) {
 					// Send the output the error.
 					outputStream.notifyError(cvSinkBoiler.getError());
@@ -60,10 +60,19 @@ public class MyVisionThread implements Runnable{
 					continue;
 				}
 			}
-			synchronized(Robot.imgLock) {
-				Robot.visionArray = Robot.vision.update(mat);
+			synchronized(Robot.imgLock) { //NullPointerException
+				//Robot.visionArray = Robot.vision.update(mat);
 			}
 			outputStream.putFrame(mat);
+		}
+	}
+	
+	public void switchCameras() {
+		if(gearCam == true) {
+			gearCam = false;
+		}
+		else {
+			gearCam = true;
 		}
 	}
 }
