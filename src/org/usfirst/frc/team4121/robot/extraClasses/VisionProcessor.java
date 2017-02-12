@@ -14,6 +14,7 @@ public class VisionProcessor {
 	private ArrayList<MatOfPoint> foundContours;
 	private Point centerOfImage;
 	private double isFacing = 0;
+	private Mat mat = new Mat();
 
 	public VisionProcessor() {
 	}
@@ -43,14 +44,14 @@ public class VisionProcessor {
 	}
 
 	//reads image, processes it, calculates result(s) and returns in a double[] array
-	public double[] update(Mat mat) {
+	public double[] update(VisionRead reader) {
 		if(!mat.empty()) {
-			vsubsystem.process(mat);
+			reader.process(mat);
 		}
 		else { //Integer values account for errors
 			Robot.visionArray=null;
 		}
-		foundContours = vsubsystem.filterContoursOutput();
+		foundContours = reader.filterContoursOutput();
 		double [] returnedArray = new double[3];
 
 		centerOfImage = new Point(mat.width() / 2, mat.height() / 2);
@@ -62,9 +63,9 @@ public class VisionProcessor {
 			rectangles.add(new Rect(calcClosestPoint(a), calcFarthestPoint(a)));
 		}
 		if(rectangles.size() == 0) { //returns Double.MIN_VALUE if there are no rectangles to account for
-			returnedArray[0] = Double.MIN_VALUE;
-			returnedArray[1] = Double.MIN_VALUE;
-			returnedArray[2] = Double.MIN_VALUE;
+			returnedArray[0] = -9999.0;
+			returnedArray[1] = -9999.0;
+			returnedArray[2] = -9999.0;
 		}
 		// check for either one or two rectangles - if one, looking at the boiler, if two, looking at the gears
 		if (rectangles.size() == 1) {
@@ -104,9 +105,9 @@ public class VisionProcessor {
 			}
 		}
 		else if(rectangles.size() < 2) { //if there are more than two rectangles, it returns Double.MAX_VALUE
-			returnedArray[0] = Double.MAX_VALUE;
-			returnedArray[1] = Double.MAX_VALUE;
-			returnedArray[2] = Double.MAX_VALUE;
+			returnedArray[0] = -9999.0;
+			returnedArray[1] = -9999.0;
+			returnedArray[2] = -9999.0;
 		}
 		return returnedArray;
 	}

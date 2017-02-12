@@ -1,6 +1,8 @@
 package org.usfirst.frc.team4121.robot;
 
 import org.usfirst.frc.team4121.robot.commands.AutoStopCommand;
+import org.opencv.core.Rect;
+import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team4121.robot.commands.AutoDriveStraightCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.AutoTurnLeftCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.AutoTurnRightCommandGroup;
@@ -8,6 +10,7 @@ import org.usfirst.frc.team4121.robot.commands.ExampleCommand;
 import org.usfirst.frc.team4121.robot.commands.FindBoilerTargetCommand;
 import org.usfirst.frc.team4121.robot.commands.FindGearTargetCommand;
 import org.usfirst.frc.team4121.robot.extraClasses.VisionProcessor;
+import org.usfirst.frc.team4121.robot.extraClasses.VisionRead;
 import org.usfirst.frc.team4121.robot.extraClasses.MyVisionThread;
 import org.usfirst.frc.team4121.robot.subsystems.ClimberSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
@@ -23,7 +26,8 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
+import edu.wpi.first.wpilibj.vision.VisionThread;
+import edu.wpi.first.wpilibj.vision.VisionRunner;
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -39,6 +43,7 @@ public class Robot extends IterativeRobot {
 	public static ShooterSubsystem shooter;
 	public static ClimberSubsystem climber;
 	public static VisionProcessor vision;
+	public static VisionRead visionReader;
 	public static FindGearTargetCommand findGear;
 	public static FindBoilerTargetCommand findBoiler;
 	public static VisionSubsystem visionSub;
@@ -52,9 +57,10 @@ public class Robot extends IterativeRobot {
 	public static MyVisionThread visionThread;
 	public static CameraServer camServer;
 	public Thread myThread;
+	private VisionThread visionProcThread;
 	
 	private SendableChooser<Command> chooser;
-
+	
 	Command autonomousCommand;
 
 	/**
@@ -77,10 +83,8 @@ public class Robot extends IterativeRobot {
 		imgLock = new Object();
 		vision = new VisionProcessor();
 		oi = new OI();
-		camServer = CameraServer.getInstance();
-		visionThread = new MyVisionThread();
-		myThread = new Thread(visionThread);
 		
+		//Initialize dashboard choosers
 		chooser.addDefault("Do nothing", new AutoStopCommand());
 		chooser.addObject("Straight Foward", new AutoDriveStraightCommandGroup());
 		chooser.addObject("Turn Left", new AutoTurnLeftCommandGroup());
@@ -89,8 +93,32 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("Auto mode", chooser);
 		SmartDashboard.putString("Vision: ", vision.tempDouble());
 		
+		
+		//Initialize cameras and start autocapture for dashboard
+		camServer = CameraServer.getInstance();
+		visionThread = new MyVisionThread();
+		myThread = new Thread(visionThread);
 		myThread.setDaemon(true);
 		myThread.start();
+		
+	
+		//Initialze Vision Processing
+		visionReader = new VisionRead();
+		 visionProcThread = new VisionThread(gearCam,visionReader, new VisionRunner.Listener<VisionRead>() {
+
+			@Override
+			public void copyPipelineOutputs(VisionRead pipeline) {
+				
+				synchronized (imgLock) {
+					visionArray = vision.update(pipeline);
+				}
+			}
+		});
+		
+		 visionProcThread.start();
+		
+		
+
 	}
 
 	/**
@@ -165,11 +193,15 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putString("Gear Position", shifter.gearPosition());
 		//SmartDashboard.putBoolean("Lined Up to Gear: ", findGear.isLinedUp());
 		//SmartDashboard.putBoolean("Lined Up to Boiler: ", findBoiler.isLinedUp());
-		SmartDashboard.putString("Vision: ", vision.tempDouble());
-		SmartDashboard.putBoolean("Thread on", Robot.visionThread.gearCam);
-		SmartDashboard.putString("Distance between x", Double.toString(visionArray[0]));
-		SmartDashboard.putString("is Facing", Double.toString(visionArray[1]));
-		SmartDashboard.putString("Ratio of areas", Double.toString(visionArray[2]));
+		//SmartDashboard.putString("Vision: ", vision.tempDouble());
+		//SmartDashboard.putBoolean("Thread on", Robot.visionThread.gearCam);
+		synchronized (imgLock) {
+			SmartDashboard.putString("Distance between x", Double.toString(visionArray[0]));
+			SmartDashboard.putString("is Facing", Double.toString(visionArray[1]));
+			SmartDashboard.putString("Ratio of areas", Double.toString(visionArray[2]));
+
+		}
+		
 	}
 	/**
 	 * This function is called periodically during test mode
