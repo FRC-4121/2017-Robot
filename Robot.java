@@ -38,6 +38,10 @@ import edu.wpi.first.wpilibj.vision.VisionRunner;
  * @author Ben Hayden
  */
 public class Robot extends IterativeRobot {
+	//encoder math values
+	public static double distanceTraveled;
+	
+	//subsystems/command
 	public static DriveTrainSubsystem driveTrain;
 	public static ShifterSubsystem shifter;
 	public static ShooterSubsystem shooter;
@@ -58,6 +62,7 @@ public class Robot extends IterativeRobot {
 	public static CameraServer camServer;
 	public Thread myThread;
 	private VisionThread visionProcThread;
+
 	
 	private SendableChooser<Command> chooser;
 	
@@ -83,6 +88,9 @@ public class Robot extends IterativeRobot {
 		imgLock = new Object();
 		vision = new VisionProcessor();
 		oi = new OI();
+		
+		//setting Encoders up
+		distanceTraveled = 0;
 		
 		//Initialize dashboard choosers
 		chooser.addDefault("Do nothing", new AutoStopCommand());
