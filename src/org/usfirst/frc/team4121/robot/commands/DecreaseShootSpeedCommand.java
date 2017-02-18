@@ -12,7 +12,7 @@ public class DecreaseShootSpeedCommand extends Command {
     public DecreaseShootSpeedCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.shooter);
+    	requires(Robot.shooting);
     }
 
     // Called just before this Command runs the first time
@@ -21,7 +21,7 @@ public class DecreaseShootSpeedCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.shooter.DecreaseShootSpeed();
+    	Robot.shooting.DecreaseShootSpeed();
     }
 
     // Make this return true when this Command no longer needs to run execute()

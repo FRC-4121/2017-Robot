@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * Climber subsystem
  * 
- * @author Ben Hayden
+ * @author Salivyia Crestpan
  */
 public class ClimberSubsystem extends Subsystem {
 
@@ -16,4 +16,3 @@ public class ClimberSubsystem extends Subsystem {
     public void climb() {
     }
 }
-

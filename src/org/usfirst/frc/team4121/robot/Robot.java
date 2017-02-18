@@ -44,7 +44,7 @@ public class Robot extends IterativeRobot {
 	//subsystems/command
 	public static DriveTrainSubsystem driveTrain;
 	public static ShifterSubsystem shifter;
-	public static ShooterSubsystem shooter;
+	public static ShooterSubsystem shooting;
 	public static ClimberSubsystem climber;
 	public static VisionProcessor vision;
 	public static VisionRead visionReader;
@@ -76,7 +76,7 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		driveTrain = new DriveTrainSubsystem();
 		shifter = new ShifterSubsystem();
-		shooter = new ShooterSubsystem();
+		shooting = new ShooterSubsystem();
 		climber = new ClimberSubsystem();
 		chooser = new SendableChooser<>();
 		autonomousCommand = new ExampleCommand();
@@ -199,6 +199,8 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 
 		SmartDashboard.putString("Gear Position", shifter.gearPosition());
+		SmartDashboard.putString("Drive Direction:", Integer.toString(RobotMap.DIRECTION_MULTIPLIER));
+		SmartDashboard.putString("Left JoyStick Angle", Double.toString(Robot.oi.leftJoy.getY()));
 		//SmartDashboard.putBoolean("Lined Up to Gear: ", findGear.isLinedUp());
 		//SmartDashboard.putBoolean("Lined Up to Boiler: ", findBoiler.isLinedUp());
 		//SmartDashboard.putString("Vision: ", vision.tempDouble());

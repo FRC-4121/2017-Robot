@@ -13,7 +13,7 @@ public class StopShootCommand extends Command {
     public StopShootCommand() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(Robot.shooter);
+    	requires(Robot.shooting);
     }
 
     // Called just before this Command runs the first time
@@ -22,7 +22,7 @@ public class StopShootCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.shooter.Shoot(0);
+    	Robot.shooting.Shoot(0);
     }
 
     // Make this return true when this Command no longer needs to run execute()

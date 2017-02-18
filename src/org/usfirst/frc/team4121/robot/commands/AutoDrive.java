@@ -29,46 +29,17 @@ public class AutoDrive extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	//boolean thereYet = false;
-    	double maxVolts = 5.0;
-    	double pulse = 14.2;
-    	boolean thereYet=false;
-    	
-    	//keeps going until distanceTraveled < distance by less than 14.2
-    	if((distance-Robot.distanceTraveled)>14.2) 
+    	boolean thereYet = false;
+    	if (distance <= ((Robot.oi.leftCounter.getDistance()+Robot.oi.rightCounter.getDistance())/2.0))
     	{
-    	 	if(Robot.oi.LeftEncoder.getVoltage()>4.9)//voltage we want to achieve
-    	 	{
-    	 		Robot.distanceTraveled += 14.2;//distance of a pulse
-    	 		
-    	 	}
-    	 
-    	}
-    	else if((distance >= Robot.distanceTraveled))
-    	{
-    		Robot.distanceTraveled += (Robot.oi.LeftEncoder.getVoltage()*(pulse/maxVolts));
+    		thereYet= true;
     	}
     	else
     	{
-    		thereYet=true;
-    		Robot.distanceTraveled=0;
+    		thereYet = false;
     	}
-    	 return thereYet;
-//    	//
-//    	else (Robot.oi.LeftEncoder.getVoltage()*2.84)
-//	 	Robot.oi.LeftEncoder.getVoltage()*2.84
-//    	(Robot.oi.LeftEncoder.getDistance()+Robot.oi.RightEncoder.getDistance())/2.0)
-//    	if(Robot.oi.LeftEncoder.getVoltage())
-//    	if (distance <= ((Robot.oi.LeftEncoder.getDistance()+Robot.oi.RightEncoder.getDistance())/2.0)) //averages the encoders
-//    	{
-//    		thereYet = true;//can change is encoder counts down not up
-//    	}
-//    	else
-//    	{
-//    		thereYet = false;
-//    	}
-//    	return thereYet;
-       
+    	return thereYet;
+
     }
 
     // Called once after isFinished returns true

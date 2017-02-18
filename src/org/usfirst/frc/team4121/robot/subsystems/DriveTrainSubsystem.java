@@ -43,27 +43,36 @@ public class DriveTrainSubsystem extends Subsystem {
 	
 	//Drive method that creates two tank drives with the left and right joysticks
 	public void drive() {
-		if (Robot.oi.leftJoy.getDirectionDegrees()>= 0)
+//		if (Robot.oi.leftJoy.getDirectionDegrees()>= 0)
+//		{
+//			leftDirection=1;
+//		}
+//		else
+//		{
+//			leftDirection=-1;
+//		}
+//		if (Robot.oi.rightJoy.getDirectionDegrees()>= 0)
+//		{
+//			rightDirection=1;
+//		}
+//		else
+//		{
+//			rightDirection=-1;
+//		}
+//		
+		//drive.tankDrive(Robot.oi.leftJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER*leftDirection, Robot.oi.rightJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER*rightDirection);
+		//driveSlave.tankDrive(Robot.oi.leftJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER*leftDirection, Robot.oi.rightJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER*rightDirection);
+		if(RobotMap.DIRECTION_MULTIPLIER==1)
 		{
-			leftDirection=1;
+		drive.tankDrive(Robot.oi.leftJoy.getY()*RobotMap.DIRECTION_MULTIPLIER, Robot.oi.rightJoy.getY()*RobotMap.DIRECTION_MULTIPLIER);
+		driveSlave.tankDrive(Robot.oi.leftJoy.getY()*RobotMap.DIRECTION_MULTIPLIER, Robot.oi.rightJoy.getY()*RobotMap.DIRECTION_MULTIPLIER);
 		}
 		else
 		{
-			leftDirection=-1;
-		}
-		if (Robot.oi.rightJoy.getDirectionDegrees()>= 0)
-		{
-			rightDirection=1;
-		}
-		else
-		{
-			rightDirection=-1;
-		}
+			drive.tankDrive(Robot.oi.rightJoy.getY()*RobotMap.DIRECTION_MULTIPLIER, Robot.oi.leftJoy.getY()*RobotMap.DIRECTION_MULTIPLIER);
+			driveSlave.tankDrive(Robot.oi.rightJoy.getY()*RobotMap.DIRECTION_MULTIPLIER, Robot.oi.leftJoy.getY()*RobotMap.DIRECTION_MULTIPLIER);
 		
-		drive.tankDrive(Robot.oi.leftJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER*leftDirection, Robot.oi.rightJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER*rightDirection);
-		driveSlave.tankDrive(Robot.oi.leftJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER*leftDirection, Robot.oi.rightJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER*rightDirection);
-		
-		
+		}
 		drive.setSafetyEnabled(false);
 		driveSlave.setSafetyEnabled(false);
 		

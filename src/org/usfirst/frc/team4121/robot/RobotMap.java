@@ -26,8 +26,6 @@ public class RobotMap {
 	
 	public static int DIRECTION_MULTIPLIER = 1;
 	
-	public static final int DIRECTION_FORWARD = 1;
-	public static final int DIRECTION_REVERSE = -1;
 	public static double SHOOTER_SPEED = -.45;//can change later depending on speed
 	
 	public static final int COMPRESSOR = 0;

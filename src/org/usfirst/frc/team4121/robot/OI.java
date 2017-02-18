@@ -3,6 +3,7 @@ package org.usfirst.frc.team4121.robot;
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.AnalogTrigger;
+import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
@@ -37,7 +38,8 @@ public class OI {
 	public DigitalInput limitSwitch;
 	public AnalogGyro MainGyro;
 	public AnalogInput RightEncoder, LeftEncoder;
-	public AnalogTrigger trigger; 
+	public AnalogTrigger leftTrigger, rightTrigger; 
+	public Counter leftCounter, rightCounter;
 	Button shoot, feed, climb, shiftUp, shiftDown, gear, boiler, switchDrive, increaseShootSpeed, decreaseShootSpeed;
 	
 	public OI() {
@@ -47,7 +49,17 @@ public class OI {
 		RightEncoder = new AnalogInput(2);
 		
 		//trigger
-		trigger = new AnalogTrigger(0);
+		leftTrigger = new AnalogTrigger(LeftEncoder);
+		leftTrigger.setLimitsVoltage(0, 4.9);//change voltage later depending on encoders
+		rightTrigger = new AnalogTrigger(RightEncoder);
+		rightTrigger.setLimitsVoltage(0, 4.9);//change voltage later depending on encoders
+		
+		//counters
+		leftCounter = new Counter(leftTrigger);
+		leftCounter.setDistancePerPulse(14.2);//change later
+		rightCounter = new Counter(rightTrigger);
+		rightCounter.setDistancePerPulse(14.2);//change later
+		
 //		LeftEncoder.setDistancePerPulse(15);//change later after calculating diameter
 //		RightEncoder = new Encoder(2,3, false, Encoder.EncodingType.k4X);//change last thing later too
 //		RightEncoder.setDistancePerPulse(15);//change later after calculating diameter
