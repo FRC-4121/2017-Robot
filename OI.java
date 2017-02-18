@@ -2,7 +2,6 @@ package org.usfirst.frc.team4121.robot;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.AnalogTrigger;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
@@ -36,18 +35,13 @@ public class OI {
 	//public Encoder LeftEncoder, RightEncoder;
 	public DigitalInput limitSwitch;
 	public AnalogGyro MainGyro;
-	public AnalogInput RightEncoder, LeftEncoder;
-	public AnalogTrigger trigger; 
-	Button shoot, feed, climb, shiftUp, shiftDown, gear, boiler, switchDrive, increaseShootSpeed, decreaseShootSpeed;
+//	public AnalogInput LeftEncoder, RightEncoder;
+	Button shoot, feed, climb, shiftUp, shiftDown, gear, boiler, switchCamDrive, increaseShootSpeed, decreaseShootSpeed;
 	
 	public OI() {
 	
 		//Encoders
-		LeftEncoder = new AnalogInput(1);//change port
-		RightEncoder = new AnalogInput(2);
-		
-		//trigger
-		trigger = new AnalogTrigger(0);
+//		LeftEncoder = new Encoder(0,1, false, Encoder.EncodingType.k4X);//change last thing later too
 //		LeftEncoder.setDistancePerPulse(15);//change later after calculating diameter
 //		RightEncoder = new Encoder(2,3, false, Encoder.EncodingType.k4X);//change last thing later too
 //		RightEncoder.setDistancePerPulse(15);//change later after calculating diameter
@@ -69,7 +63,7 @@ public class OI {
 		shoot = new JoystickButton(rightJoy, 1);
 		decreaseShootSpeed = new JoystickButton (rightJoy, 2);
 		increaseShootSpeed = new JoystickButton (rightJoy, 3);
-		switchDrive = new JoystickButton(rightJoy, 4);
+		//switchCamDrive = new JoystickButton(rightJoy, 4);
 		//feed = new JoystickButton(rightJoy, 3);
 		gear = new JoystickButton(leftJoy, 2);
 		boiler = new JoystickButton(leftJoy, 3);
@@ -88,7 +82,7 @@ public class OI {
 		shiftDown.whenActive(new ShiftDownCommand());
 		gear.whenPressed(new FindGearTargetCommand());
 		boiler.whenPressed(new FindBoilerTargetCommand());
-		switchDrive.whenPressed(new SwitchDriveCommand());
+		//switchCamDrive.whenPressed(new SwitchCommandGroup());
 		decreaseShootSpeed.whenPressed(new DecreaseShootSpeedCommand());
 		increaseShootSpeed.cancelWhenPressed(new IncreaseShootSpeedCommand());
 		

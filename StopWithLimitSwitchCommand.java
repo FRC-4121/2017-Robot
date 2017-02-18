@@ -23,15 +23,15 @@ public class StopWithLimitSwitchCommand extends Command {
     protected void execute() {
     	//You can't keep a never ending loop in here
     	
-    	while(Robot.oi.limitSwitch.get() == false)
+    	/*while(Robot.oi.limitSwitch.get() == false)
     	{
     		Robot.driveTrain.autoDrive(-.4, -.4);// can chnge speeds later depending on testing
-    	}
+    	}*/
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	Robot.driveTrain.autoStop();
+    	//Robot.driveTrain.autoStop();
         return true;
     }
 
