@@ -29,6 +29,9 @@ public class DriveTrainSubsystem extends Subsystem {
 	RobotDrive drive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
 	RobotDrive driveSlave = new RobotDrive(leftMotor3, rightMotor3);
 	
+	double leftStickDir;
+	double rightStickDir;
+	
 	//Initializing both joysticks
 	Joystick left = new Joystick(0);
 	Joystick right = new Joystick(1);
@@ -41,6 +44,20 @@ public class DriveTrainSubsystem extends Subsystem {
 	
 	//Drive method that creates two tank drives with the left and right joysticks
 	public void drive() {
+		if(Robot.oi.leftJoy.getDirectionDegrees() >= 0) {
+			leftStickDir = 1;
+		}
+		else {
+			leftStickDir = -1;
+		}
+		
+		if(Robot.oi.rightJoy.getDirectionDegrees() >= 0) {
+			rightStickDir = 1;
+		}
+		else {
+			rightStickDir = -1;
+		}
+		
 		drive.tankDrive(Robot.oi.leftJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER, Robot.oi.rightJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER);
 		driveSlave.tankDrive(Robot.oi.leftJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER, Robot.oi.rightJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER);
 		
