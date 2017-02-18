@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveTrainSubsystem extends Subsystem {
 	
+	double leftDirection, rightDirection;
+	
 	//Initializing all Talons using CAN                                                
 	CANTalon leftMotor1 = new CANTalon(RobotMap.LEFT_MOTOR_1);
 	CANTalon leftMotor2 = new CANTalon(RobotMap.LEFT_MOTOR_2);
@@ -41,8 +43,26 @@ public class DriveTrainSubsystem extends Subsystem {
 	
 	//Drive method that creates two tank drives with the left and right joysticks
 	public void drive() {
-		drive.tankDrive(Robot.oi.leftJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER, Robot.oi.rightJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER);
-		driveSlave.tankDrive(Robot.oi.leftJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER, Robot.oi.rightJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER);
+		if (Robot.oi.leftJoy.getDirectionDegrees()>= 0)
+		{
+			leftDirection=1;
+		}
+		else
+		{
+			leftDirection=-1;
+		}
+		if (Robot.oi.rightJoy.getDirectionDegrees()>= 0)
+		{
+			rightDirection=1;
+		}
+		else
+		{
+			rightDirection=-1;
+		}
+		
+		drive.tankDrive(Robot.oi.leftJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER*leftDirection, Robot.oi.rightJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER*rightDirection);
+		driveSlave.tankDrive(Robot.oi.leftJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER*leftDirection, Robot.oi.rightJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER*rightDirection);
+		
 		
 		drive.setSafetyEnabled(false);
 		driveSlave.setSafetyEnabled(false);
