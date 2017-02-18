@@ -1,6 +1,8 @@
 package org.usfirst.frc.team4121.robot;
 
 import edu.wpi.first.wpilibj.AnalogGyro;
+import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.AnalogTrigger;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
@@ -9,12 +11,15 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 
 import org.usfirst.frc.team4121.robot.commands.ClimbCommand;
+import org.usfirst.frc.team4121.robot.commands.DecreaseShootSpeedCommand;
 import org.usfirst.frc.team4121.robot.commands.FeedCommand;
 import org.usfirst.frc.team4121.robot.commands.FindBoilerTargetCommand;
 import org.usfirst.frc.team4121.robot.commands.FindGearTargetCommand;
+import org.usfirst.frc.team4121.robot.commands.IncreaseShootSpeedCommand;
 import org.usfirst.frc.team4121.robot.commands.ShiftDownCommand;
 import org.usfirst.frc.team4121.robot.commands.ShiftUpCommand;
 import org.usfirst.frc.team4121.robot.commands.ShootCommand;
+import org.usfirst.frc.team4121.robot.commands.StopShootCommand;
 import org.usfirst.frc.team4121.robot.commands.SwitchCameraCommand;
 import org.usfirst.frc.team4121.robot.commands.SwitchCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.SwitchDriveCommand;
@@ -28,21 +33,30 @@ public class OI {
 	
 	//Initializations
 	public Joystick leftJoy, rightJoy;
-	public Encoder LeftEncoder, RightEncoder;
+	//public Encoder LeftEncoder, RightEncoder;
 	public DigitalInput limitSwitch;
 	public AnalogGyro MainGyro;
-	Button shoot, feed, climb, shiftUp, shiftDown, gear, boiler, switchCamDrive;
+	public AnalogInput RightEncoder, LeftEncoder;
+	public AnalogTrigger trigger; 
+	Button shoot, feed, climb, shiftUp, shiftDown, gear, boiler, switchDrive, increaseShootSpeed, decreaseShootSpeed;
 	
 	public OI() {
 	
 		//Encoders
-		LeftEncoder = new Encoder(0, 1, false, Encoder.EncodingType.k4X);//change last thing later too
-		LeftEncoder.setDistancePerPulse(15);//change later after calculating diameter
-		RightEncoder = new Encoder(2,3, false, Encoder.EncodingType.k4X);//change last thing later too
-		RightEncoder.setDistancePerPulse(15);//change later after calculating diameter
+		LeftEncoder = new AnalogInput(1);//change port
+		RightEncoder = new AnalogInput(2);
+		
+		//trigger
+		trigger = new AnalogTrigger(0);
+//		LeftEncoder.setDistancePerPulse(15);//change later after calculating diameter
+//		RightEncoder = new Encoder(2,3, false, Encoder.EncodingType.k4X);//change last thing later too
+//		RightEncoder.setDistancePerPulse(15);//change later after calculating diameter
+//		LeftEncoder = new AnalogInput(1);
+//		LeftEncoder.
+		
 		
 		//limitSwitch
-		//limitSwitch = new DigitalInput(1);      Robots don't quit
+		limitSwitch = new DigitalInput(4);      
 		
 		//gyro
 		MainGyro = new AnalogGyro(0);
@@ -53,24 +67,30 @@ public class OI {
 	
 		//Buttons
 		shoot = new JoystickButton(rightJoy, 1);
-		feed = new JoystickButton(rightJoy, 3);
-		climb = new JoystickButton(leftJoy, 6);
-		shiftUp = new JoystickButton(leftJoy, 5);
-		shiftDown = new JoystickButton(leftJoy, 4);
+		decreaseShootSpeed = new JoystickButton (rightJoy, 2);
+		increaseShootSpeed = new JoystickButton (rightJoy, 3);
+		switchDrive = new JoystickButton(rightJoy, 4);
+		//feed = new JoystickButton(rightJoy, 3);
 		gear = new JoystickButton(leftJoy, 2);
-		boiler = new JoystickButton(rightJoy, 2);
-		switchCamDrive = new JoystickButton(rightJoy, 4);
+		boiler = new JoystickButton(leftJoy, 3);
+		shiftDown = new JoystickButton(leftJoy, 4);
+		shiftUp = new JoystickButton(leftJoy, 5);
+		climb = new JoystickButton(leftJoy, 6);
+	
 		
-		
+	
 		//Commands
 		shoot.whileHeld(new ShootCommand());
+		shoot.whenReleased(new StopShootCommand());
 		//feed.whileHeld(new FeedCommand());
 		climb.whileHeld(new ClimbCommand());
 		shiftUp.whenActive(new ShiftUpCommand());
 		shiftDown.whenActive(new ShiftDownCommand());
 		gear.whenPressed(new FindGearTargetCommand());
 		boiler.whenPressed(new FindBoilerTargetCommand());
-		switchCamDrive.whenPressed(new SwitchCommandGroup());
+		switchDrive.whenPressed(new SwitchDriveCommand());
+		decreaseShootSpeed.whenPressed(new DecreaseShootSpeedCommand());
+		increaseShootSpeed.cancelWhenPressed(new IncreaseShootSpeedCommand());
 		
 		/*public Joystick getLeftJoy() {
 			return leftJoy;

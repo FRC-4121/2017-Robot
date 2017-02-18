@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  *	@author Ben Hayden
  */
+
 public class ShooterSubsystem extends Subsystem {
+	
 	CANTalon shooter = new CANTalon(RobotMap.SHOOTER);
 	
     public void initDefaultCommand() {
@@ -25,5 +27,12 @@ public void Shoot(double shootspeed) {
     	shooter.set(shootspeed);
     	
     }
+
+public void DecreaseShootSpeed(){
+		RobotMap.SHOOTER_SPEED = RobotMap.SHOOTER_SPEED + .1;
+	}
+public void IncreaseShootSpeed(){
+	RobotMap.SHOOTER_SPEED = RobotMap.SHOOTER_SPEED - .1;
+	}
 }
 

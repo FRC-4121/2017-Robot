@@ -17,6 +17,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class DriveTrainSubsystem extends Subsystem {
 	
+	double leftDirection, rightDirection;
+	
 	//Initializing all Talons using CAN                                                
 	CANTalon leftMotor1 = new CANTalon(RobotMap.LEFT_MOTOR_1);
 	CANTalon leftMotor2 = new CANTalon(RobotMap.LEFT_MOTOR_2);
@@ -28,9 +30,6 @@ public class DriveTrainSubsystem extends Subsystem {
 	//Creating 2 robot drives for all 6 motors
 	RobotDrive drive = new RobotDrive(leftMotor1, leftMotor2, rightMotor1, rightMotor2);
 	RobotDrive driveSlave = new RobotDrive(leftMotor3, rightMotor3);
-	
-	double leftStickDir;
-	double rightStickDir;
 	
 	//Initializing both joysticks
 	Joystick left = new Joystick(0);
@@ -44,22 +43,26 @@ public class DriveTrainSubsystem extends Subsystem {
 	
 	//Drive method that creates two tank drives with the left and right joysticks
 	public void drive() {
-		if(Robot.oi.leftJoy.getDirectionDegrees() >= 0) {
-			leftStickDir = 1;
+		if (Robot.oi.leftJoy.getDirectionDegrees()>= 0)
+		{
+			leftDirection=1;
 		}
-		else {
-			leftStickDir = -1;
+		else
+		{
+			leftDirection=-1;
+		}
+		if (Robot.oi.rightJoy.getDirectionDegrees()>= 0)
+		{
+			rightDirection=1;
+		}
+		else
+		{
+			rightDirection=-1;
 		}
 		
-		if(Robot.oi.rightJoy.getDirectionDegrees() >= 0) {
-			rightStickDir = 1;
-		}
-		else {
-			rightStickDir = -1;
-		}
+		drive.tankDrive(Robot.oi.leftJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER*leftDirection, Robot.oi.rightJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER*rightDirection);
+		driveSlave.tankDrive(Robot.oi.leftJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER*leftDirection, Robot.oi.rightJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER*rightDirection);
 		
-		drive.tankDrive(Robot.oi.leftJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER, Robot.oi.rightJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER);
-		driveSlave.tankDrive(Robot.oi.leftJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER, Robot.oi.rightJoy.getMagnitude()*RobotMap.DIRECTION_MULTIPLIER);
 		
 		drive.setSafetyEnabled(false);
 		driveSlave.setSafetyEnabled(false);
