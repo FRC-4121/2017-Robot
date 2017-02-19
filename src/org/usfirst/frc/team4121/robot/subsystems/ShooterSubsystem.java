@@ -20,18 +20,18 @@ public class ShooterSubsystem extends Subsystem {
 //changeControlMode(TalonControlMode.Speed);
 	
  public void initDefaultCommand() { //speed controller
-    	
-    	shooter.changeControlMode(TalonControlMode.Speed);
-    	shooter.setFeedbackDevice(FeedbackDevice.QuadEncoder);
-    	shooter.setF(.05);
-    	shooter.setP(0);
-    	shooter.setI(0);
-    	shooter.setD(0);
-    	shooter.configNominalOutputVoltage(0.0, 0.0);
-    	shooter.configPeakOutputVoltage(12.0, 0.0);
-    	
-    	
-    }
+//    	
+//    	shooter.changeControlMode(TalonControlMode.Speed);
+//    	shooter.setFeedbackDevice(FeedbackDevice.QuadEncoder);
+//    	shooter.setF(.05);
+//    	shooter.setP(0);
+//    	shooter.setI(0);
+//    	shooter.setD(0);
+//    	shooter.configNominalOutputVoltage(0.0, 0.0);
+//    	shooter.configPeakOutputVoltage(12.0, 0.0);
+//    	
+//    	
+   }
     
 public void Shoot(double shootspeed) {
     	

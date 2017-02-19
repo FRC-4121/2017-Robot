@@ -197,24 +197,30 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-
-		SmartDashboard.putString("Gear Position", shifter.gearPosition());
+ 
+		SmartDashboard.putString("Gear Position: ", shifter.gearPosition());
 		SmartDashboard.putString("Drive Direction:", Integer.toString(RobotMap.DIRECTION_MULTIPLIER));
-		SmartDashboard.putString("Left JoyStick Angle", Double.toString(Robot.oi.leftJoy.getY()));
+		SmartDashboard.putString("Encoder Volts: ", Double.toString(Robot.oi.LeftEncoder.getVoltage()));
+		SmartDashboard.putString("Left Drive Distance: ", Double.toString(Robot.oi.leftCounter.getDistance()));
+		SmartDashboard.putString("Right Drive Distance: ", Double.toString(Robot.oi.rightCounter.getDistance()));
+		SmartDashboard.putString("Left Encoder Rate:" , Double.toString(Robot.oi.leftCounter.getRate()));
+		SmartDashboard.putString("Right Encoder Rate:" , Double.toString(Robot.oi.rightCounter.getRate()));
+		SmartDashboard.putString("Drive Angle:", Double.toString(Robot.oi.MainGyro.getAngle()));
+		
 		//SmartDashboard.putBoolean("Lined Up to Gear: ", findGear.isLinedUp());
 		//SmartDashboard.putBoolean("Lined Up to Boiler: ", findBoiler.isLinedUp());
 		//SmartDashboard.putString("Vision: ", vision.tempDouble());
 		//SmartDashboard.putBoolean("Thread on", Robot.visionThread.gearCam);
-		synchronized (imgLock) {
-			SmartDashboard.putString("Distance between x", Double.toString(visionArray[0]));
-			SmartDashboard.putString("is Facing", Double.toString(visionArray[1]));
-			SmartDashboard.putString("Ratio of areas", Double.toString(visionArray[2]));
-
-		}
+//		synchronized (imgLock) {
+//			SmartDashboard.putString("Distance between x", Double.toString(visionArray[0]));
+//			SmartDashboard.putString("is Facing", Double.toString(visionArray[1]));
+//			SmartDashboard.putString("Ratio of areas", Double.toString(visionArray[2]));
+//
+//		}
 		
 		SmartDashboard.putString("Limit Switch: ", Boolean.toString(Robot.oi.limitSwitch.get()));
-		SmartDashboard.putString("Current Shooter Speed: ", Double.toString(RobotMap.SHOOTER_SPEED));
-		
+		SmartDashboard.putString("Shooter Voltage: ", Double.toString(Robot.shooting.shooter.getOutputVoltage()));
+		SmartDashboard.putString("Shooter Current: ", Double.toString(Robot.shooting.shooter.getOutputCurrent()));
 	}
 	/**
 	 * This function is called periodically during test mode

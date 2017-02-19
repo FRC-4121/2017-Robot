@@ -22,11 +22,13 @@ public class RobotMap {
 	
 	public static final int SHOOTER = 8;
 	
-	public static final double DRIVE_SPEED = 1.0;
+	public static final double DRIVE_SPEED = 0.7;
 	
 	public static int DIRECTION_MULTIPLIER = 1;
 	
-	public static double SHOOTER_SPEED = -.45;//can change later depending on speed
+	public static double SHOOTER_SPEED = -.6;//can change later depending on speed
+	
+	public static double CLIMBER_SPEED = .8;//can change later depending on speed
 	
 	public static final int COMPRESSOR = 0;
 }

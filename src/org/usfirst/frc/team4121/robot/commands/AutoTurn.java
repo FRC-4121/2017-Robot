@@ -29,22 +29,23 @@ public class AutoTurn extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	boolean thereYet = false;
-    	if(stopAngle <= Math.abs((Robot.oi.MainGyro.getAngle())))
-    	{
-    		thereYet = true;//can change is encoder counts down not up
-    	}
-    	else
-    	{
-    		thereYet = false;
-    	}
-    	return thereYet;
+//    	boolean thereYet = false;
+//    	if(stopAngle <= Math.abs((Robot.oi.MainGyro.getAngle())))
+//    	{
+//    		thereYet = true;//can change is encoder counts down not up
+//    	}
+//    	else
+//    	{
+//    		thereYet = false;
+//    	}
+//    	return thereYet;
+    	return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
     	Robot.driveTrain.autoStop(); //maybe don't need depends on robot
-    	Robot.oi.MainGyro.reset();
+    	//Robot.oi.MainGyro.reset();
     }
 
     // Called when another command which requires one or more of the same

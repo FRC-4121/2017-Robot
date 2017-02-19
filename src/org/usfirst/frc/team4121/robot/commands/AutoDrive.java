@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class AutoDrive extends Command {
 	double distance; //Make global
 	double direction; //-1=Reverse, +1=Forward(reverse is for gear forward is for shooting)
+	double lastDistance;
 	
     public AutoDrive(double dis, double dir) { //intakes distance and direction
     	distance = dis;
@@ -20,6 +21,7 @@ public class AutoDrive extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+        lastDistance = 0;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -30,14 +32,25 @@ public class AutoDrive extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	boolean thereYet = false;
-    	if (distance <= ((Robot.oi.leftCounter.getDistance()+Robot.oi.rightCounter.getDistance())/2.0))
-    	{
-    		thereYet= true;
-    	}
-    	else
-    	{
-    		thereYet = false;
-    	}
+    	
+    	double distanceLeftToTravel = distance - Robot.oi.leftCounter.getDistance();
+    	
+    	
+//    	if ()
+//    	{
+//    	    Robot.distanceTraveled = Robot.distanceTraveled + 2.84*Robot.oi.LeftEncoder.getAverageVoltage();	
+//    	}
+//    	
+//    	
+//    	if (distanceLeftToTravel > 14.2)
+//    	{
+//    		thereYet= false;
+//    	}
+//    	else
+//    	{
+//    		if(distance <= )
+//    		thereYet = false;
+//    	}
     	return thereYet;
 
     }
@@ -45,6 +58,8 @@ public class AutoDrive extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.driveTrain.autoStop(); //maybe don't need depends on robot
+    	Robot.oi.leftCounter.reset();
+    	Robot.oi.rightCounter.reset();
     	//Robot.oi.LeftEncoder.reset();//resets encoders
     	//Robot.oi.RightEncoder.reset();
     }
