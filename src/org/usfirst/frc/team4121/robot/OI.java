@@ -38,7 +38,6 @@ public class OI {
 	
 	//Initializations
 	public Joystick leftJoy, rightJoy;
-	//public Encoder LeftEncoder, RightEncoder;
 	public DigitalInput limitSwitch;
 	public ADXRS450_Gyro MainGyro;
 	public AnalogInput RightEncoder, LeftEncoder;
@@ -50,11 +49,10 @@ public class OI {
 	public OI() {
 	
 		//Encoders
-		LeftEncoder = new AnalogInput(0);//change port
+		LeftEncoder = new AnalogInput(0);  //change port
 		RightEncoder = new AnalogInput(1);
 		
-		
-		//trigger
+		//Triggers
 		leftTrigger = new AnalogTrigger(LeftEncoder);
 		leftTrigger.setLimitsVoltage(.5, 4.5);//change voltage later depending on encoders
 		leftTriggerOutput = new AnalogTriggerOutput(leftTrigger, AnalogTriggerType.kRisingPulse);
@@ -62,23 +60,16 @@ public class OI {
 		rightTrigger.setLimitsVoltage(.5, 4.5);//change voltage later depending on encoders
 		rightTriggerOutput = new AnalogTriggerOutput(rightTrigger, AnalogTriggerType.kRisingPulse); 
 		
-		//counters
+		//Counters
 		leftCounter = new Counter(leftTriggerOutput);
 		leftCounter.setDistancePerPulse(14.2);//change later
 		rightCounter = new Counter(rightTriggerOutput);
 		rightCounter.setDistancePerPulse(14.2);//change later
 		
-//		LeftEncoder.setDistancePerPulse(15);//change later after calculating diameter
-//		RightEncoder = new Encoder(2,3, false, Encoder.EncodingType.k4X);//change last thing later too
-//		RightEncoder.setDistancePerPulse(15);//change later after calculating diameter
-//		LeftEncoder = new AnalogInput(1);
-//		LeftEncoder.
-		
-		
-		//limitSwitch
+		//Limit Switch
 		limitSwitch = new DigitalInput(4);      
 		
-		//gyro
+		//Gyro
 		MainGyro = new ADXRS450_Gyro();
 		
 		//Joysticks
@@ -97,9 +88,6 @@ public class OI {
 		shiftDown = new JoystickButton(leftJoy, 4);
 		shiftUp = new JoystickButton(leftJoy, 5);
 		
-	
-		
-	
 		//Commands
 		shoot.whileHeld(new ShootCommand());
 		shoot.whenReleased(new StopShootCommand());
@@ -113,15 +101,6 @@ public class OI {
 		switchDrive.whenPressed(new SwitchDriveCommand());
 		decreaseShootSpeed.whenPressed(new DecreaseShootSpeedCommand());
 		increaseShootSpeed.whenPressed(new IncreaseShootSpeedCommand());
-	
-		
-		/*public Joystick getLeftJoy() {
-			return leftJoy;
-		}
-		
-		public Joystick getRightJoy() {
-			return rightJoy;
-		}*/
 		
 	}
 }

@@ -38,6 +38,7 @@ import edu.wpi.first.wpilibj.vision.VisionRunner;
  * @author Ben Hayden
  */
 public class Robot extends IterativeRobot {
+	
 	//encoder math values
 	public static double distanceTraveled;
 	
@@ -63,54 +64,51 @@ public class Robot extends IterativeRobot {
 	public Thread myThread;
 	private VisionThread visionProcThread;
 
-	
+	//SmartDashboard chooser
 	private SendableChooser<Command> chooser;
 	
 	Command autonomousCommand;
 
+	
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
 	@Override
 	public void robotInit() {
+		
+		//Initialize subsystems
 		driveTrain = new DriveTrainSubsystem();
 		shifter = new ShifterSubsystem();
 		shooting = new ShooterSubsystem();
 		climber = new ClimberSubsystem();
-		chooser = new SendableChooser<>();
+		visionSub = new VisionSubsystem();
+		oi = new OI();
+	
+		
+		//Initialize commands
 		autonomousCommand = new ExampleCommand();
 		findGear = new FindGearTargetCommand();
 		findBoiler = new FindBoilerTargetCommand();
-		visionSub = new VisionSubsystem();
-		//visionThreadBoiler = new VisionThreadBoiler();
-		//visionThreadGear = new VisionThreadGear();
-		imgLock = new Object();
-		vision = new VisionProcessor();
-		oi = new OI();
 		
-		//setting Encoders up
-		distanceTraveled = 0;
 		
 		//Initialize dashboard choosers
+		chooser = new SendableChooser<>();
 		chooser.addDefault("Do nothing", new AutoStopCommand());
 		chooser.addObject("Straight Foward", new AutoDriveStraightCommandGroup());
 		chooser.addObject("Turn Left", new AutoTurnLeftCommandGroup());
 		chooser.addObject("Turn Right", new AutoTurnRightCommandGroup());
-
 		SmartDashboard.putData("Auto mode", chooser);
-		SmartDashboard.putString("Vision: ", vision.tempDouble());
 		
-		
-		//Initialize cameras and start autocapture for dashboard
+		//Initialize vision processing, cameras and start autocapture for dashboard
+		imgLock = new Object();
+		vision = new VisionProcessor();
 		camServer = CameraServer.getInstance();
 		visionThread = new MyVisionThread();
 		myThread = new Thread(visionThread);
 		myThread.setDaemon(true);
 		myThread.start();
 		
-	
-		//Initialze Vision Processing
 		visionReader = new VisionRead();
 		 visionProcThread = new VisionThread(gearCam,visionReader, new VisionRunner.Listener<VisionRead>() {
 
@@ -122,13 +120,21 @@ public class Robot extends IterativeRobot {
 				}
 			}
 		});
+		visionProcThread.start();
 		
-		 visionProcThread.start();
+		
+		//Calibrate the main gyro
+		Robot.oi.MainGyro.calibrate();
 		
 		
+		//setting Encoders up
+		distanceTraveled = 0.0;
+		
+		SmartDashboard.putString("Vision: ", vision.tempDouble());
 
 	}
 
+	
 	/**
 	 * This function is called once each time the robot enters Disabled mode.
 	 * You can use it to reset any subsystem information you want to clear when
@@ -200,27 +206,27 @@ public class Robot extends IterativeRobot {
  
 		SmartDashboard.putString("Gear Position: ", shifter.gearPosition());
 		SmartDashboard.putString("Drive Direction:", Integer.toString(RobotMap.DIRECTION_MULTIPLIER));
-		SmartDashboard.putString("Encoder Volts: ", Double.toString(Robot.oi.LeftEncoder.getVoltage()));
+		SmartDashboard.putString("Encoder Volts: ", Double.toString(Robot.oi.LeftEncoder.getAverageVoltage()));
 		SmartDashboard.putString("Left Drive Distance: ", Double.toString(Robot.oi.leftCounter.getDistance()));
-		SmartDashboard.putString("Right Drive Distance: ", Double.toString(Robot.oi.rightCounter.getDistance()));
+		//SmartDashboard.putString("Right Drive Distance: ", Double.toString(Robot.oi.rightCounter.getDistance()));
 		SmartDashboard.putString("Left Encoder Rate:" , Double.toString(Robot.oi.leftCounter.getRate()));
-		SmartDashboard.putString("Right Encoder Rate:" , Double.toString(Robot.oi.rightCounter.getRate()));
+		//SmartDashboard.putString("Right Encoder Rate:" , Double.toString(Robot.oi.rightCounter.getRate()));
 		SmartDashboard.putString("Drive Angle:", Double.toString(Robot.oi.MainGyro.getAngle()));
 		
 		//SmartDashboard.putBoolean("Lined Up to Gear: ", findGear.isLinedUp());
 		//SmartDashboard.putBoolean("Lined Up to Boiler: ", findBoiler.isLinedUp());
 		//SmartDashboard.putString("Vision: ", vision.tempDouble());
 		//SmartDashboard.putBoolean("Thread on", Robot.visionThread.gearCam);
-//		synchronized (imgLock) {
-//			SmartDashboard.putString("Distance between x", Double.toString(visionArray[0]));
-//			SmartDashboard.putString("is Facing", Double.toString(visionArray[1]));
-//			SmartDashboard.putString("Ratio of areas", Double.toString(visionArray[2]));
-//
-//		}
+		synchronized (imgLock) {
+			SmartDashboard.putString("Distance between x", Double.toString(visionArray[0]));
+			SmartDashboard.putString("is Facing", Double.toString(visionArray[1]));
+			SmartDashboard.putString("Ratio of areas", Double.toString(visionArray[2]));
+
+		}
 		
-		SmartDashboard.putString("Limit Switch: ", Boolean.toString(Robot.oi.limitSwitch.get()));
-		SmartDashboard.putString("Shooter Voltage: ", Double.toString(Robot.shooting.shooter.getOutputVoltage()));
-		SmartDashboard.putString("Shooter Current: ", Double.toString(Robot.shooting.shooter.getOutputCurrent()));
+		//SmartDashboard.putString("Limit Switch: ", Boolean.toString(Robot.oi.limitSwitch.get()));
+		//SmartDashboard.putString("Shooter Voltage: ", Double.toString(Robot.shooting.shooter.getOutputVoltage()));
+		//SmartDashboard.putString("Shooter Current: ", Double.toString(Robot.shooting.shooter.getOutputCurrent()));
 	}
 	/**
 	 * This function is called periodically during test mode

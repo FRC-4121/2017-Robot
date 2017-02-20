@@ -31,4 +31,6 @@ public class RobotMap {
 	public static double CLIMBER_SPEED = .8;//can change later depending on speed
 	
 	public static final int COMPRESSOR = 0;
+	
+	public static double ANGLE_TOLERANCE = 0.01;
 }

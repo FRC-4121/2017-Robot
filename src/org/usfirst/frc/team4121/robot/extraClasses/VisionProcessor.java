@@ -20,26 +20,60 @@ public class VisionProcessor {
 	}
 
 	//private method that reads from a Mat and finds the closest point from the left of the image
-	private Point calcClosestPoint(MatOfPoint a) {
+
+private Point calcClosestPoint(MatOfPoint a) {
 		Point closestPoint = new Point(Integer.MAX_VALUE, Integer.MAX_VALUE);
+
+		ArrayList<Point> pointList = new ArrayList<Point>();
 
 		for (Point p : a.toList()) {
 			if (Math.abs(p.x) < Math.abs(closestPoint.x)) {
 				closestPoint = p;
 			}
 		}
+
+		pointList.add(closestPoint);
+
+		for (Point p : a.toList()) {
+			if (Math.abs(p.x) == Math.abs(closestPoint.x)) {
+				pointList.add(p);
+			}
+		}
+
+		for (Point p : pointList) {
+			if (Math.abs(p.y) < Math.abs(closestPoint.y)) {
+				closestPoint = p;
+			}
+		}
+
 		return closestPoint;
 	}
 
-	//private method that reads from a Mat and finds the farthest point from the left of the image
 	private Point calcFarthestPoint(MatOfPoint a) {
 		Point farthestPoint = new Point(Integer.MIN_VALUE, Integer.MIN_VALUE);
+
+		ArrayList<Point> pointList = new ArrayList<Point>();
 
 		for (Point p : a.toList()) {
 			if (Math.abs(p.x) > Math.abs(farthestPoint.x)) {
 				farthestPoint = p;
 			}
 		}
+
+		pointList.add(farthestPoint);
+
+		for (Point p : a.toList()) {
+			if (Math.abs(farthestPoint.x) == Math.abs(p.x)) {
+				pointList.add(p);
+			}
+		}
+
+		for (Point p : pointList) {
+			if (Math.abs(p.y) < Math.abs(farthestPoint.y)) {
+				farthestPoint = p;
+			}
+		}
+
 		return farthestPoint;
 	}
 
