@@ -15,15 +15,19 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 
 import org.usfirst.frc.team4121.robot.commands.ClimbCommand;
+import org.usfirst.frc.team4121.robot.commands.CloseGateCommand;
 import org.usfirst.frc.team4121.robot.commands.DecreaseShootSpeedCommand;
 import org.usfirst.frc.team4121.robot.commands.FeedCommand;
 import org.usfirst.frc.team4121.robot.commands.FindBoilerTargetCommand;
 import org.usfirst.frc.team4121.robot.commands.FindGearTargetCommand;
 import org.usfirst.frc.team4121.robot.commands.IncreaseShootSpeedCommand;
+import org.usfirst.frc.team4121.robot.commands.OpenGateCommand;
 import org.usfirst.frc.team4121.robot.commands.ShiftDownCommand;
 import org.usfirst.frc.team4121.robot.commands.ShiftUpCommand;
 import org.usfirst.frc.team4121.robot.commands.ShootCommand;
+import org.usfirst.frc.team4121.robot.commands.ShootCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.StopClimbCommand;
+import org.usfirst.frc.team4121.robot.commands.StopEverythingShootingCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.StopShootCommand;
 import org.usfirst.frc.team4121.robot.commands.SwitchCameraCommand;
 import org.usfirst.frc.team4121.robot.commands.SwitchCommandGroup;
@@ -44,7 +48,7 @@ public class OI {
 	public AnalogTrigger leftTrigger, rightTrigger; 
 	public AnalogTriggerOutput leftTriggerOutput, rightTriggerOutput;
 	public Counter leftCounter, rightCounter;
-	Button shoot, feed, climb, shiftUp, shiftDown, gear, boiler, switchDrive, increaseShootSpeed, decreaseShootSpeed;
+	public Button shoot, feed, climb, servo, shiftUp, shiftDown, gear, boiler, switchDrive, increaseShootSpeed, decreaseShootSpeed;
 	
 	public OI() {
 	
@@ -78,7 +82,8 @@ public class OI {
 	
 		//Buttons
 		shoot = new JoystickButton(rightJoy, 1);
-		decreaseShootSpeed = new JoystickButton (rightJoy, 2);
+		//decreaseShootSpeed = new JoystickButton (rightJoy, 2);
+		servo = new JoystickButton(rightJoy,2);
 		increaseShootSpeed = new JoystickButton (rightJoy, 3);
 		switchDrive = new JoystickButton(rightJoy, 4);
 		//feed = new JoystickButton(rightJoy, 3);
@@ -90,7 +95,9 @@ public class OI {
 		
 		//Commands
 		shoot.whileHeld(new ShootCommand());
-		shoot.whenReleased(new StopShootCommand());
+		shoot.whenReleased(new StopEverythingShootingCommandGroup());
+		servo.whileHeld(new OpenGateCommand());
+		servo.whenReleased(new CloseGateCommand());
 		//feed.whileHeld(new FeedCommand());
 		climb.whileHeld(new ClimbCommand());
 		climb.whenReleased(new StopClimbCommand());
@@ -99,7 +106,7 @@ public class OI {
 		gear.whenPressed(new FindGearTargetCommand());
 		boiler.whenPressed(new FindBoilerTargetCommand());
 		switchDrive.whenPressed(new SwitchDriveCommand());
-		decreaseShootSpeed.whenPressed(new DecreaseShootSpeedCommand());
+		//decreaseShootSpeed.whenPressed(new DecreaseShootSpeedCommand());
 		increaseShootSpeed.whenPressed(new IncreaseShootSpeedCommand());
 		
 	}

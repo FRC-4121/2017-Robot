@@ -212,7 +212,8 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putString("Left Encoder Rate:" , Double.toString(Robot.oi.leftCounter.getRate()));
 		//SmartDashboard.putString("Right Encoder Rate:" , Double.toString(Robot.oi.rightCounter.getRate()));
 		SmartDashboard.putString("Drive Angle:", Double.toString(Robot.oi.MainGyro.getAngle()));
-		
+//		SmartDashboard.putString("Left Servo:", Double.toString(Robot.shooting.leftServo.getAngle()));
+//		SmartDashboard.putString("Right Servo:", Double.toString(Robot.shooting.rightServo.getPosition()));
 		//SmartDashboard.putBoolean("Lined Up to Gear: ", findGear.isLinedUp());
 		//SmartDashboard.putBoolean("Lined Up to Boiler: ", findBoiler.isLinedUp());
 		//SmartDashboard.putString("Vision: ", vision.tempDouble());

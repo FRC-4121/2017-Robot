@@ -21,8 +21,8 @@ public class ShooterSubsystem extends Subsystem {
 
 	//changeControlMode(TalonControlMode.Speed);
 
-	Servo leftServo = new Servo(1);
-	Servo rightServo = new Servo(0);
+	public Servo leftServo = new Servo(1);
+	public Servo rightServo = new Servo(0);
 
 	public void initDefaultCommand() { //speed controller
 		//    	
@@ -39,19 +39,23 @@ public class ShooterSubsystem extends Subsystem {
 	}
 
 	public void openGates() { //Change angles and use these in a command group
-		leftServo.setAngle(180);
-		rightServo.setAngle(-180);
+		leftServo.set(.25);
+		rightServo.set(0);
 	}
 	
 	public void closeGates() { //Changes angles
-		leftServo.setAngle(-90);
-		rightServo.setAngle(90);
+		leftServo.set(0);
+		rightServo.set(.25);
 	}
 
 	public void Shoot(double shootspeed) {
 
 		shooter.set(shootspeed);
 
+	}
+	public double getSpeed(){
+		return shooter.getSpeed();
+		
 	}
 
 	public void DecreaseShootSpeed(){
