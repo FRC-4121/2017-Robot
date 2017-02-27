@@ -71,7 +71,7 @@ public class OI {
 		rightCounter.setDistancePerPulse(14.2);//change later
 		
 		//Limit Switch
-		limitSwitch = new DigitalInput(4);      
+		limitSwitch = new DigitalInput(0);      
 		
 		//Gyro
 		MainGyro = new ADXRS450_Gyro();
@@ -94,7 +94,7 @@ public class OI {
 		shiftUp = new JoystickButton(leftJoy, 5);
 		
 		//Commands
-		shoot.whileHeld(new ShootCommand());
+		shoot.whileHeld(new ShootCommand());//put logic in shoot command now
 		shoot.whenReleased(new StopEverythingShootingCommandGroup());
 		servo.whileHeld(new OpenGateCommand());
 		servo.whenReleased(new CloseGateCommand());
