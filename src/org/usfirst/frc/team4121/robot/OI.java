@@ -54,15 +54,17 @@ public class OI {
 	
 		//Encoders
 		LeftEncoder = new AnalogInput(0);  //change port
-		RightEncoder = new AnalogInput(1);
+		RightEncoder = new AnalogInput(2);
 		
 		//Triggers
 		leftTrigger = new AnalogTrigger(LeftEncoder);
 		leftTrigger.setLimitsVoltage(.5, 4.5);//change voltage later depending on encoders
+		leftTrigger.setFiltered(true);
 		leftTriggerOutput = new AnalogTriggerOutput(leftTrigger, AnalogTriggerType.kRisingPulse);
 		rightTrigger = new AnalogTrigger(RightEncoder);
 		rightTrigger.setLimitsVoltage(.5, 4.5);//change voltage later depending on encoders
-		rightTriggerOutput = new AnalogTriggerOutput(rightTrigger, AnalogTriggerType.kRisingPulse); 
+		rightTrigger.setFiltered(true);
+		rightTriggerOutput = new AnalogTriggerOutput(rightTrigger, AnalogTriggerType.kFallingPulse); 
 		
 		//Counters
 		leftCounter = new Counter(leftTriggerOutput);
@@ -75,6 +77,7 @@ public class OI {
 		
 		//Gyro
 		MainGyro = new ADXRS450_Gyro();
+		
 		
 		//Joysticks
 		leftJoy = new Joystick(0);

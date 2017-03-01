@@ -125,6 +125,7 @@ public class Robot extends IterativeRobot {
 		
 		//Calibrate the main gyro
 		Robot.oi.MainGyro.calibrate();
+		Robot.oi.MainGyro.reset();
 		
 		
 		//setting Encoders up
@@ -184,6 +185,12 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		
+		SmartDashboard.putString("Drive Angle:", Double.toString(Robot.oi.MainGyro.getAngle()));
+		SmartDashboard.putString("Left Drive Distance: ", Double.toString(Robot.oi.leftCounter.getDistance()));
+		SmartDashboard.putString("Right Drive Distance: ", Double.toString(Robot.oi.rightCounter.getDistance()));
+		SmartDashboard.putString("Gear Position: ", shifter.gearPosition());
+		SmartDashboard.putString("Total Distance: ", Double.toString(Robot.distanceTraveled));
 	}
 
 	@Override
@@ -206,11 +213,12 @@ public class Robot extends IterativeRobot {
  
 		SmartDashboard.putString("Gear Position: ", shifter.gearPosition());
 		SmartDashboard.putString("Drive Direction:", Integer.toString(RobotMap.DIRECTION_MULTIPLIER));
-		SmartDashboard.putString("Encoder Volts: ", Double.toString(Robot.oi.LeftEncoder.getAverageVoltage()));
+		SmartDashboard.putString("Left Volts: ", Double.toString(Robot.oi.LeftEncoder.getVoltage()));
+		SmartDashboard.putString("Right Volts: ", Double.toString(Robot.oi.RightEncoder.getVoltage()));
 		SmartDashboard.putString("Left Drive Distance: ", Double.toString(Robot.oi.leftCounter.getDistance()));
-		//SmartDashboard.putString("Right Drive Distance: ", Double.toString(Robot.oi.rightCounter.getDistance()));
+		SmartDashboard.putString("Right Drive Distance: ", Double.toString(Robot.oi.rightCounter.getDistance()));
 		SmartDashboard.putString("Left Encoder Rate:" , Double.toString(Robot.oi.leftCounter.getRate()));
-		//SmartDashboard.putString("Right Encoder Rate:" , Double.toString(Robot.oi.rightCounter.getRate()));
+		SmartDashboard.putString("Right Encoder Rate:" , Double.toString(Robot.oi.rightCounter.getRate()));
 		SmartDashboard.putString("Drive Angle:", Double.toString(Robot.oi.MainGyro.getAngle()));
 //		SmartDashboard.putString("Left Servo:", Double.toString(Robot.shooting.leftServo.getAngle()));
 //		SmartDashboard.putString("Right Servo:", Double.toString(Robot.shooting.rightServo.getPosition()));

@@ -22,7 +22,9 @@ public class RobotMap {
 	
 	public static final int SHOOTER = 8;
 	
-	public static final double DRIVE_SPEED = 0.7;
+	public static final double DRIVE_SPEED = 0.8;
+	
+	public static double AUTO_DRIVE_SPEED = 0.8;
 	
 	public static int DIRECTION_MULTIPLIER = 1;
 	
@@ -32,5 +34,5 @@ public class RobotMap {
 	
 	public static final int COMPRESSOR = 0;
 	
-	public static double ANGLE_TOLERANCE = 0.01;
+	public static double ANGLE_TOLERANCE = 0.1;
 }

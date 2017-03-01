@@ -34,12 +34,13 @@ public class AutoDrive extends Command {
     		
     		@Override
     		public void pidWrite(double d) {
-    			Robot.driveTrain.autoDrive(direction*RobotMap.DRIVE_SPEED + d, direction*RobotMap.DRIVE_SPEED - d);
+    			Robot.driveTrain.autoDrive(direction*RobotMap.AUTO_DRIVE_SPEED - d, direction*RobotMap.AUTO_DRIVE_SPEED + d);
     		}
     	};
     	
-    	pid = new PIDController(0.1, 0.0, 0.0, Robot.oi.MainGyro, pidOutput);
+    	pid = new PIDController(0.05, 0.0, 0.0, Robot.oi.MainGyro, pidOutput);
     	pid.setAbsoluteTolerance(RobotMap.ANGLE_TOLERANCE);
+    	pid.setContinuous();
     	pid.setSetpoint(angle);
     	
     }
@@ -48,7 +49,7 @@ public class AutoDrive extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	
-        Robot.distanceTraveled = 0;
+        Robot.distanceTraveled = 0.0;
         pid.reset();
         pid.enable();
         
@@ -58,7 +59,7 @@ public class AutoDrive extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	
-    	//Robot.driveTrain.autoDrive(direction*RobotMap.DRIVE_SPEED, direction*RobotMap.DRIVE_SPEED);//sets direction of driving
+    	//Robot.driveTrain.autoDrive(direction*RobotMap.AUTO_DRIVE_SPEED, direction*RobotMap.AUTO_DRIVE_SPEED);//sets direction of driving
     	
     }
 
@@ -68,10 +69,14 @@ public class AutoDrive extends Command {
     	
     	boolean thereYet = false;
     	
-    	Robot.distanceTraveled = Robot.oi.leftCounter.getDistance() + 2.84 * Robot.oi.LeftEncoder.getAverageVoltage();
+    	double leftDistance = Robot.oi.leftCounter.getDistance() + 2.84 * Robot.oi.LeftEncoder.getAverageVoltage();
+    	double rightDistance = Robot.oi.rightCounter.getDistance() + 2.84 * Robot.oi.RightEncoder.getAverageVoltage();
+    	Robot.distanceTraveled = (leftDistance + rightDistance) / 2.0;
     	
     	if (distance <= Robot.distanceTraveled)
     	{
+    		//RobotMap.AUTO_DRIVE_SPEED = 0.0;
+    		pid.disable();
     		thereYet = true;
     	}
 
