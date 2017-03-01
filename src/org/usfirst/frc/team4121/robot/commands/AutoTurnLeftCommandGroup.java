@@ -13,5 +13,9 @@ public class AutoTurnLeftCommandGroup extends CommandGroup {
     	//addSequential(new AutoDrive(distance, -1));
     	//Vision
     	//Place gear
+    	addSequential(new AutoDrive(72, 1,0));
+    	addSequential (new AutoTurn (60));
+    	addSequential(new AutoDrive(36, 1,60));
+   
     }
 }

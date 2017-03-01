@@ -41,6 +41,7 @@ public class Robot extends IterativeRobot {
 	
 	//encoder math values
 	public static double distanceTraveled;
+	public static double angleTraveled;
 	
 	//subsystems/command
 	public static DriveTrainSubsystem driveTrain;
@@ -130,6 +131,10 @@ public class Robot extends IterativeRobot {
 		
 		//setting Encoders up
 		distanceTraveled = 0.0;
+		
+		//gyro
+		angleTraveled =0.0;
+		
 		
 		SmartDashboard.putString("Vision: ", vision.tempDouble());
 
@@ -233,7 +238,7 @@ public class Robot extends IterativeRobot {
 
 		}
 		
-		//SmartDashboard.putString("Limit Switch: ", Boolean.toString(Robot.oi.limitSwitch.get()));
+		SmartDashboard.putString("Limit Switch: ", Boolean.toString(Robot.oi.limitSwitch.get()));
 		//SmartDashboard.putString("Shooter Voltage: ", Double.toString(Robot.shooting.shooter.getOutputVoltage()));
 		//SmartDashboard.putString("Shooter Current: ", Double.toString(Robot.shooting.shooter.getOutputCurrent()));
 	}
