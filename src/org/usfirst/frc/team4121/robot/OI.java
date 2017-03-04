@@ -58,11 +58,11 @@ public class OI {
 		
 		//Triggers
 		leftTrigger = new AnalogTrigger(LeftEncoder);
-		leftTrigger.setLimitsVoltage(.5, 4.5);//change voltage later depending on encoders
+		leftTrigger.setLimitsVoltage(.1, 4.9);//change voltage later depending on encoders
 		leftTrigger.setFiltered(true);
 		leftTriggerOutput = new AnalogTriggerOutput(leftTrigger, AnalogTriggerType.kRisingPulse);
 		rightTrigger = new AnalogTrigger(RightEncoder);
-		rightTrigger.setLimitsVoltage(.5, 4.5);//change voltage later depending on encoders
+		rightTrigger.setLimitsVoltage(.1, 4.9);//change voltage later depending on encoders
 		rightTrigger.setFiltered(true);
 		rightTriggerOutput = new AnalogTriggerOutput(rightTrigger, AnalogTriggerType.kFallingPulse); 
 		
@@ -86,8 +86,8 @@ public class OI {
 		//Buttons
 		shoot = new JoystickButton(rightJoy, 1);
 		//decreaseShootSpeed = new JoystickButton (rightJoy, 2);
-		servo = new JoystickButton(rightJoy,2);
-		increaseShootSpeed = new JoystickButton (rightJoy, 3);
+		//servo = new JoystickButton(rightJoy,2);
+		//increaseShootSpeed = new JoystickButton (rightJoy, 3);
 		switchDrive = new JoystickButton(rightJoy, 4);
 		//feed = new JoystickButton(rightJoy, 3);
 		climb = new JoystickButton(leftJoy, 1);
@@ -99,18 +99,18 @@ public class OI {
 		//Commands
 		shoot.whileHeld(new ShootCommand());//put logic in shoot command now
 		shoot.whenReleased(new StopEverythingShootingCommandGroup());
-		servo.whileHeld(new OpenGateCommand());
-		servo.whenReleased(new CloseGateCommand());
+		//servo.whileHeld(new OpenGateCommand());
+		//servo.whenReleased(new CloseGateCommand());
 		//feed.whileHeld(new FeedCommand());
 		climb.whileHeld(new ClimbCommand());
 		climb.whenReleased(new StopClimbCommand());
 		shiftUp.whenActive(new ShiftUpCommand());
 		shiftDown.whenActive(new ShiftDownCommand());
 		gear.whenPressed(new FindGearTargetCommand());
-		boiler.whenPressed(new FindBoilerTargetCommand());
+		//boiler.whenPressed(new FindBoilerTargetCommand());
 		switchDrive.whenPressed(new SwitchDriveCommand());
 		//decreaseShootSpeed.whenPressed(new DecreaseShootSpeedCommand());
-		increaseShootSpeed.whenPressed(new IncreaseShootSpeedCommand());
+		//increaseShootSpeed.whenPressed(new IncreaseShootSpeedCommand());
 		
 	}
 }

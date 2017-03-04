@@ -6,7 +6,9 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Point;
 import org.opencv.core.Rect;
+import org.opencv.imgproc.Imgproc;
 import org.usfirst.frc.team4121.robot.Robot;
+import org.usfirst.frc.team4121.robot.RobotMap;
 
 public class VisionProcessor {
 	private double returnedValue;
@@ -79,6 +81,9 @@ private Point calcClosestPoint(MatOfPoint a) {
 
 	//reads image, processes it, calculates result(s) and returns in a double[] array
 	public double[] update(VisionRead reader) {
+		
+		double [] returnedArray = new double[3];
+		
 		if(!mat.empty()) {
 			reader.process(mat);
 		}
@@ -86,9 +91,30 @@ private Point calcClosestPoint(MatOfPoint a) {
 			Robot.visionArray=null;
 		}
 		foundContours = reader.filterContoursOutput();
-		double [] returnedArray = new double[3];
-
-		centerOfImage = new Point(mat.width() / 2, mat.height() / 2);
+		
+		if(!foundContours.isEmpty())
+		{
+		Rect leftRect = Imgproc.boundingRect(reader.filterContoursOutput().get(0));
+		Rect rightRect = Imgproc.boundingRect(reader.filterContoursOutput().get(1));
+		
+		double centerLeft= leftRect.x+(leftRect.width/2);
+		double centerRight= rightRect.x+(rightRect.width/2);
+		double averageCenter = (centerRight+centerLeft)/2;
+		double centerError = averageCenter-(RobotMap.IMG_WIDTH/2);
+		
+		returnedArray[0]=centerError;
+		returnedArray[1]=centerLeft;
+		returnedArray[2]=centerRight;
+		
+		}
+		
+		else
+		{
+			returnedArray[0]=0.0;
+			returnedArray[1]=-9999.0;
+			returnedArray[2]=-9999.0;
+		}
+		/*centerOfImage = new Point(mat.width() / 2, mat.height() / 2);
 
 		// grab all of the rectangles
 		ArrayList<Rect> rectangles = new ArrayList<Rect>();
@@ -142,7 +168,7 @@ private Point calcClosestPoint(MatOfPoint a) {
 			returnedArray[0] = -9999.0;
 			returnedArray[1] = -9999.0;
 			returnedArray[2] = -9999.0;
-		}
+		}*/
 		return returnedArray;
 	}
 

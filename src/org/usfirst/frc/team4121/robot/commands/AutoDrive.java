@@ -38,7 +38,7 @@ public class AutoDrive extends Command {
     		}
     	};
     	
-    	pid = new PIDController(0.05, 0.0, 0.0, Robot.oi.MainGyro, pidOutput);
+    	pid = new PIDController(0.045, 0.0, 0.0, Robot.oi.MainGyro, pidOutput);
     	pid.setAbsoluteTolerance(RobotMap.ANGLE_TOLERANCE);
     	pid.setContinuous();
     	pid.setSetpoint(angle);

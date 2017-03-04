@@ -30,7 +30,7 @@ public class StopWithLimitSwitchCommand extends Command {
     		
     		@Override
     		public void pidWrite(double d) {
-    			Robot.driveTrain.autoDrive(direction*RobotMap.AUTO_DRIVE_SPEED - d, direction*RobotMap.AUTO_DRIVE_SPEED + d);
+    			Robot.driveTrain.autoDrive(direction*RobotMap.AUTO_DRIVE_SPEED*0.55 - d, direction*RobotMap.AUTO_DRIVE_SPEED*0.55 + d);
     		}
     	};
     	

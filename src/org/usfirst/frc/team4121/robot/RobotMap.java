@@ -24,7 +24,7 @@ public class RobotMap {
 	
 	public static final double DRIVE_SPEED = 0.8;
 	
-	public static double AUTO_DRIVE_SPEED = 0.8;//changed from .8
+	public static double AUTO_DRIVE_SPEED = 0.6;//changed from .8
 	
 	public static double AUTO_TURN_SPEED = 0.5;
 	
@@ -36,5 +36,9 @@ public class RobotMap {
 	
 	public static final int COMPRESSOR = 0;
 	
-	public static double ANGLE_TOLERANCE = 2;
+	public static double ANGLE_TOLERANCE = 1.0;
+	
+	public static final int IMG_WIDTH = 320;
+	
+	public static final int IMG_HEIGHT = 240;
 }

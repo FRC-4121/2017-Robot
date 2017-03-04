@@ -28,7 +28,7 @@ public class AutoTurn extends Command {
     		
     		@Override
     		public void pidWrite(double d) {
-    			Robot.driveTrain.autoDrive(-d*.8, d*.8);
+    			Robot.driveTrain.autoDrive(-d*0.8, d*0.8);
     		}
     	};
     	

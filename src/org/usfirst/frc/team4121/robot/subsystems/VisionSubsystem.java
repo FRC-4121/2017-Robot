@@ -39,7 +39,7 @@ public class VisionSubsystem extends Subsystem {
 	}
 
 	public void findGear() {
-		boolean gearTargetCentered = false;
+		/*boolean gearTargetCentered = false;
 		synchronized(Robot.imgLock) {
 			visionArrayOne=Robot.visionArray[1];
 		}
@@ -56,6 +56,6 @@ public class VisionSubsystem extends Subsystem {
 			else {
 				gearTargetCentered = true;
 			}
-		}
+		}*/
 	}
 }

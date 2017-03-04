@@ -70,6 +70,11 @@ public class Robot extends IterativeRobot {
 	
 	Command autonomousCommand;
 
+	//Vision variables
+	public static double leftTargetCenter;
+	public static double rightTargetCenter;
+	public static double centerOfTargets;
+	public static double targetError;
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -110,6 +115,12 @@ public class Robot extends IterativeRobot {
 		myThread.setDaemon(true);
 		myThread.start();
 		
+//		synchronized (imgLock) {
+//			visionArray[0] = 0;
+//			visionArray[1] = -999;
+//			visionArray[2] = -999;
+//		}
+		
 		visionReader = new VisionRead();
 		 visionProcThread = new VisionThread(gearCam,visionReader, new VisionRunner.Listener<VisionRead>() {
 
@@ -117,7 +128,25 @@ public class Robot extends IterativeRobot {
 			public void copyPipelineOutputs(VisionRead pipeline) {
 				
 				synchronized (imgLock) {
-					visionArray = vision.update(pipeline);
+					//visionArray = vision.update(pipeline);
+					
+					if (!pipeline.filterContoursOutput().isEmpty()) {
+						Rect leftRect = Imgproc.boundingRect(pipeline.filterContoursOutput().get(0));
+						Rect rightRect = Imgproc.boundingRect(pipeline.filterContoursOutput().get(1));
+						
+						leftTargetCenter = leftRect.x+(leftRect.width/2);
+						rightTargetCenter = rightRect.x+(rightRect.width/2);
+						centerOfTargets = (leftTargetCenter + rightTargetCenter)/2;
+						targetError = centerOfTargets - (RobotMap.IMG_WIDTH/2);
+					}
+					else
+					{
+						leftTargetCenter = -9999.0;
+						rightTargetCenter = -9999.0;
+						centerOfTargets = -9999.0;
+						targetError = 0.0;
+					}
+						
 				}
 			}
 		});
@@ -232,9 +261,9 @@ public class Robot extends IterativeRobot {
 		//SmartDashboard.putString("Vision: ", vision.tempDouble());
 		//SmartDashboard.putBoolean("Thread on", Robot.visionThread.gearCam);
 		synchronized (imgLock) {
-			SmartDashboard.putString("Distance between x", Double.toString(visionArray[0]));
-			SmartDashboard.putString("is Facing", Double.toString(visionArray[1]));
-			SmartDashboard.putString("Ratio of areas", Double.toString(visionArray[2]));
+			SmartDashboard.putString("Target Error:", Double.toString(targetError));
+			SmartDashboard.putString("Left Rect Center: ", Double.toString(leftTargetCenter));
+			SmartDashboard.putString("Right Rect Center: ", Double.toString(rightTargetCenter));
 
 		}
 		
