@@ -24,7 +24,7 @@ public class RobotMap {
 	
 	public static final double DRIVE_SPEED = 0.8;
 	
-	public static double AUTO_DRIVE_SPEED = 0.6;//changed from .8
+	public static double AUTO_DRIVE_SPEED = 0.4;//changed from .8
 	
 	public static double AUTO_TURN_SPEED = 0.5;
 	
@@ -32,7 +32,7 @@ public class RobotMap {
 	
 	public static double SHOOTER_SPEED = -.6;//can change later depending on speed
 	
-	public static double CLIMBER_SPEED = .8;//can change later depending on speed
+	public static double CLIMBER_SPEED = 1.0;//can change later depending on speed
 	
 	public static final int COMPRESSOR = 0;
 	

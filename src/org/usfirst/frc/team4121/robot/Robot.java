@@ -42,6 +42,8 @@ public class Robot extends IterativeRobot {
 	//encoder math values
 	public static double distanceTraveled;
 	public static double angleTraveled;
+	public static double leftDistance;
+	public static double rightDistance;
 	
 	//subsystems/command
 	public static DriveTrainSubsystem driveTrain;
@@ -221,8 +223,8 @@ public class Robot extends IterativeRobot {
 		Scheduler.getInstance().run();
 		
 		SmartDashboard.putString("Drive Angle:", Double.toString(Robot.oi.MainGyro.getAngle()));
-		SmartDashboard.putString("Left Drive Distance: ", Double.toString(Robot.oi.leftCounter.getDistance()));
-		SmartDashboard.putString("Right Drive Distance: ", Double.toString(Robot.oi.rightCounter.getDistance()));
+		SmartDashboard.putString("Left Drive Distance: ", Double.toString(leftDistance));
+		SmartDashboard.putString("Right Drive Distance: ", Double.toString(rightDistance));
 		SmartDashboard.putString("Gear Position: ", shifter.gearPosition());
 		SmartDashboard.putString("Total Distance: ", Double.toString(Robot.distanceTraveled));
 	}

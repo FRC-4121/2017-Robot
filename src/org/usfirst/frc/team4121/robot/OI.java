@@ -106,7 +106,7 @@ public class OI {
 		climb.whenReleased(new StopClimbCommand());
 		shiftUp.whenActive(new ShiftUpCommand());
 		shiftDown.whenActive(new ShiftDownCommand());
-		gear.whenPressed(new FindGearTargetCommand());
+		//gear.whenPressed(new FindGearTargetCommand());
 		//boiler.whenPressed(new FindBoilerTargetCommand());
 		switchDrive.whenPressed(new SwitchDriveCommand());
 		//decreaseShootSpeed.whenPressed(new DecreaseShootSpeedCommand());

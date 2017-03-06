@@ -92,7 +92,7 @@ private Point calcClosestPoint(MatOfPoint a) {
 		}
 		foundContours = reader.filterContoursOutput();
 		
-		if(!foundContours.isEmpty())
+		/*if(!foundContours.isEmpty())
 		{
 		Rect leftRect = Imgproc.boundingRect(reader.filterContoursOutput().get(0));
 		Rect rightRect = Imgproc.boundingRect(reader.filterContoursOutput().get(1));
@@ -113,14 +113,15 @@ private Point calcClosestPoint(MatOfPoint a) {
 			returnedArray[0]=0.0;
 			returnedArray[1]=-9999.0;
 			returnedArray[2]=-9999.0;
-		}
-		/*centerOfImage = new Point(mat.width() / 2, mat.height() / 2);
+		}*/
+		centerOfImage = new Point(mat.width() / 2, mat.height() / 2);
 
 		// grab all of the rectangles
 		ArrayList<Rect> rectangles = new ArrayList<Rect>();
 
 		for (MatOfPoint a : foundContours) {
-			rectangles.add(new Rect(calcClosestPoint(a), calcFarthestPoint(a)));
+			Rect rectangle = new Rect(calcClosestPoint(a), calcFarthestPoint(a));
+			rectangles.add(rectangle);
 		}
 		if(rectangles.size() == 0) { //returns Double.MIN_VALUE if there are no rectangles to account for
 			returnedArray[0] = -9999.0;
@@ -168,7 +169,7 @@ private Point calcClosestPoint(MatOfPoint a) {
 			returnedArray[0] = -9999.0;
 			returnedArray[1] = -9999.0;
 			returnedArray[2] = -9999.0;
-		}*/
+		}
 		return returnedArray;
 	}
 

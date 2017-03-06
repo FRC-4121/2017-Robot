@@ -13,8 +13,13 @@ public class AutoTurnLeftCommandGroup extends CommandGroup {
     	//addSequential(new AutoDrive(distance, -1));
     	//Vision
     	//Place gear
-    	addSequential(new AutoDrive(110, 1,0));
+    	//start 41.5 from center line
+    	addSequential(new AutoDrive(107, 1,0));
     	addSequential (new AutoTurn (-59));
+//    	addSequential(new AutoDrive(48, 1,-60));
+    	//addSequential(new StopWithLimitSwitchCommand(1, -60));
+    	//addSequential (new DelayCommand(15));
+    	//addSequential (new AutoStopCommand());
     	//addSequential(new AutoDrive(36, 1,60));
    
     }

@@ -15,9 +15,12 @@ public class AutoDrive extends Command {
 	double distance; //Make global
 	double direction; //-1=Reverse, +1=Forward(reverse is for gear forward is for shooting)
 	double angle;  //drive angle
+	private double leftStartingVolts;
+	private double rightStartingVolts;
 	
 	private PIDController pid;
 	private PIDOutput pidOutput;
+
 	
 	
     public AutoDrive(double dis, double dir, double ang) { //intakes distance, direction, and angle
@@ -28,6 +31,7 @@ public class AutoDrive extends Command {
     	distance = dis;
     	direction = dir;
     	angle = ang;
+    	
     	
     	//Set up PID control
     	pidOutput = new PIDOutput() {
@@ -50,8 +54,14 @@ public class AutoDrive extends Command {
     protected void initialize() {
     	
         Robot.distanceTraveled = 0.0;
+        Robot.leftDistance = 0.0;
+        Robot.rightDistance = 0.0;
         pid.reset();
         pid.enable();
+        leftStartingVolts = Robot.oi.LeftEncoder.getAverageVoltage();
+        rightStartingVolts = Robot.oi.RightEncoder.getAverageVoltage();
+        Robot.oi.leftCounter.reset();
+        Robot.oi.rightCounter.reset();
         
     }
 
@@ -69,9 +79,9 @@ public class AutoDrive extends Command {
     	
     	boolean thereYet = false;
     	
-    	double leftDistance = Robot.oi.leftCounter.getDistance() + 2.84 * Robot.oi.LeftEncoder.getAverageVoltage();
-    	double rightDistance = Robot.oi.rightCounter.getDistance() + 2.84 * Robot.oi.RightEncoder.getAverageVoltage();
-    	Robot.distanceTraveled = (leftDistance + rightDistance) / 2.0;
+    	Robot.leftDistance = Robot.oi.leftCounter.getDistance() - 2.84 * (Robot.oi.LeftEncoder.getAverageVoltage()-leftStartingVolts);
+    	Robot.rightDistance = Robot.oi.rightCounter.getDistance() + 2.84 * (Robot.oi.RightEncoder.getAverageVoltage()-rightStartingVolts);
+    	Robot.distanceTraveled = (Robot.leftDistance + Robot.rightDistance) / 2.0;
     	
     	if (distance <= Robot.distanceTraveled)
     	{

@@ -31,6 +31,7 @@ public class MyVisionThread implements Runnable{
 			
 			Robot.gearCam.setResolution(320, 240);
 			Robot.boilerCam.setResolution(320, 240);
+			Robot.gearCam.setBrightness(10);
 			
 			Robot.camServer.startAutomaticCapture(Robot.gearCam);
 			Robot.camServer.startAutomaticCapture(Robot.boilerCam);
