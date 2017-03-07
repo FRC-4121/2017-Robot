@@ -82,7 +82,7 @@ public class AutoDrive extends Command {
     	Robot.leftDistance = Robot.oi.leftCounter.getDistance() - 2.84 * (Robot.oi.LeftEncoder.getAverageVoltage()-leftStartingVolts);
     	Robot.rightDistance = Robot.oi.rightCounter.getDistance() + 2.84 * (Robot.oi.RightEncoder.getAverageVoltage()-rightStartingVolts);
     	Robot.distanceTraveled = (Robot.leftDistance + Robot.rightDistance) / 2.0;
-    	
+    	//Robot.distanceTraveled = Robot.rightDistance;
     	if (distance <= Robot.distanceTraveled)
     	{
     		//RobotMap.AUTO_DRIVE_SPEED = 0.0;

@@ -36,7 +36,7 @@ public class RobotMap {
 	
 	public static final int COMPRESSOR = 0;
 	
-	public static double ANGLE_TOLERANCE = 1.0;
+	public static double ANGLE_TOLERANCE = 2.0;
 	
 	public static final int IMG_WIDTH = 320;
 	
