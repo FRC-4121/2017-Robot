@@ -14,9 +14,9 @@ public class AutoTurnRightCommandGroup extends CommandGroup {
      //Vision
      //Place gear
     	//addSequential ( new AutoTurn (90, -1));
-    	addSequential(new AutoDrive(110, 1,0));
-    	addSequential (new AutoTurn (-59));
-    	addSequential(new AutoDrive(60, 1,-59));
+    	addSequential(new AutoDrive(110, 1,0,10));
+    	addSequential (new AutoTurn (-59,10));
+    	addSequential(new AutoDrive(60, 1,-59,10));
     	addSequential(new StopWithLimitSwitchCommand(1, -59));
     	addSequential (new DelayCommand(15));
     	addSequential (new AutoStopCommand());

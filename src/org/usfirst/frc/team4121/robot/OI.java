@@ -44,7 +44,8 @@ public class OI {
 	public Joystick leftJoy, rightJoy;
 	public DigitalInput limitSwitch;
 	public ADXRS450_Gyro MainGyro;
-	public AnalogInput RightEncoder, LeftEncoder;
+	//public AnalogInput RightEncoder, LeftEncoder;
+	public Encoder rightEncoder, leftEncoder;
 	public AnalogTrigger leftTrigger, rightTrigger; 
 	public AnalogTriggerOutput leftTriggerOutput, rightTriggerOutput;
 	public Counter leftCounter, rightCounter;
@@ -53,10 +54,15 @@ public class OI {
 	public OI() {
 	
 		//Encoders
-		LeftEncoder = new AnalogInput(0);  //change port
-		RightEncoder = new AnalogInput(2);
+//		LeftEncoder = new AnalogInput(0);  //change port
+//		RightEncoder = new AnalogInput(2);
+		rightEncoder = new Encoder(0,1, false, Encoder.EncodingType.k4X);
+		rightEncoder.setDistancePerPulse(14.2);
+		leftEncoder = new Encoder(2,3, false, Encoder.EncodingType.k4X);
+		leftEncoder.setDistancePerPulse(14.2);
 		
 		//Triggers
+		/*
 		leftTrigger = new AnalogTrigger(LeftEncoder);
 		leftTrigger.setLimitsVoltage(.1, 4.9);//change voltage later depending on encoders
 		leftTrigger.setFiltered(true);
@@ -66,14 +72,16 @@ public class OI {
 		rightTrigger.setFiltered(true);
 		rightTriggerOutput = new AnalogTriggerOutput(rightTrigger, AnalogTriggerType.kFallingPulse); 
 		
+		
 		//Counters
 		leftCounter = new Counter(leftTriggerOutput);
 		leftCounter.setDistancePerPulse(14.2);//change later
 		rightCounter = new Counter(rightTriggerOutput);
 		rightCounter.setDistancePerPulse(14.2);//change later
+		*/
 		
 		//Limit Switch
-		limitSwitch = new DigitalInput(0);      
+		limitSwitch = new DigitalInput(4);      
 		
 		//Gyro
 		MainGyro = new ADXRS450_Gyro();

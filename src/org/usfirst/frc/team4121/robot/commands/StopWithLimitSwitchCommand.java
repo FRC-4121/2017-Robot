@@ -74,7 +74,7 @@ public class StopWithLimitSwitchCommand extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.driveTrain.autoStop();
-    	System.out.println("ended...");
+    	//System.out.println("ended...");
     }
 
     // Called when another command which requires one or more of the same
@@ -82,7 +82,7 @@ public class StopWithLimitSwitchCommand extends Command {
     protected void interrupted() {
     	
     	Robot.driveTrain.autoStop();
-    	System.out.println("interrupted...");
+    	//System.out.println("interrupted...");
 
     }
 }

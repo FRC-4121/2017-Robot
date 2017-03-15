@@ -5,6 +5,7 @@ import org.usfirst.frc.team4121.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDOutput;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -13,18 +14,21 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class AutoTurn extends Command {
 	double stopAngle;
-
+	double time;
 	
 	private PIDController pid;
 	private PIDOutput pidOutput;
 	
-    public AutoTurn(double angle) { //change in smartdashboard
+	Timer timer = new Timer();
+	
+    public AutoTurn(double angle, double stopTime) { //change in smartdashboard
     	stopAngle = angle;
+    	time = stopTime;
    
     	requires(Robot.driveTrain);
     	
     	//set up PID controller
-	pidOutput = new PIDOutput() {
+    	pidOutput = new PIDOutput() {
     		
     		@Override
     		public void pidWrite(double d) {
@@ -42,6 +46,7 @@ public class AutoTurn extends Command {
     protected void initialize() {
          pid.reset();
          pid.enable();
+         timer.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -51,7 +56,7 @@ public class AutoTurn extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-//    	boolean thereYet = false;
+    	boolean thereYet = false;
 //    	if(stopAngle <= Math.abs((Robot.oi.MainGyro.getAngle())))
 //    	{
 //    		pid.disable();
@@ -62,12 +67,18 @@ public class AutoTurn extends Command {
 //    		thereYet = false;
 //    	}
     	SmartDashboard.putString("Angle Reached Yet:", Boolean.toString(pid.onTarget()));
-//    	return thereYet;
-//    	if(pid.onTarget())
-//    	{
-//    		pid.disable();
-//    	}
-    	return pid.onTarget();
+
+    	
+    	if(time<=timer.get())
+    	{
+    		pid.disable();
+    		thereYet = true;
+    	}
+    	else
+    	{
+    		thereYet= pid.onTarget();
+    	}
+    	return thereYet;
     }
 
     // Called once after isFinished returns true

@@ -9,7 +9,7 @@ public class AutoDriveStraightCommandGroup extends CommandGroup {
 
     public AutoDriveStraightCommandGroup() {
     	addSequential(new ShiftUpCommand());
-    	addSequential(new AutoDrive(100, 1, 0)); //mess with distance
+    	addSequential(new AutoDrive(100, 1, 0,10)); //mess with distance
     	//addSequential(new StopWithLimitSwitchCommand(1, 0));
     	//addSequential (new DelayCommand(15));
     	//addSequential (new AutoStopCommand();

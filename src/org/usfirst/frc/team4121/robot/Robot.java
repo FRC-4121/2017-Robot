@@ -63,7 +63,7 @@ public class Robot extends IterativeRobot {
 	public static double[] visionArray;
 	public static Object imgLock;
 	public static UsbCamera gearCam;
-	public static UsbCamera boilerCam;
+	//public static UsbCamera boilerCam;
 	public static MyVisionThread visionThread;
 	public static CameraServer camServer;
 	public static LimitSwitchSubsystem limitSwitch;
@@ -243,7 +243,7 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.cancel();
 		}
 		Scheduler.getInstance().removeAll();
-
+		Robot.gearCam.setBrightness(100);
 	}
 
 	/**
@@ -255,13 +255,12 @@ public class Robot extends IterativeRobot {
  
 		SmartDashboard.putString("Gear Position: ", shifter.gearPosition());
 		SmartDashboard.putString("Drive Direction:", Integer.toString(RobotMap.DIRECTION_MULTIPLIER));
-		SmartDashboard.putString("Left Volts: ", Double.toString(Robot.oi.LeftEncoder.getVoltage()));
-		SmartDashboard.putString("Right Volts: ", Double.toString(Robot.oi.RightEncoder.getVoltage()));
-		SmartDashboard.putString("Left Drive Distance: ", Double.toString(Robot.oi.leftCounter.getDistance()));
-		SmartDashboard.putString("Right Drive Distance: ", Double.toString(Robot.oi.rightCounter.getDistance()));
-		SmartDashboard.putString("Left Encoder Rate:" , Double.toString(Robot.oi.leftCounter.getRate()));
-		SmartDashboard.putString("Right Encoder Rate:" , Double.toString(Robot.oi.rightCounter.getRate()));
-		SmartDashboard.putString("Drive Angle:", Double.toString(Robot.oi.MainGyro.getAngle()));
+		
+		//SmartDashboard.putString("Left Drive Distance: ", Double.toString(Robot.oi.leftCounter.getDistance()));
+		//SmartDashboard.putString("Right Drive Distance: ", Double.toString(Robot.oi.rightCounter.getDistance()));
+		//SmartDashboard.putString("Left Encoder Rate:" , Double.toString(Robot.oi.leftCounter.getRate()));
+		//SmartDashboard.putString("Right Encoder Rate:" , Double.toString(Robot.oi.rightCounter.getRate()));
+		//SmartDashboard.putString("Drive Angle:", Double.toString(Robot.oi.MainGyro.getAngle()));
 //		SmartDashboard.putString("Left Servo:", Double.toString(Robot.shooting.leftServo.getAngle()));
 //		SmartDashboard.putString("Right Servo:", Double.toString(Robot.shooting.rightServo.getPosition()));
 		//SmartDashboard.putBoolean("Lined Up to Gear: ", findGear.isLinedUp());

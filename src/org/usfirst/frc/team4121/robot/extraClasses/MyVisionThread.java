@@ -24,17 +24,17 @@ public class MyVisionThread implements Runnable{
 	public void run() {
 		try {
 			Robot.gearCam = new UsbCamera("cam1", 1);
-			Robot.boilerCam = new UsbCamera("cam0", 0);
+			//Robot.boilerCam = new UsbCamera("cam0", 0);
 			
 			Robot.camServer.addCamera(Robot.gearCam);
-			Robot.camServer.addCamera(Robot.boilerCam);
+			//Robot.camServer.addCamera(Robot.boilerCam);
 			
 			Robot.gearCam.setResolution(320, 240);
-			Robot.boilerCam.setResolution(320, 240);
-			Robot.gearCam.setBrightness(25);
+			//Robot.boilerCam.setResolution(320, 240);
+			Robot.gearCam.setBrightness(10);
 			
 			Robot.camServer.startAutomaticCapture(Robot.gearCam);
-			Robot.camServer.startAutomaticCapture(Robot.boilerCam);
+			//Robot.camServer.startAutomaticCapture(Robot.boilerCam);
 			
 			//cvSinkGear = Robot.camServer.getVideo(Robot.gearCam);
 			//cvSinkBoiler = Robot.camServer.getVideo(Robot.boilerCam);
