@@ -9,11 +9,13 @@ import org.usfirst.frc.team4121.robot.commands.AutoTurnRightCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.ExampleCommand;
 import org.usfirst.frc.team4121.robot.commands.FindBoilerTargetCommand;
 import org.usfirst.frc.team4121.robot.commands.FindGearTargetCommand;
+import org.usfirst.frc.team4121.robot.commands.NewDriveStraightCommandGoup;
 import org.usfirst.frc.team4121.robot.extraClasses.VisionProcessor;
 import org.usfirst.frc.team4121.robot.extraClasses.VisionRead;
 import org.usfirst.frc.team4121.robot.extraClasses.MyVisionThread;
 import org.usfirst.frc.team4121.robot.subsystems.ClimberSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
+import org.usfirst.frc.team4121.robot.subsystems.LimitSwitchSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.ShifterSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.ShooterSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.VisionSubsystem;
@@ -64,6 +66,7 @@ public class Robot extends IterativeRobot {
 	public static UsbCamera boilerCam;
 	public static MyVisionThread visionThread;
 	public static CameraServer camServer;
+	public static LimitSwitchSubsystem limitSwitch;
 	public Thread myThread;
 	private VisionThread visionProcThread;
 
@@ -91,6 +94,7 @@ public class Robot extends IterativeRobot {
 		shooting = new ShooterSubsystem();
 		climber = new ClimberSubsystem();
 		visionSub = new VisionSubsystem();
+		limitSwitch = new LimitSwitchSubsystem();
 		oi = new OI();
 	
 		
@@ -103,7 +107,7 @@ public class Robot extends IterativeRobot {
 		//Initialize dashboard choosers
 		chooser = new SendableChooser<>();
 		chooser.addDefault("Do nothing", new AutoStopCommand());
-		chooser.addObject("Straight Foward", new AutoDriveStraightCommandGroup());
+		chooser.addObject("Straight Foward", new NewDriveStraightCommandGoup());
 		chooser.addObject("Turn Left", new AutoTurnLeftCommandGroup());
 		chooser.addObject("Turn Right", new AutoTurnRightCommandGroup());
 		SmartDashboard.putData("Auto mode", chooser);
@@ -235,8 +239,10 @@ public class Robot extends IterativeRobot {
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		// if (autonomousCommand != null)
-		// autonomousCommand.cancel();
+		if (autonomousCommand != null){
+			autonomousCommand.cancel();
+		}
+		Scheduler.getInstance().removeAll();
 
 	}
 

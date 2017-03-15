@@ -43,8 +43,8 @@ public class DriveTrainSubsystem extends Subsystem {
 
 		if(RobotMap.DIRECTION_MULTIPLIER==1)
 		{
-		drive.tankDrive(Robot.oi.leftJoy.getY()*RobotMap.DIRECTION_MULTIPLIER*.97, Robot.oi.rightJoy.getY()*RobotMap.DIRECTION_MULTIPLIER);
-		driveSlave.tankDrive(Robot.oi.leftJoy.getY()*RobotMap.DIRECTION_MULTIPLIER*.97, Robot.oi.rightJoy.getY()*RobotMap.DIRECTION_MULTIPLIER);
+			drive.tankDrive(Robot.oi.leftJoy.getY()*RobotMap.DIRECTION_MULTIPLIER*.97, Robot.oi.rightJoy.getY()*RobotMap.DIRECTION_MULTIPLIER);
+			driveSlave.tankDrive(Robot.oi.leftJoy.getY()*RobotMap.DIRECTION_MULTIPLIER*.97, Robot.oi.rightJoy.getY()*RobotMap.DIRECTION_MULTIPLIER);
 		}
 		else
 		{
@@ -70,8 +70,8 @@ public class DriveTrainSubsystem extends Subsystem {
 		drive.setMaxOutput(0.8);
 		driveSlave.setMaxOutput(0.8);
 		
-		drive.tankDrive(leftMotor, rightMotor);
-		driveSlave.tankDrive(leftMotor, rightMotor);
+		drive.tankDrive(leftMotor*0.97, rightMotor);
+		driveSlave.tankDrive(leftMotor*0.97, rightMotor);
 	}
 	
 	

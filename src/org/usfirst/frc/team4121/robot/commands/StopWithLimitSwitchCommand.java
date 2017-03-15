@@ -57,14 +57,15 @@ public class StopWithLimitSwitchCommand extends Command {
     protected boolean isFinished() {
 	boolean shouldStop = false;
     	
-    	if(Robot.oi.limitSwitch.get() == false)
+    	if(Robot.oi.limitSwitch.get())
     	{
-    		shouldStop = false;// can chnge speeds later depending on testing
+    		shouldStop = true;// can chnge speeds later depending on testing
+    		pid.disable();
     	}
     	else //limit switch pressed
     	{
-    		pid.disable();
-    		shouldStop = true;
+    		
+    		shouldStop = false;
     	}
     
         return shouldStop;
@@ -73,10 +74,15 @@ public class StopWithLimitSwitchCommand extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.driveTrain.autoStop();
+    	System.out.println("ended...");
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	
+    	Robot.driveTrain.autoStop();
+    	System.out.println("interrupted...");
+
     }
 }
