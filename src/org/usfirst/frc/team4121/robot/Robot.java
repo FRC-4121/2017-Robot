@@ -64,7 +64,7 @@ public class Robot extends IterativeRobot {
 	public static Object imgLock;
 	public static UsbCamera gearCam;
 	//public static UsbCamera boilerCam;
-	public static MyVisionThread visionThread;
+	//public static MyVisionThread visionThread;
 	public static CameraServer camServer;
 	public static LimitSwitchSubsystem limitSwitch;
 	public Thread myThread;
@@ -107,19 +107,25 @@ public class Robot extends IterativeRobot {
 		//Initialize dashboard choosers
 		chooser = new SendableChooser<>();
 		chooser.addDefault("Do nothing", new AutoStopCommand());
-		chooser.addObject("Straight Foward", new NewDriveStraightCommandGoup());
+		chooser.addObject("Straight Foward", new AutoDriveStraightCommandGroup());
 		chooser.addObject("Turn Left", new AutoTurnLeftCommandGroup());
 		chooser.addObject("Turn Right", new AutoTurnRightCommandGroup());
 		SmartDashboard.putData("Auto mode", chooser);
 		
 		//Initialize vision processing, cameras and start autocapture for dashboard
 		imgLock = new Object();
-		vision = new VisionProcessor();
+		//vision = new VisionProcessor();
 		camServer = CameraServer.getInstance();
-		visionThread = new MyVisionThread();
-		myThread = new Thread(visionThread);
-		myThread.setDaemon(true);
-		myThread.start();
+		//visionThread = new MyVisionThread();
+		//myThread = new Thread(visionThread);
+		//myThread.setDaemon(true);
+		//myThread.start();
+		
+		Robot.gearCam = new UsbCamera("cam0", 0);		
+		Robot.camServer.addCamera(Robot.gearCam);		
+		Robot.gearCam.setResolution(320, 240);
+		Robot.gearCam.setBrightness(10);		
+		Robot.camServer.startAutomaticCapture(Robot.gearCam);
 		
 //		synchronized (imgLock) {
 //			visionArray[0] = 0;
@@ -156,6 +162,7 @@ public class Robot extends IterativeRobot {
 				}
 			}
 		});
+		// visionProcThread.setDaemon(true);//added this 3-15-2017
 		visionProcThread.start();
 		
 		
@@ -171,7 +178,7 @@ public class Robot extends IterativeRobot {
 		angleTraveled =0.0;
 		
 		
-		SmartDashboard.putString("Vision: ", vision.tempDouble());
+		//SmartDashboard.putString("Vision: ", vision.tempDouble());
 
 	}
 
@@ -205,7 +212,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 		autonomousCommand = chooser.getSelected();
-
+		Robot.oi.rightEncoder.reset();
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -228,7 +235,7 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putString("Drive Angle:", Double.toString(Robot.oi.MainGyro.getAngle()));
 		SmartDashboard.putString("Left Drive Distance: ", Double.toString(leftDistance));
-		SmartDashboard.putString("Right Drive Distance: ", Double.toString(rightDistance));
+		SmartDashboard.putString("Right Drive Distance: ", Double.toString(Robot.oi.rightEncoder.getDistance()));
 		SmartDashboard.putString("Gear Position: ", shifter.gearPosition());
 		SmartDashboard.putString("Total Distance: ", Double.toString(Robot.distanceTraveled));
 	}
@@ -243,7 +250,9 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.cancel();
 		}
 		Scheduler.getInstance().removeAll();
-		Robot.gearCam.setBrightness(100);
+		//Robot.gearCam.setBrightness(100);
+		
+		Robot.oi.rightEncoder.reset();
 	}
 
 	/**
@@ -256,7 +265,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putString("Gear Position: ", shifter.gearPosition());
 		SmartDashboard.putString("Drive Direction:", Integer.toString(RobotMap.DIRECTION_MULTIPLIER));
 		
-		//SmartDashboard.putString("Left Drive Distance: ", Double.toString(Robot.oi.leftCounter.getDistance()));
+		SmartDashboard.putString("Right Drive Distance (in inches): ", Double.toString(Robot.oi.rightEncoder.getDistance()));
 		//SmartDashboard.putString("Right Drive Distance: ", Double.toString(Robot.oi.rightCounter.getDistance()));
 		//SmartDashboard.putString("Left Encoder Rate:" , Double.toString(Robot.oi.leftCounter.getRate()));
 		//SmartDashboard.putString("Right Encoder Rate:" , Double.toString(Robot.oi.rightCounter.getRate()));

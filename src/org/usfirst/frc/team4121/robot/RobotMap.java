@@ -24,7 +24,7 @@ public class RobotMap {
 	
 	public static final double DRIVE_SPEED = 0.8;
 	
-	public static double AUTO_DRIVE_SPEED = 0.4;//changed from .8
+	public static double AUTO_DRIVE_SPEED = 0.5;//changed from .8
 	
 	public static double AUTO_TURN_SPEED = 0.5;
 	

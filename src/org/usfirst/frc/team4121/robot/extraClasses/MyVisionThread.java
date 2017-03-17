@@ -23,7 +23,7 @@ public class MyVisionThread implements Runnable{
 	
 	public void run() {
 		try {
-			Robot.gearCam = new UsbCamera("cam1", 1);
+			Robot.gearCam = new UsbCamera("cam0", 0);
 			//Robot.boilerCam = new UsbCamera("cam0", 0);
 			
 			Robot.camServer.addCamera(Robot.gearCam);

@@ -65,6 +65,7 @@ public class AutoDrive extends Command {
         //Robot.oi.leftCounter.reset();
        // Robot.oi.rightCounter.reset();
         timer.start();
+        Robot.oi.rightEncoder.reset();
         
     }
 
@@ -94,7 +95,8 @@ public class AutoDrive extends Command {
     	
     		//Robot.leftDistance = Robot.oi.leftCounter.getDistance() - 2.84 * (Robot.oi.LeftEncoder.getAverageVoltage()-leftStartingVolts);
     		//Robot.rightDistance = Robot.oi.rightCounter.getDistance() + 2.84 * (Robot.oi.RightEncoder.getAverageVoltage()-rightStartingVolts);
-    		Robot.distanceTraveled = (Robot.oi.leftEncoder.getDistance() + Robot.oi.rightEncoder.getDistance()) / 2.0;
+    		//Robot.distanceTraveled = (Robot.oi.leftEncoder.getDistance() + Robot.oi.rightEncoder.getDistance()) / 2.0;
+    		Robot.distanceTraveled = (Robot.oi.rightEncoder.getDistance());
     		//Robot.distanceTraveled = Robot.rightDistance;
     		if (distance <= Robot.distanceTraveled)
     		{

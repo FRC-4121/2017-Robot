@@ -57,9 +57,11 @@ public class OI {
 //		LeftEncoder = new AnalogInput(0);  //change port
 //		RightEncoder = new AnalogInput(2);
 		rightEncoder = new Encoder(0,1, false, Encoder.EncodingType.k4X);
-		rightEncoder.setDistancePerPulse(14.2);
+		rightEncoder.setDistancePerPulse(.05277);//.03598, keep this rate it works
+		rightEncoder.setReverseDirection(true);
+		rightEncoder.setSamplesToAverage(7);
 		leftEncoder = new Encoder(2,3, false, Encoder.EncodingType.k4X);
-		leftEncoder.setDistancePerPulse(14.2);
+		leftEncoder.setDistancePerPulse(.05277);
 		
 		//Triggers
 		/*
