@@ -16,16 +16,15 @@ public class AutoDrive extends Command {
 	double distance; //Make global
 	double direction; //-1=Reverse, +1=Forward(reverse is for gear forward is for shooting)
 	double angle;  //drive angle
-	double time;
-	private double leftStartingVolts;
-	private double rightStartingVolts;
+	double time;  //time out time
 	
 	private PIDController pid;
 	private PIDOutput pidOutput;
 
-	Timer timer = new Timer();
+	private Timer timer = new Timer();
 	
-    public AutoDrive(double dis, double dir, double ang, double stopTime) { //intakes distance, direction, and angle
+	//Class constructor
+    public AutoDrive(double dis, double dir, double ang, double stopTime) { //intakes distance, direction, angle, and stop time
     	
     	requires(Robot.driveTrain);
     	
@@ -56,56 +55,53 @@ public class AutoDrive extends Command {
     protected void initialize() {
     	
         Robot.distanceTraveled = 0.0;
-        Robot.leftDistance = 0.0;
-        Robot.rightDistance = 0.0;
         pid.reset();
         pid.enable();
-       // leftStartingVolts = Robot.oi.LeftEncoder.getAverageVoltage();
-       //rightStartingVolts = Robot.oi.RightEncoder.getAverageVoltage();
-        //Robot.oi.leftCounter.reset();
-       // Robot.oi.rightCounter.reset();
         timer.start();
         Robot.oi.rightEncoder.reset();
+        Robot.oi.leftEncoder.reset();
         
     }
 
     
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
-    	//Robot.driveTrain.autoDrive(direction*RobotMap.AUTO_DRIVE_SPEED, direction*RobotMap.AUTO_DRIVE_SPEED);//sets direction of driving
-    	
+    	    	
     }
 
     
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	
-    	
+    	//Declare return flag
     	boolean thereYet = false;
     	
+    	//Check elapsed time
     	if(time<=timer.get())
     	{
+    		
+    		//Too much time has elapsed.  Stop this command.
     		pid.disable();
     		thereYet = true;
+    		
     	}
     	else
     	{
     		
     	
-    		//Robot.leftDistance = Robot.oi.leftCounter.getDistance() - 2.84 * (Robot.oi.LeftEncoder.getAverageVoltage()-leftStartingVolts);
-    		//Robot.rightDistance = Robot.oi.rightCounter.getDistance() + 2.84 * (Robot.oi.RightEncoder.getAverageVoltage()-rightStartingVolts);
     		//Robot.distanceTraveled = (Robot.oi.leftEncoder.getDistance() + Robot.oi.rightEncoder.getDistance()) / 2.0;
     		Robot.distanceTraveled = (Robot.oi.rightEncoder.getDistance());
-    		//Robot.distanceTraveled = Robot.rightDistance;
     		if (distance <= Robot.distanceTraveled)
     		{
-    			//RobotMap.AUTO_DRIVE_SPEED = 0.0;
+    			
+    			//Robot has reached its destination.  Stop this command
     			pid.disable();
     			thereYet = true;
+    			
     		}
     	}
 
+    	//Return the flag
     	return thereYet;
     	
 
@@ -116,8 +112,6 @@ public class AutoDrive extends Command {
     protected void end() {
     	
     	Robot.driveTrain.autoStop(); //maybe don't need depends on robot
-    	//Robot.oi.leftCounter.reset();
-    	//Robot.oi.rightCounter.reset();
     	
     }
 

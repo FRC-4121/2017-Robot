@@ -1,12 +1,6 @@
 package org.usfirst.frc.team4121.robot;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
-import edu.wpi.first.wpilibj.AnalogGyro;
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.AnalogTrigger;
-import edu.wpi.first.wpilibj.AnalogTriggerOutput;
-import edu.wpi.first.wpilibj.AnalogTriggerOutput.AnalogTriggerType;
-import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
@@ -29,7 +23,6 @@ import org.usfirst.frc.team4121.robot.commands.ShootCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.StopClimbCommand;
 import org.usfirst.frc.team4121.robot.commands.StopEverythingShootingCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.StopShootCommand;
-import org.usfirst.frc.team4121.robot.commands.SwitchCameraCommand;
 import org.usfirst.frc.team4121.robot.commands.SwitchCommandGroup;
 import org.usfirst.frc.team4121.robot.commands.SwitchDriveCommand;
 
@@ -44,51 +37,26 @@ public class OI {
 	public Joystick leftJoy, rightJoy;
 	public DigitalInput limitSwitch;
 	public ADXRS450_Gyro MainGyro;
-	//public AnalogInput RightEncoder, LeftEncoder;
 	public Encoder rightEncoder, leftEncoder;
-	public AnalogTrigger leftTrigger, rightTrigger; 
-	public AnalogTriggerOutput leftTriggerOutput, rightTriggerOutput;
-	public Counter leftCounter, rightCounter;
 	public Button shoot, feed, climb, servo, shiftUp, shiftDown, gear, boiler, switchDrive, increaseShootSpeed, decreaseShootSpeed;
 	
 	public OI() {
 	
 		//Encoders
-//		LeftEncoder = new AnalogInput(0);  //change port
-//		RightEncoder = new AnalogInput(2);
 		rightEncoder = new Encoder(0,1, false, Encoder.EncodingType.k4X);
-		rightEncoder.setDistancePerPulse(.05277);//.03598, keep this rate it works
+		rightEncoder.setDistancePerPulse(.05277);  //.03598, keep this rate it works
 		rightEncoder.setReverseDirection(true);
 		rightEncoder.setSamplesToAverage(7);
 		leftEncoder = new Encoder(2,3, false, Encoder.EncodingType.k4X);
 		leftEncoder.setDistancePerPulse(.05277);
-		
-		//Triggers
-		/*
-		leftTrigger = new AnalogTrigger(LeftEncoder);
-		leftTrigger.setLimitsVoltage(.1, 4.9);//change voltage later depending on encoders
-		leftTrigger.setFiltered(true);
-		leftTriggerOutput = new AnalogTriggerOutput(leftTrigger, AnalogTriggerType.kRisingPulse);
-		rightTrigger = new AnalogTrigger(RightEncoder);
-		rightTrigger.setLimitsVoltage(.1, 4.9);//change voltage later depending on encoders
-		rightTrigger.setFiltered(true);
-		rightTriggerOutput = new AnalogTriggerOutput(rightTrigger, AnalogTriggerType.kFallingPulse); 
-		
-		
-		//Counters
-		leftCounter = new Counter(leftTriggerOutput);
-		leftCounter.setDistancePerPulse(14.2);//change later
-		rightCounter = new Counter(rightTriggerOutput);
-		rightCounter.setDistancePerPulse(14.2);//change later
-		*/
-		
+		leftEncoder.setSamplesToAverage(7);
+				
 		//Limit Switch
 		limitSwitch = new DigitalInput(4);      
 		
 		//Gyro
 		MainGyro = new ADXRS450_Gyro();
-		
-		
+				
 		//Joysticks
 		leftJoy = new Joystick(0);
 		rightJoy = new Joystick(1);

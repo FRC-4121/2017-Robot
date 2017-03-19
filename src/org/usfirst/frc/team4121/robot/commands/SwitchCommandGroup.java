@@ -26,6 +26,6 @@ public class SwitchCommandGroup extends CommandGroup {
         // arm.
     	
     	addSequential(new SwitchDriveCommand());
-    	addSequential(new SwitchCameraCommand());
+
     }
 }

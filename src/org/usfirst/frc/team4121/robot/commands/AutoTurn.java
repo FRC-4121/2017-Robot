@@ -13,15 +13,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  *
  */
 public class AutoTurn extends Command {
+	
 	double stopAngle;
 	double time;
 	
 	private PIDController pid;
 	private PIDOutput pidOutput;
 	
-	Timer timer = new Timer();
+	private Timer timer = new Timer();
 	
+	
+	//Class constructor
     public AutoTurn(double angle, double stopTime) { //change in smartdashboard
+    	
     	stopAngle = angle;
     	time = stopTime;
    
@@ -42,56 +46,69 @@ public class AutoTurn extends Command {
     	pid.setSetpoint(angle);
     }
 
+    
     // Called just before this Command runs the first time
     protected void initialize() {
-         pid.reset();
-         pid.enable();
-         timer.start();
+         
+    	pid.reset();
+        pid.enable();
+        timer.start();
+         
     }
 
+    
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-//    	Robot.driveTrain.autoDrive(RobotMap.AUTO_TURN_SPEED*turnDirection, RobotMap.AUTO_TURN_SPEED*-turnDirection);
+
     }
 
+    
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	boolean thereYet = false;
-//    	if(stopAngle <= Math.abs((Robot.oi.MainGyro.getAngle())))
-//    	{
-//    		pid.disable();
-//    		thereYet = true;//can change is encoder counts down not up
-//    	}
-//    	else
-//    	{
-//    		thereYet = false;
-//    	}
-    	SmartDashboard.putString("Angle Reached Yet:", Boolean.toString(pid.onTarget()));
-
     	
+    	//Declare return flag
+    	boolean thereYet = false;
+    	
+    	//Check elapsed time
     	if(time<=timer.get())
     	{
+    		
+    		//Too much time has elapsed.  Stop this command
     		pid.disable();
     		thereYet = true;
+    		
     	}
     	else
     	{
+    		
+    		//Check PID status
     		thereYet= pid.onTarget();
+    		
     	}
+
+        //Put PID status on dashboard
+    	SmartDashboard.putString("Angle Reached Yet:", Boolean.toString(pid.onTarget()));
+    	
+    	//Return the flag
     	return thereYet;
+    	
     }
 
+    
     // Called once after isFinished returns true
     protected void end() {
+    	
     	pid.disable();
     	Robot.driveTrain.autoStop(); //maybe don't need depends on robot
-    	Robot.oi.leftCounter.reset();
-    	Robot.oi.rightCounter.reset();
-    	//Robot.oi.MainGyro.reset();
+
     }
 
+    
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	
+    	pid.disable();
+    	
     }
 }

@@ -18,7 +18,6 @@ import org.usfirst.frc.team4121.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.LimitSwitchSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.ShifterSubsystem;
 import org.usfirst.frc.team4121.robot.subsystems.ShooterSubsystem;
-import org.usfirst.frc.team4121.robot.subsystems.VisionSubsystem;
 
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
@@ -40,46 +39,40 @@ import edu.wpi.first.wpilibj.vision.VisionRunner;
  * @author Ben Hayden
  */
 public class Robot extends IterativeRobot {
-	
-	//encoder math values
-	public static double distanceTraveled;
-	public static double angleTraveled;
-	public static double leftDistance;
-	public static double rightDistance;
-	
-	//subsystems/command
+		
+	//Subsystems
 	public static DriveTrainSubsystem driveTrain;
 	public static ShifterSubsystem shifter;
 	public static ShooterSubsystem shooting;
 	public static ClimberSubsystem climber;
-	public static VisionProcessor vision;
-	public static VisionRead visionReader;
+	
+	//Commands
 	public static FindGearTargetCommand findGear;
-	public static FindBoilerTargetCommand findBoiler;
-	public static VisionSubsystem visionSub;
 	public static OI oi;
-	//public static VisionThreadBoiler visionThreadBoiler;
-	//public static VisionThreadGear visionThreadGear;
-	public static double[] visionArray;
-	public static Object imgLock;
-	public static UsbCamera gearCam;
-	//public static UsbCamera boilerCam;
-	//public static MyVisionThread visionThread;
-	public static CameraServer camServer;
-	public static LimitSwitchSubsystem limitSwitch;
-	public Thread myThread;
-	private VisionThread visionProcThread;
 
 	//SmartDashboard chooser
 	private SendableChooser<Command> chooser;
 	
 	Command autonomousCommand;
 
+	//encoder math values
+	public static double distanceTraveled;
+	public static double angleTraveled;
+	public static double leftDistance;
+	public static double rightDistance;
+	
 	//Vision variables
+	public static VisionRead visionReader;
+	public static double[] visionArray;
+	public static Object imgLock;
+	public static UsbCamera gearCam;
+	public static CameraServer camServer;
+	private VisionThread visionProcThread;
 	public static double leftTargetCenter;
 	public static double rightTargetCenter;
 	public static double centerOfTargets;
 	public static double targetError;
+	
 	
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -93,15 +86,12 @@ public class Robot extends IterativeRobot {
 		shifter = new ShifterSubsystem();
 		shooting = new ShooterSubsystem();
 		climber = new ClimberSubsystem();
-		visionSub = new VisionSubsystem();
-		limitSwitch = new LimitSwitchSubsystem();
 		oi = new OI();
 	
 		
 		//Initialize commands
 		autonomousCommand = new ExampleCommand();
 		findGear = new FindGearTargetCommand();
-		findBoiler = new FindBoilerTargetCommand();
 		
 		
 		//Initialize dashboard choosers
@@ -114,27 +104,15 @@ public class Robot extends IterativeRobot {
 		
 		//Initialize vision processing, cameras and start autocapture for dashboard
 		imgLock = new Object();
-		//vision = new VisionProcessor();
-		camServer = CameraServer.getInstance();
-		//visionThread = new MyVisionThread();
-		//myThread = new Thread(visionThread);
-		//myThread.setDaemon(true);
-		//myThread.start();
-		
+		camServer = CameraServer.getInstance();		
 		Robot.gearCam = new UsbCamera("cam0", 0);		
 		Robot.camServer.addCamera(Robot.gearCam);		
 		Robot.gearCam.setResolution(320, 240);
 		Robot.gearCam.setBrightness(10);		
 		Robot.camServer.startAutomaticCapture(Robot.gearCam);
-		
-//		synchronized (imgLock) {
-//			visionArray[0] = 0;
-//			visionArray[1] = -999;
-//			visionArray[2] = -999;
-//		}
-		
+				
 		visionReader = new VisionRead();
-		 visionProcThread = new VisionThread(gearCam,visionReader, new VisionRunner.Listener<VisionRead>() {
+		visionProcThread = new VisionThread(gearCam,visionReader, new VisionRunner.Listener<VisionRead>() {
 
 			@Override
 			public void copyPipelineOutputs(VisionRead pipeline) {
@@ -162,7 +140,6 @@ public class Robot extends IterativeRobot {
 				}
 			}
 		});
-		// visionProcThread.setDaemon(true);//added this 3-15-2017
 		visionProcThread.start();
 		
 		
@@ -177,9 +154,6 @@ public class Robot extends IterativeRobot {
 		//gyro
 		angleTraveled =0.0;
 		
-		
-		//SmartDashboard.putString("Vision: ", vision.tempDouble());
-
 	}
 
 	
@@ -193,11 +167,16 @@ public class Robot extends IterativeRobot {
 
 	}
 
+	
 	@Override
 	public void disabledPeriodic() {
+		
+		//Start scheduler
 		Scheduler.getInstance().run();
+		
 	}
 
+	
 	/**
 	 * This autonomous (along with the chooser code above) shows how to select
 	 * between different autonomous modes using the dashboard. The sendable
@@ -211,8 +190,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		autonomousCommand = chooser.getSelected();
-		Robot.oi.rightEncoder.reset();
+		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -220,28 +198,42 @@ public class Robot extends IterativeRobot {
 		 * autonomousCommand = new ExampleCommand(); break; }
 		 */
 
+		//Get selected autonomous command
+		autonomousCommand = chooser.getSelected();
+		
+		//Reset encoders
+		Robot.oi.rightEncoder.reset();
+		Robot.oi.leftEncoder.reset();
+		
 		// schedule the autonomous command (example)
 		if (autonomousCommand != null) {
 			autonomousCommand.start();
 		}
+		
 	}
 
+	
 	/**
 	 * This function is called periodically during autonomous
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		
+		//Start autonomous scheduler
 		Scheduler.getInstance().run();
 		
+		//Put key values on smart dashboard
 		SmartDashboard.putString("Drive Angle:", Double.toString(Robot.oi.MainGyro.getAngle()));
-		SmartDashboard.putString("Left Drive Distance: ", Double.toString(leftDistance));
+		SmartDashboard.putString("Left Drive Distance: ", Double.toString(Robot.oi.leftEncoder.getDistance()));
 		SmartDashboard.putString("Right Drive Distance: ", Double.toString(Robot.oi.rightEncoder.getDistance()));
 		SmartDashboard.putString("Gear Position: ", shifter.gearPosition());
-		SmartDashboard.putString("Total Distance: ", Double.toString(Robot.distanceTraveled));
+
 	}
 
+	
 	@Override
 	public void teleopInit() {
+		
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
@@ -250,32 +242,31 @@ public class Robot extends IterativeRobot {
 			autonomousCommand.cancel();
 		}
 		Scheduler.getInstance().removeAll();
+		
 		//Robot.gearCam.setBrightness(100);
 		
+		//Reset encoders
 		Robot.oi.rightEncoder.reset();
+		Robot.oi.leftEncoder.reset();
+		
 	}
 
+	
 	/**
 	 * This function is called periodically during operator control
 	 */
 	@Override
 	public void teleopPeriodic() {
+		
+		//Start scheduler
 		Scheduler.getInstance().run();
  
+		//Put key values on the smart dashboard
 		SmartDashboard.putString("Gear Position: ", shifter.gearPosition());
-		SmartDashboard.putString("Drive Direction:", Integer.toString(RobotMap.DIRECTION_MULTIPLIER));
-		
+		SmartDashboard.putString("Drive Direction:", Integer.toString(RobotMap.DIRECTION_MULTIPLIER));		
 		SmartDashboard.putString("Right Drive Distance (in inches): ", Double.toString(Robot.oi.rightEncoder.getDistance()));
-		//SmartDashboard.putString("Right Drive Distance: ", Double.toString(Robot.oi.rightCounter.getDistance()));
-		//SmartDashboard.putString("Left Encoder Rate:" , Double.toString(Robot.oi.leftCounter.getRate()));
-		//SmartDashboard.putString("Right Encoder Rate:" , Double.toString(Robot.oi.rightCounter.getRate()));
-		//SmartDashboard.putString("Drive Angle:", Double.toString(Robot.oi.MainGyro.getAngle()));
-//		SmartDashboard.putString("Left Servo:", Double.toString(Robot.shooting.leftServo.getAngle()));
-//		SmartDashboard.putString("Right Servo:", Double.toString(Robot.shooting.rightServo.getPosition()));
-		//SmartDashboard.putBoolean("Lined Up to Gear: ", findGear.isLinedUp());
-		//SmartDashboard.putBoolean("Lined Up to Boiler: ", findBoiler.isLinedUp());
-		//SmartDashboard.putString("Vision: ", vision.tempDouble());
-		//SmartDashboard.putBoolean("Thread on", Robot.visionThread.gearCam);
+		SmartDashboard.putString("Left Drive Distance (in inches): ", Double.toString(Robot.oi.leftEncoder.getDistance()));
+		
 		synchronized (imgLock) {
 			SmartDashboard.putString("Target Error:", Double.toString(targetError));
 			SmartDashboard.putString("Left Rect Center: ", Double.toString(leftTargetCenter));
@@ -284,14 +275,18 @@ public class Robot extends IterativeRobot {
 		}
 		
 		SmartDashboard.putString("Limit Switch: ", Boolean.toString(Robot.oi.limitSwitch.get()));
-		//SmartDashboard.putString("Shooter Voltage: ", Double.toString(Robot.shooting.shooter.getOutputVoltage()));
-		//SmartDashboard.putString("Shooter Current: ", Double.toString(Robot.shooting.shooter.getOutputCurrent()));
+		
 	}
+	
+	
 	/**
 	 * This function is called periodically during test mode
 	 */
 	@Override
 	public void testPeriodic() {
+		
+		//Start live window
 		LiveWindow.run();
+		
 	}
 }
